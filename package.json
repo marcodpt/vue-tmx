@@ -1,5 +1,5 @@
 {
-  "name": "tmx",
+  "name": "vue-tmx",
   "version": "0.0.0",
   "description": "Vue components build with bootstrap3",
   "main": "src/index.vue",
