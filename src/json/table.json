@@ -1,0 +1,290 @@
+{
+  "methods": [
+    {
+      "button": "success",
+      "icon": "pencil",
+      "label": "Insert",
+      "click": "&post"
+    }, {
+      "button": "primary",
+      "icon": "play",
+      "label": "Exec",
+      "click": "&exec"
+    }
+  ],
+  "fields": [
+    {
+      "id": "$delete", 
+      "label": "",
+      "format": "integer",
+      "icon": "trash",
+      "button": "danger",
+      "click": "&delete"
+    }, {
+      "id": "$put", 
+      "label": "",
+      "format": "integer",
+      "icon": "edit",
+      "button": "warning",
+      "click": "&put"
+    }, {
+      "id": "_id", 
+      "label": "Id (count)",
+      "format": "string",
+      "expression": "sum('1')"
+    },{
+      "id": "since", 
+      "label": "Registration (since)",
+      "format": "date",
+      "expression": "min('$.since')"
+    },{
+      "id": "isActive", 
+      "label": "Is active?",
+      "format": "boolean",
+      "static": false
+    },{
+      "id": "balance", 
+      "label": "Balance ($)",
+      "format": "number:2",
+      "expression": "sum('$.isActive ? $.balance : 0')"
+    },{
+      "id": "age", 
+      "label": "Age (Avg)",
+      "format": "integer:3",
+      "expression": "sum('$.age') / sum('1')",
+      "child": {
+        "label": "Child Test"
+      }
+    },{
+      "id": "eyeColor", 
+      "label": "Eye Color",
+      "format": "string"
+    },{
+      "id": "name", 
+      "label": "Name",
+      "format": "string"
+    },{
+      "id": "gender",
+      "label": "Gender",
+      "format": "string"
+    },{
+      "id": "tags",
+      "format": "string",
+      "download": false,
+      "view": false
+    }
+  ],
+  "data": [
+    {
+      "$delete": 2,
+      "$put": 2,
+      "_id": "57ef0099efb5672e284bf7f7",
+      "since": "2010-09-25",
+      "link": "http://www.google.com.br",
+      "isActive": true,
+      "balance": 1706.27,
+      "age": 38,
+      "eyeColor": "blue",
+      "name": "Kari",
+      "gender": "female",
+      "tags": [
+        "consequat",
+        "et",
+        "mollit"
+      ],
+      "friends": {
+        "id": 0,
+        "name": "Genevieve Blair"
+      }
+    }, {
+      "$delete": 1,
+      "$put": 1,
+      "_id": "57ef0099ea226792661d5763",
+      "since": "2011-03-15",
+      "link": "http://www.google.com.br",
+      "isActive": true,
+      "balance": 1196.56,
+      "age": 40,
+      "eyeColor": "brown",
+      "name": "Minnie",
+      "gender": "female",
+      "tags": [
+        "in",
+        "anim",
+        "sint"
+      ],
+      "friends": {
+        "id": 1,
+        "name": "Scott Clark"
+      }
+    }, {
+      "$delete": 0,
+      "$put": 0,
+      "_id": "57ef00999cafb08ec3cce4b2",
+      "since": "2014-12-01",
+      "link": "http://www.google.com.br",
+      "isActive": false,
+      "balance": 3453.76,
+      "age": 38,
+      "eyeColor": "brown",
+      "name": "Arnold",
+      "gender": "male",
+      "tags": [
+        "in",
+        "magna",
+        "et",
+        "pariatur",
+        "eiusmod",
+        "nisi"
+      ],
+      "friends": {
+        "id": 2,
+        "name": "Essie Holcomb"
+      }
+    }, {
+      "$delete": 0,
+      "$put": 0,
+      "_id": "57ef00991553433ff1d5fc40",
+      "since": "2014-12-01",
+      "link": "http://www.google.com.br",
+      "isActive": false,
+      "balance": 2246.42,
+      "age": 35,
+      "eyeColor": "brown",
+      "name": "Marylou",
+      "gender": "female",
+      "tags": [
+      ],
+      "friends": {
+        "id": 3,
+        "name": "Higgins Le"
+      }
+    }, {
+      "$delete": 0,
+      "$put": 0,
+      "_id": "57ef009947753ef218c73df3",
+      "since": "2014-12-01",
+      "link": "http://www.google.com.br",
+      "isActive": false,
+      "balance": 3231.2,
+      "age": 39,
+      "eyeColor": "green",
+      "name": "Christian",
+      "gender": "male",
+      "tags": [
+        "pariatur",
+        "proident",
+        "ipsum"
+      ],
+      "friends": {
+        "id": 4,
+        "name": "Webster Strickland"
+      }
+    }, {
+      "$delete": 0,
+      "$put": 0,
+      "_id": "57ef009962cbff70e393edbd",
+      "since": "2010-09-25",
+      "link": "http://www.google.com.br",
+      "isActive": true,
+      "balance": 2166.09,
+      "age": 39,
+      "eyeColor": "green",
+      "name": "Valenzuela",
+      "gender": "male",
+      "tags": [
+        "cillum",
+        "elit",
+        "ad"
+      ],
+      "friends": {
+        "id": 5,
+        "name": "Saunders Noel"
+      }
+    }, {
+      "$delete": 0,
+      "$put": 0,
+      "_id": "57ef0099e20d65dadbbc90c3",
+      "since": "2010-09-25",
+      "link": "http://www.google.com.br",
+      "isActive": false,
+      "balance": 2941.73,
+      "age": 24,
+      "eyeColor": "brown",
+      "name": "Esmeralda",
+      "gender": "female",
+      "tags": [
+        "dolor",
+        "est",
+        "eu",
+        "amet",
+        "cupidatat"
+      ],
+      "friends": {
+        "id": 6,
+        "name": "Cash Odom"
+      }
+    }, {
+      "$delete": 0,
+      "$put": 0,
+      "_id": "57ef00997349ed3462f49fbf",
+      "since": "2011-03-15",
+      "link": "http://www.google.com.br",
+      "isActive": false,
+      "balance": 2013.82,
+      "age": 32,
+      "eyeColor": "green",
+      "name": "Alexandria",
+      "gender": "female",
+      "tags": [
+        "sint"
+      ],
+      "friends": {
+        "id": 7,
+        "name": "Sharp Yang"
+      }
+    }, {
+      "$delete": 0,
+      "$put": 0,
+      "_id": "57ef0099ba5213d74f478666",
+      "since": "2011-03-15",
+      "link": "http://www.google.com.br",
+      "isActive": true,
+      "balance": 3546.79,
+      "age": 35,
+      "eyeColor": "brown",
+      "name": "Harrington",
+      "gender": "male",
+      "tags": [
+        "in",
+        "consequat",
+        "nulla",
+        "culpa"
+      ],
+      "friends": {
+        "id": 8,
+        "name": "Virgie Manning"
+      }
+    }, {
+      "$delete": 0,
+      "$put": 0,
+      "_id": "57ef00990140dbfcaf490bc3",
+      "since": "2010-09-25",
+      "link": "http://www.google.com.br",
+      "isActive": false,
+      "balance": 1272.02,
+      "age": 36,
+      "eyeColor": "brown",
+      "name": "Latonya",
+      "gender": "female",
+      "tags": [
+        "sint",
+        "nostrud"
+      ],
+      "friends": {
+        "id": 9,
+        "name": "Garza Hutchinson"
+      }
+    }
+  ]
+}

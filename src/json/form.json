@@ -1,0 +1,85 @@
+{
+  "model": {
+    "value": 5,
+    "info": "Test",
+    "date": "2018-04-01"
+  },
+  "fields": [
+    {
+      "static": true,
+      "label": "Which value?",
+      "id": "value",
+      "format": "integer:3"
+    }, {
+      "format": "boolean",
+      "label": "Are you sure?",
+      "id": "confirmation" 
+    }, {
+      "label": "When?",
+      "id": "date",
+      "format": "date",
+      "required": true,
+      "min": "2018-04-26"
+    }, {
+      "format": "string:file",
+      "label": "Attachment",
+      "id": "file" 
+    }, {
+      "format": "string:text",
+      "label": "Comments",
+      "id": "info",
+      "minLen": 3,
+      "maxLen": 10
+    }, {
+      "label": "Preview",
+      "id": "info",
+      "format": "string:text",
+      "static": true,
+      "href": "http://www.google.com.br"
+    }, {
+      "format": "string",
+      "label": "Country",
+      "id": "country",
+      "source": "&country",
+      "placeholder": "be fast!",
+      "required": false
+    }, {
+      "format": "string",
+      "label": "City",
+      "id": "city",
+      "source": "&city",
+      "dependencies": ["country"],
+      "placeholder": "first choose a country..."
+    }, {
+      "format": "string",
+      "label": "Like fruits...",
+      "id": "fruit",
+      "source": "&banana"
+    }, {
+      "label": "Prime number plz",
+      "id": "prime",
+      "format": "integer:3"
+    }, {
+      "label": "Can you write pi?",
+      "id": "pi",
+      "format": "number:2",
+      "max": 4,
+      "validate": [
+        {
+          "assert": "$.pi > 3.1",
+          "error": "must be greather than 3.1"
+        }
+      ]
+    }, {
+      "format": "boolean",
+      "label": "Are you happy?",
+      "id": "happy",
+      "validate": [
+        {
+          "assert": "$.fruit === 'Banana' || $.happy === true",
+          "error": "must be Yes or fruit is banana"
+        }
+      ]
+    }
+  ]
+}

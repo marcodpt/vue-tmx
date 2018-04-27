@@ -1,0 +1,141 @@
+<script type="text/babel">
+  import T from 'libt'
+  import lib from '../lib.js'
+  import tmxData from './data.vue'
+  import tmxInput from './input.vue'
+  import tmxCheckbox from './checkbox.vue'
+  import tmxButton from './button.vue'
+
+  module.exports = {
+    mixins: [lib],
+    components: {
+      'tmx-data': tmxData,
+      'tmx-input': tmxInput,
+      'tmx-checkbox': tmxCheckbox,
+      'tmx-button': tmxButton
+    },
+    props: {
+      model: {
+        type: Object,
+        required: true
+      },
+      id: {
+        type: String,
+        required: true
+      },
+      static: {
+        type: Boolean,
+        default: true
+      },
+      format: {
+        type: String,
+        default: 'string',
+        validator: function (value) {
+          if (value && !lib.methods.isType(value.split(':')[0])) {
+            T.debug(value)
+          }
+          return !value || lib.methods.isType(value.split(':')[0])
+        }
+      },
+      label: {
+        type: String,
+        default: ''
+      },
+      icon: {
+        type: String,
+        default: ''
+      },
+      button: {
+        type: String,
+        default: ''
+      },
+      placeholder: {
+        type: String,
+        default: ''
+      },
+      click: {
+        type: Function
+      },
+      language: {
+        type: String,
+        default: 'en'
+      }
+    },
+    data: function () {
+      return {
+        elem: {
+          id: this.id,
+          format: this.format,
+          placeholder: this.placeholder,
+          language: this.language
+        }
+      }
+    },
+    watch: {
+      id: function () {
+        this.$data.elem.id = this.id
+      },
+      format: function () {
+        this.$data.elem.format = this.format
+      },
+      placeholder: function () {
+        this.$data.elem.placeholder = this.placeholder
+      },
+      language: function () {
+        this.$data.elem.language = this.language
+      }
+    },
+    methods: {
+      center: function () {
+        return !T.match('text')(this.model[this.id])
+      },
+      bgcolor: function () {
+        if (this.format.split(':').indexOf('rgb') > -1 && this.model[this.id]) {
+          return `#${this.model[this.id]}`
+        }
+        return null
+      }
+    }
+  }
+</script>
+
+<template>
+  <td :class="{
+      'text-center': center()
+    }" :style="{
+      'vertical-align': 'middle',
+      'background-color': bgcolor()
+    }"
+  >
+    <tmx-button
+      v-if="button && click"
+      :type="button"
+      :icon="icon"
+      :click="click"
+      :data="model"
+      :label="label"
+    />
+    <tmx-button
+      v-else-if="click"
+      type="info"
+      :icon="icon"
+      :click="click"
+      :data="model"
+      :label="formatData(model[id], format)"
+    />
+    <tmx-data v-else-if="static" v-bind="elem" :model="model">
+    </tmx-data>
+    <tmx-checkbox
+      v-else-if="format === 'boolean'"
+      v-bind="elem"
+      :model="model"
+    >
+    </tmx-checkbox>
+    <tmx-input
+      v-else
+      v-bind="elem"
+      :model="model"
+    >
+    </tmx-input>
+  </td>
+</template>
