@@ -198,6 +198,7 @@
         </a>
       </tmx-button-split>
       <tmx-button v-if="component === 'button'" v-bind="model" />
+      <tmx-carousel v-if="component === 'carousel'" v-bind="model" />
       <tmx-chart v-if="component === 'chart'" v-bind="model" />
       <tmx-checkbox v-if="component === 'checkbox'" v-bind="model" />
       <tmx-data v-if="component === 'data'" v-bind="model" />

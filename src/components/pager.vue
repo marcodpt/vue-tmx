@@ -44,12 +44,17 @@
       label: {
         type: String,
         default: ''
+      },
+      time: {
+        type: Number,
+        default: 0
       }
     },
     data: function () {
       return {
         pages: T.pager(this.rows)(this.input),
-        oldPage: 0
+        oldPage: 0,
+        interval: null
       }
     },
     mounted: function () {
@@ -57,6 +62,15 @@
     },
     methods: {
       setPage: function (action) {
+        if (this.time && !this.$data.interval) {
+          this.$data.interval = setInterval(() => {
+            this.setPage('rotate')
+          }, 1000 * this.time)
+        } else if (!this.time && this.$data.interval) {
+          clearInterval (this.$data.interval)
+          this.$data.interval = null
+        }
+
         this.$data.pages = T.pager(this.rows)(this.input)
         this.model[this.id] = parseInt(this.model[this.id]) || 1
         this.$data.oldPage = this.model[this.id]
@@ -67,7 +81,7 @@
         if (action === 'back') {
           this.$set(this.model, this.id, this.model[this.id] - 1)
         }
-        if (action === 'next') {
+        if (action === 'next' || action === 'rotate') {
           this.$set(this.model, this.id, this.model[this.id] + 1)
         }
         if (action === 'end') {
@@ -75,7 +89,11 @@
         }
 
         if (this.model[this.id] > this.$data.pages) {
-          this.$set(this.model, this.id, this.$data.pages)
+          if (action === 'rotate') {
+            this.$set(this.model, this.id, 1)
+          } else {
+            this.$set(this.model, this.id, this.$data.pages)
+          }
         }
         if (!this.model[this.id] || this.model[this.id] < 1) {
           this.$set(this.model, this.id, 1)
@@ -114,6 +132,9 @@
         this.setPage ()
       },
       input: function () {
+        this.setPage ()
+      },
+      time: function () {
         this.setPage ()
       }
     }

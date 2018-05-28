@@ -488,6 +488,32 @@ module.exports = [
           }
         }
       }, {
+        label: 'Carousel',
+        path: 'carousel',
+        component: 'tmx-test',
+        props: {
+          component: 'carousel',
+          tests: {
+            panels: [
+              {
+                type: 'primary',
+                label: 'I am a panel!',
+                text: 'And i am the body\nFull of ideas',
+                image: {
+                  src: 'img/icon.jpg'
+                }
+              }, {
+                type: 'primary',
+                label: 'I am a panel!',
+                text: 'The second panel',
+                image: {
+                  src: 'img/icon.jpg'
+                }
+              }
+            ]
+          }
+        }
+      }, {
         label: 'Form',
         path: 'form',
         component: 'tmx-test',

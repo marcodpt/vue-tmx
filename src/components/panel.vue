@@ -2,11 +2,13 @@
   import lib from '../lib.js'
   import tmxImage from './image.vue'
   import tmxButton from './button.vue'
+  import tmxPager from './pager.vue'
 
   module.exports = {
     components: {
       'tmx-image': tmxImage,
-      'tmx-button': tmxButton
+      'tmx-button': tmxButton,
+      'tmx-pager': tmxPager
     },
     props: {
       type: {
@@ -47,6 +49,10 @@
         default: function () {
           return []
         }
+      },
+      pager: {
+        type: Object,
+        default: null
       }
     },
     data: function () {
@@ -80,6 +86,7 @@
       </div>
     </div>
     <div v-if="isOpen" class="panel-body">
+      <tmx-pager v-if="pager" v-bind="pager"></tmx-pager>
       <div v-if="block" v-bind="block" />
       <div v-for="block in blocks" :style="block" />
       <div v-if="text && !isArray(text)" style="white-space:pre-wrap">{{text}}</div>
