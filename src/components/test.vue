@@ -218,6 +218,7 @@
       <tmx-pager v-if="component === 'pager'" v-bind="model" />
       <tmx-panel v-if="component === 'panel'" v-bind="model" />
       <tmx-progressbar v-if="component === 'progressbar'" v-bind="model" />
+      <tmx-search v-if="component === 'search'" v-bind="model" />
       <tmx-select v-if="component === 'select'" v-bind="model" />
       <tmx-table v-if="component === 'table'" v-bind="model" />
       <tmx-text v-if="component === 'text'" v-bind="model" />

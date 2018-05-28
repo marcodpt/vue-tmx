@@ -9,6 +9,7 @@
   import tmxIcon from './icon.vue'
   import tmxPager from './pager.vue'
   import tmxButton from './button.vue'
+  import tmxSearch from './search.vue'
 
   module.exports = {
     mixins: [lib],
@@ -20,7 +21,8 @@
       'tmx-body': tmxBody,
       'tmx-icon': tmxIcon,
       'tmx-pager': tmxPager,
-      'tmx-button': tmxButton
+      'tmx-button': tmxButton,
+      'tmx-search': tmxSearch
     },
     props: {
       model: {
@@ -28,7 +30,8 @@
         default: function () {
           return {
             sort: null,
-            page: 1
+            page: 1,
+            search: ''
           }
         }
       },
@@ -65,6 +68,10 @@
         type: Boolean,
         default: false
       },
+      search: {
+        type: Boolean,
+        default: false
+      },
       filter: {
         type: Boolean,
         default: false
@@ -97,6 +104,7 @@
         data0: [],
         data1: [],
         data2: [],
+        data3: [],
         view: [],
         id: T.randomId()(),
         isLoading: false
@@ -192,6 +200,9 @@
         if (section === 'pager' && this.rows) {
           return
         }
+        if (section === 'search' && this.search) {
+          return
+        } 
         if (section === 'aggregate' && this.$data.expression && this.$data.view.length) {
           return
         }
@@ -223,8 +234,8 @@
         <tmx-group
           :active="groups"
           :fields="tableFields"
-          :input="data1"
-          :output="data2"
+          :input="data2"
+          :output="data3"
           :language="language"
         >
         </tmx-group>&nbsp;
@@ -242,7 +253,7 @@
         <tmx-download
           v-bind="download"
           :fields="getFields('download')"
-          :data="data2"
+          :data="data3"
           :language="language"
         >
         </tmx-download>&nbsp;
@@ -252,13 +263,18 @@
       <tmx-pager
         :model="model"
         :rows="rows"
-        :input="data2"
+        :input="data3"
         :output="view"
         :language="language"
       ></tmx-pager>
     </p>
     <table class="table table-striped table-bordered table-condensed table-hover">
       <thead>
+        <tr :style="display('search')">
+          <th colspan="100%" class="text-center">
+            <tmx-search :input="data1" :output="data2" :model="model"></tmx-search>
+          </th>
+        </tr>
         <tr :style="display('aggregate')">
           <th
             v-for="field in tableFields"
@@ -274,7 +290,7 @@
             v-show="isVisible(field)"
             v-bind="field"
             :model="model"
-            :data="data2"
+            :data="data3"
             :check="field.format === 'boolean' && field.static === false && !groups.length"
             :sort="sort"
           >

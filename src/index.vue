@@ -26,6 +26,7 @@
   import pager from './components/pager.vue'
   import panel from './components/panel.vue'
   import progressbar from './components/progressbar.vue'
+  import search from './components/search.vue'
   import select from './components/select.vue'
   import table from './components/table.vue'
   import text from './components/text.vue'
@@ -57,6 +58,7 @@
     pager: pager,
     panel: panel,
     progressbar: progressbar,
+    search: search,
     select: select,
     table: table,
     text: text

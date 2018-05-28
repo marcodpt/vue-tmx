@@ -414,6 +414,22 @@ module.exports = [
             id: 'id'
           }
         }
+      }, {
+        label: 'Search',
+        path: 'search',
+        component: 'tmx-test',
+        props: {
+          component: 'search',
+          tests: {
+            input: table.data,
+            output: [],
+            onChange: function () {
+              console.log('search: ' + this.model.search)
+              console.log('input: ' + this.input.length)
+              console.log('output: ' + this.output.length)
+            }
+          }
+        }
       }
     ]
   }, {
@@ -520,6 +536,7 @@ module.exports = [
             rows: 4,
             aggregate: true,
             sort: true,
+            search: true,
             filter: true,
             group: true,
             download: {}
@@ -538,6 +555,7 @@ module.exports = [
             rows: 4,
             aggregate: true,
             sort: true,
+            search: true,
             filter: true,
             group: true,
             download: {}
