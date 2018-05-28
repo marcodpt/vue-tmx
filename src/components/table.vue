@@ -272,7 +272,12 @@
       <thead>
         <tr :style="display('search')">
           <th colspan="100%" class="text-center">
-            <tmx-search :input="data1" :output="data2" :model="model"></tmx-search>
+            <tmx-search
+              :input="data1"
+              :output="data2"
+              :model="model"
+              :language="language"
+            ></tmx-search>
           </th>
         </tr>
         <tr :style="display('aggregate')">
