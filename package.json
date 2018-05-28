@@ -30,7 +30,7 @@
   "dependencies": {
     "chart.js": "^2.7.1",
     "jsbarcode": "^3.8.0",
-    "libt": "0.0.0",
+    "libt": "0.0.1",
     "vue-select": "^2.4.0"
   },
   "browserify": {

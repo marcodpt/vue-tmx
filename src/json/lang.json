@@ -1,6 +1,7 @@
 {
   "en": {
     "like": "contains",
+    "notlike": "do not contains",
     "eq": "equal",
     "ne": "not equal",
     "gt": "greater then",
@@ -33,6 +34,7 @@
   },
   "pt-br": {
     "like": "contêm",
+    "notlike": "não contêm",
     "eq": "igual",
     "ne": "diferente",
     "gt": "maior que",

@@ -22580,14 +22580,14 @@ _.where = function (X) {
           result = v < x.value
         } else if (x.operator === '<=') {
           result = v <= x.value
-        } else if (x.operator === '~') {
-          if (x.value == null) {
-            result = false
-          } else {
-            result = String(v).toLowerCase().indexOf(String(x.value).toLowerCase()) !== -1
-          }
         } else {
+          var n = String(v).toLowerCase().indexOf(String(x.value).toLowerCase())
           result = false
+          if (x.operator === '~') {
+            result = n !== -1
+          } else if (x.operator === '!~') {
+            result = n === -1
+          }
         }
       })
 
@@ -44336,7 +44336,7 @@ module.exports = {
       this.run();
     },
     getOperators: function getOperators() {
-      return [{ id: '~', label: this.translate('like') }, { id: '===', label: this.translate('eq') }, { id: '!==', label: this.translate('ne') }, { id: '>', label: this.translate('gt') }, { id: '>=', label: this.translate('gte') }, { id: '<', label: this.translate('lt') }, { id: '<=', label: this.translate('lte') }];
+      return [{ id: '~', label: this.translate('like') }, { id: '!~', label: this.translate('notlike') }, { id: '===', label: this.translate('eq') }, { id: '!==', label: this.translate('ne') }, { id: '>', label: this.translate('gt') }, { id: '>=', label: this.translate('gte') }, { id: '<', label: this.translate('lt') }, { id: '<=', label: this.translate('lte') }];
     },
     getFormat: function getFormat(path) {
       var X = this.fields.filter(function (f) {
@@ -44423,7 +44423,7 @@ module.exports = {
       this.run();
     },
     '$root.$data.modal.model.operator': function $root$dataModalModelOperator(op) {
-      if (op === '~') {
+      if (op === '~' || op === '!~') {
         this.$set(this.$root.$data.modal.fields[2], 'source');
       } else if (op !== undefined) {
         this.$set(this.$root.$data.modal.fields[2], 'source', this.getValues);
@@ -46494,7 +46494,7 @@ module.exports = {
     },
     aggregateData: function aggregateData(field) {
       if (field.expression && this.aggregate) {
-        return this.formatData(_libt2.default.evaluate(field.expression)(this.$data.data1), field.format);
+        return this.formatData(_libt2.default.evaluate(field.expression)(this.$data.data2), field.format);
       }
     },
     isVisible: function isVisible(field) {
@@ -47103,6 +47103,7 @@ module.exports={
 module.exports={
   "en": {
     "like": "contains",
+    "notlike": "do not contains",
     "eq": "equal",
     "ne": "not equal",
     "gt": "greater then",
@@ -47135,6 +47136,7 @@ module.exports={
   },
   "pt-br": {
     "like": "contêm",
+    "notlike": "não contêm",
     "eq": "igual",
     "ne": "diferente",
     "gt": "maior que",

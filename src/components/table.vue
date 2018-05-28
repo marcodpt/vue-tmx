@@ -159,7 +159,7 @@
       },
       aggregateData: function (field) {
         if (field.expression && this.aggregate) {
-          return this.formatData(T.evaluate(field.expression)(this.$data.data1), field.format)
+          return this.formatData(T.evaluate(field.expression)(this.$data.data2), field.format)
         }
       },
       isVisible: function (field) {

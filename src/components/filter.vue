@@ -73,6 +73,7 @@
       getOperators: function () {
         return [
           {id: '~', label: this.translate('like')},
+          {id: '!~', label: this.translate('notlike')},
           {id: '===', label: this.translate('eq')},
           {id: '!==', label: this.translate('ne')},
           {id: '>', label: this.translate('gt')},
@@ -162,7 +163,7 @@
         this.run()
       },
       '$root.$data.modal.model.operator': function (op) {
-        if (op === '~') {
+        if (op === '~' || op === '!~') {
           this.$set(this.$root.$data.modal.fields[2], 'source')
         } else if (op !== undefined) {
           this.$set(this.$root.$data.modal.fields[2], 'source', this.getValues)
