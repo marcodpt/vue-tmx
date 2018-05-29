@@ -74,7 +74,7 @@
     },
     watch: {
       input: function () {
-        this.run()
+        this.run(this.model.search)
       },
       'model.search': function (newVal, oldVal) {
         this.run(newVal, oldVal)
