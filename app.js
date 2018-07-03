@@ -45046,6 +45046,10 @@ module.exports = {
     vertical: {
       type: Boolean,
       default: true
+    },
+    video: {
+      type: Boolean,
+      default: false
     }
   }
 };
@@ -45053,7 +45057,12 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('img',{style:({
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.video)?_c('video',{style:({
+  display: 'block',
+  margin: 'auto',
+  height: _vm.vertical ? '100%' : 'auto',
+  width: _vm.vertical ? 'auto' : '100%'
+}),attrs:{"id":_vm.id,"controls":""}},[_c('source',{attrs:{"src":_vm.src}}),_vm._v("\n  Video: "+_vm._s(_vm.src)+"\n")]):_c('img',{style:({
   display: 'block',
   margin: 'auto',
   height: _vm.vertical ? '100%' : 'auto',
@@ -46165,7 +46174,7 @@ module.exports = {
   },
   watch: {
     input: function input() {
-      this.run();
+      this.run(this.model.search);
     },
     'model.search': function modelSearch(newVal, oldVal) {
       this.run(newVal, oldVal);
@@ -48404,7 +48413,7 @@ module.exports = [{
     props: {
       component: 'image',
       tests: {
-        src: 'img/icon.jpg'
+        src: 'static/icon.jpg'
       }
     }
   }, {
@@ -48689,14 +48698,15 @@ module.exports = [{
           label: 'I am a panel!',
           text: 'And i am the body\nFull of ideas',
           image: {
-            src: 'img/icon.jpg'
+            src: 'static/icon.jpg'
           }
         }, {
           type: 'primary',
           label: 'I am a panel!',
           text: 'The second panel',
           image: {
-            src: 'img/icon.jpg'
+            src: 'static/video.mp4',
+            video: true
           }
         }]
       }

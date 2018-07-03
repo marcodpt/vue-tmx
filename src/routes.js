@@ -198,7 +198,7 @@ module.exports = [
         props: {
           component: 'image',
           tests: {
-            src: 'img/icon.jpg'
+            src: 'static/icon.jpg'
           }
         }
       }, {
@@ -500,14 +500,15 @@ module.exports = [
                 label: 'I am a panel!',
                 text: 'And i am the body\nFull of ideas',
                 image: {
-                  src: 'img/icon.jpg'
+                  src: 'static/icon.jpg'
                 }
               }, {
                 type: 'primary',
                 label: 'I am a panel!',
                 text: 'The second panel',
                 image: {
-                  src: 'img/icon.jpg'
+                  src: 'static/video.mp4',
+                  video: true
                 }
               }
             ]
