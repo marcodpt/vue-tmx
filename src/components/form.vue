@@ -102,7 +102,7 @@
         :label="translate('close')"
       />
       <h4 v-if="label || icon" class="modal-title text-center">
-        <tmx-icon :type="icon" /> {{label}}
+        <tmx-icon :name="convert(icon)" /> {{label}}
       </h4>
     </div>
     <div class="modal-body">

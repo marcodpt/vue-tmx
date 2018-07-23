@@ -182,7 +182,7 @@
     :items="active"
   >
     <a v-on:click="click(scope.index)" style="cursor:pointer;" slot-scope="scope">
-      <tmx-icon type="remove"></tmx-icon>
+      <tmx-icon name="remove" />
       {{getLabel(scope.item)}}
     </a>
   </tmx-button-split>

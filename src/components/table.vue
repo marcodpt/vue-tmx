@@ -317,8 +317,8 @@
         </tr>
       </tbody>
     </table>
-    <p v-if="!data" style="font-size:600%" class="text-center">
-      <tmx-icon type="refresh" spin></tmx-icon>
+    <p v-if="!data" class="text-center">
+      <tmx-icon name="sync" scale="6" spin></tmx-icon>
     </p>
   </div>
 </template>

@@ -48,7 +48,7 @@
 <template>
   <div :class="['btn-group', isOpen ? 'open' : '']">
     <button type="button" :class="['btn', 'btn-' + type]" v-on:click="click()">
-      <tmx-icon :type="icon"></tmx-icon>
+      <tmx-icon :name="convert(icon)" />
       {{label}}
     </button>
     <button

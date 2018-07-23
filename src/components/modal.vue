@@ -145,7 +145,7 @@
       <div v-if="isOpen" :id="id" class="modal-content">
         <div v-if="icon2 || label2" class="modal-header">
           <h4 class="modal-title text-center">
-            <tmx-icon :type="icon2"></tmx-icon>
+            <tmx-icon :name="convert(icon2)" />
             {{label2}}
           </h4>
         </div>

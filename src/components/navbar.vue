@@ -1,9 +1,11 @@
 <script type="text/babel">
   import T from 'libt'
+  import lib from '../lib.js'
   import tmxDropdown from './dropdown.vue'
   import tmxIcon from './icon.vue'
 
   module.exports = {
+    mixins: [lib],
     components: {
       'tmx-dropdown': tmxDropdown,
       'tmx-icon': tmxIcon
@@ -136,15 +138,12 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" aria-expanded="false" @click="toogle">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
+          <tmx-icon name="bars" />
         </button>
         <a v-if="label || sublabel || icon" class="navbar-brand">
           {{label}}
           <small>
-            <tmx-icon :type="icon"></tmx-icon>
+            <tmx-icon :name="convert(icon)" />
             {{sublabel}}
           </small>
         </a>
@@ -159,7 +158,7 @@
         <ul class="nav navbar-nav navbar-right" v-if="actions.length">
           <li v-for="action in actions">
             <a @click="action.onClick" style="cursor:pointer;">
-              <tmx-icon :type="action.icon"></tmx-icon>
+              <tmx-icon :name="convert(action.icon)" />
               {{action.label}}
             </a>
           </li>
