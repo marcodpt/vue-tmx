@@ -138,7 +138,7 @@ module.exports = [
         props: {
           component: 'icon',
           tests: {
-            type: 'ok'
+            name: 'ok'
           }
         }
       }, {

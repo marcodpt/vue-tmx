@@ -15,8 +15,7 @@
       },
       icon: {
         type: String,
-        default: '',
-        validator: lib.methods.isIcon
+        default: ''
       },
       click: {
         type: Function

@@ -1,6 +1,5 @@
 <script type="text/babel">
   import T from 'libt'
-  import validate from '../json/validate.json'
   import table from '../json/table.json'
   import form from '../json/form.json'
   import tmx from '../index.vue'
@@ -76,7 +75,7 @@
             id: key,
             label: `${key} (${type})`,
             format: format,
-            source: this.getSource(prop.validator),
+            source: this.getSource(key === 'icon' ? this.isIcon : prop.validator),
             required: prop.required
           })
         })
@@ -111,6 +110,10 @@
       },
       submit: function () {
         var model = T.copy(this.$data.form.model)
+        model.icon = this.convert(model.icon)
+        if (this.component === 'icon') {
+          model.name = this.convert(model.name)
+        }
         this.$data.compile.forEach(key => {
           if (model[key] !== '') {
             try {
