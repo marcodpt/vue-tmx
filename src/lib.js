@@ -328,11 +328,15 @@ _.convert = function (icon) {
     'picture': 'image',
     'info-sign': 'info-circle',
     'warning-sign': 'exclamation-triangle',
+    'question-sign': 'question-circle',
+    'exclamation-sign': 'exclamation-circle',
     'unchecked': 'square',
     'import': 'upload',
     'send': 'paper-plane',
     'duplicate': 'clone',
-    'scale': 'weight'
+    'scale': 'weight',
+    'remove': 'times',
+    'log-in': 'sign-in-alt'
   }
 
   return T[icon] ? T[icon] : icon 

@@ -1,47 +1,45 @@
 <script type="text/babel">
-  import tmxPanel from './panel.vue'
+  import {Carousel, Slide} from 'vue-carousel'
 
   module.exports = {
+    inheritAttrs: false,
     components: {
-      'tmx-panel': tmxPanel
+      'carousel' : Carousel,
+      'slide': Slide
     },
     props: {
-      panels: {
+      slides: {
         type: Array,
         default: function () {
           return []
         }
       },
+      buttons: {
+        type: Boolean,
+        default: false
+      },
       time: {
         type: Number,
         default: 0
-      }
-    },
-    data: function () {
-      return {
-        pager: {
-          rows: 1,
-          model: {
-            page: 0
-          },
-          label: '$index / $end',
-          input: this.panels,
-          output: [],
-          time: this.time
-        }
-      }
-    },
-    watch: {
-      panels: function () {
-        this.$data.pager.input = this.panels
-      },
-      time: function () {
-        this.$data.pager.time = this.time
       }
     }
   }
 </script>
 
 <template>
-  <tmx-panel v-bind="pager.output[0]" :pager="pager" />
+  <carousel
+    v-if="slides"
+    :perPage="1"
+    :navigationEnabled="buttons"
+    :loop="true"
+    :autoplay="time ? true : false"
+    :autoplayTimeout="1000 * time"
+  >
+    <slide v-for="slide in slides">
+      <img v-if="slide.image" :href="slide.href" :src="slide.image" style="width:100%"/>
+      <video v-if="slide.video" :src="slide.video" style="width:100%" controls/>
+      <h3 v-if="slide.label">{{slide.label}}</h3>
+      <p v-if="slide.text" style="white-space:pre-wrap">{{slide.text}}</p>
+    </slide>
+  </carousel>
 </template>

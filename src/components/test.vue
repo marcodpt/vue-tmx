@@ -45,7 +45,15 @@
     methods: {
       build: function () {
         this.$data.ready = false
-        var fields = []
+        var fields = [
+          {
+            id: 'style',
+            format: 'string'
+          }, {
+            id: 'class',
+            format: 'string'
+          }
+        ]
         var model = {}
         
         this.$data.compile = []
@@ -150,6 +158,8 @@
           ret = 'Array'
         } else if (type === Function) {
           ret = 'Function'
+        } else {
+          ret = 'Object'
         }
 
         return ret
@@ -193,6 +203,7 @@
   <div>
     <tmx-modal v-bind="modal" :show="show" />
     <div v-if="ready">
+      <tmx-block v-if="component === 'block'" v-bind="model" />
       <tmx-body v-if="component === 'body'" v-bind="model" />
       <tmx-button-split v-if="component === 'button-split'" v-bind="model">
         <a v-on:click="model.click(scope.index)" style="cursor:pointer;" slot-scope="scope">

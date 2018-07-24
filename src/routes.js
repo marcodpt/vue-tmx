@@ -125,7 +125,172 @@ table.methods.forEach((method, i) => {
 
 module.exports = [
   {
-    label: 'Basic blocks',
+    label: 'Tags',
+    path: '/tags',
+    component: {
+      template: '<router-view></router-view>'
+    },
+    children: [
+      {
+        label: 'Carousel',
+        path: 'carousel',
+        component: 'tmx-test',
+        props: {
+          component: 'carousel',
+          tests: {
+            style: "width:400px",
+            class: "thumbnail justify",
+            time: 2,
+            buttons: true,
+            slides: [
+              {
+                text: "Lorem ipsum porttitor eget vehicula mollis turpis ornare phasellus sociosqu, quam ultricies himenaeos dictumst tempus fringilla massa sociosqu leo, arcu tristique posuere dictumst imperdiet ornare aliquam venenatis. mattis egestas ligula est convallis hendrerit placerat, integer inceptos ultricies sodales fusce aenean tellus, scelerisque blandit eleifend donec elementum.",
+                video: "static/video.mp4"
+              }, {
+                label: "First slide",
+                image: "static/icon.jpg"
+              }, {
+                label: "Second slide",
+                text: "Lorem ipsum porttitor eget vehicula mollis turpis ornare phasellus sociosqu, quam ultricies himenaeos dictumst tempus fringilla massa sociosqu leo, arcu tristique posuere dictumst imperdiet ornare aliquam venenatis. mattis egestas ligula est convallis hendrerit placerat, integer inceptos ultricies sodales fusce aenean tellus, scelerisque blandit eleifend donec elementum.",
+                video: "static/video.mp4",
+              }, {
+                image: "static/icon.jpg"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }, {
+    label: 'Block',
+    path: '/block',
+    component: {
+      template: '<router-view></router-view>'
+    },
+    children: [
+      {
+        label: 'Panel',
+        path: 'panel',
+        component: 'tmx-test',
+        props: {
+          component: 'block',
+          tests: {
+            content: {
+              class: "container text-center",
+              content: {
+                class: "panel panel-default",
+                content: [
+                  {
+                     class: "panel-heading",
+                     content: [
+                       {
+                         tag: "h3",
+                         class: "panel-title",
+                         content: "My company. We gonna have some fun here!"
+                       }
+                     ]
+                  }, {
+                   class: "panel-body",
+                   content: [
+                     {
+                       content: "Some place in the world, XXX – YYYYY ZIP: ZZZZZ-ZZZ – My City – EE Country"
+                     }, {
+                       content: "Phone: +XX (XX) XXXX-XXXX/ YYYY-YYYY"
+                     }, {
+                       content: [
+                         {
+                           tag: "span",
+                           content: "E-Mail: "
+                         }, {
+                           tag: "a",
+                           content: "myemail@host.com",
+                           href: "mailto:myemail2@host.com"
+                         }, {
+                           tag: "span",
+                           content: " | "
+                         }, {
+                           tag: "a",
+                           content: "myemail2@host.com",
+                           href: "mailto:myemail2@host.com"
+                         }, {
+                           tag: "span",
+                           content: " | "
+                         }, {
+                           tag: "a",
+                           content: "go to Google",
+                           href: "https://www.google.com.br"
+                         }
+                       ]
+                     }, {
+                       tag: "a",
+                       href: "https://www.google.com",
+                       content: {
+                         tag: "img",
+                         content: {
+                           style: "width:400px;margin:auto",
+                           src: "static/icon.jpg",
+                         }
+                       }
+                     }
+                   ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }, {
+        label: 'Carousel',
+        path: 'carousel',
+        component: 'tmx-test',
+        props: {
+          component: 'block',
+          tests: {
+            tag: 'carousel',
+            style: "width:400px",
+            class: "thumbnail justify",
+            content: {
+              time: 2,
+              buttons: true,
+              slides: [
+                {
+                  text: "Lorem ipsum porttitor eget vehicula mollis turpis ornare phasellus sociosqu, quam ultricies himenaeos dictumst tempus fringilla massa sociosqu leo, arcu tristique posuere dictumst imperdiet ornare aliquam venenatis. mattis egestas ligula est convallis hendrerit placerat, integer inceptos ultricies sodales fusce aenean tellus, scelerisque blandit eleifend donec elementum.",
+                  video: "static/video.mp4"
+                }, {
+                  label: "First slide",
+                  image: "static/icon.jpg"
+                }, {
+                  label: "Second slide",
+                  text: "Lorem ipsum porttitor eget vehicula mollis turpis ornare phasellus sociosqu, quam ultricies himenaeos dictumst tempus fringilla massa sociosqu leo, arcu tristique posuere dictumst imperdiet ornare aliquam venenatis. mattis egestas ligula est convallis hendrerit placerat, integer inceptos ultricies sodales fusce aenean tellus, scelerisque blandit eleifend donec elementum.",
+                  video: "static/video.mp4",
+                }, {
+                  image: "static/icon.jpg"
+                }
+              ]
+            }
+          }
+        }
+      }, {
+        label: 'Barcode',
+        path: 'barcode',
+        component: 'tmx-test',
+        props: {
+          component: 'block',
+          tests: {
+            style: 'width:200px;height:200px',
+            class: 'thumbnail',
+            content: [{
+              tag: 'barcode',
+              content: {
+                value: '12345abc'
+              }
+            }]
+          }
+        }
+      }
+    ]
+  }, {
+    label: 'Basic block',
     path: '/basic',
     component: {
       template: '<router-view></router-view>'
@@ -485,33 +650,6 @@ module.exports = [
             type: 'primary',
             label: 'I am a panel!',
             text: 'And i am the body\nFull of ideas'
-          }
-        }
-      }, {
-        label: 'Carousel',
-        path: 'carousel',
-        component: 'tmx-test',
-        props: {
-          component: 'carousel',
-          tests: {
-            panels: [
-              {
-                type: 'primary',
-                label: 'I am a panel!',
-                text: 'And i am the body\nFull of ideas',
-                image: {
-                  src: 'static/icon.jpg'
-                }
-              }, {
-                type: 'primary',
-                label: 'I am a panel!',
-                text: 'The second panel',
-                image: {
-                  src: 'static/video.mp4',
-                  video: true
-                }
-              }
-            ]
           }
         }
       }, {

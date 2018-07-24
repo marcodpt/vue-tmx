@@ -2,6 +2,7 @@
   import lib from './lib.js'
 
   import barcode from './components/barcode.vue'
+  import block from './components/block.vue'
   import body from './components/body.vue'
   import buttonSplit from './components/buttonSplit.vue'
   import button from './components/button.vue'
@@ -35,6 +36,7 @@
   module.exports = {
     lib: lib,
     barcode: barcode,
+    block: block,
     body: body,
     buttonSplit: buttonSplit,
     button: button,
