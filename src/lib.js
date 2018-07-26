@@ -336,7 +336,11 @@ _.convert = function (icon) {
     'duplicate': 'clone',
     'scale': 'weight',
     'remove': 'times',
-    'log-in': 'sign-in-alt'
+    'log-in': 'sign-in-alt',
+    'scissors': 'cut',
+    'usd': 'dollar-sign',
+    'cloud-upload': 'cloud-upload-alt',
+    'cloud-download': 'cloud-download-alt'
   }
 
   return T[icon] ? T[icon] : icon 

@@ -29,5 +29,5 @@
     </tmx-block>
   </tmx-tag>
   <tmx-tag v-else-if="content && typeof content === 'object'" :schema="content" :tag="tag" />
-  <tmx-tag v-else-if="content" :tag="tag">{{content}}</tmx-tag>
+  <tmx-tag v-else :tag="tag">{{content}}</tmx-tag>
 </template>
