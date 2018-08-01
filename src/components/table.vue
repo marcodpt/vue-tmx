@@ -186,32 +186,30 @@
         if (section === 'methods' && (
           this.filter || this.group || this.methods.length || this.download
         )) {
-          return
+          return true
         }
         if (section === 'filter' && this.filter) {
-          return
+          return true
         } 
         if (section === 'group' && this.group) {
-          return
+          return true
         } 
         if (section === 'download' && this.download) {
-          return
+          return true
         } 
         if (section === 'pager' && this.rows) {
-          return
+          return true
         }
         if (section === 'search' && this.search) {
-          return
+          return true
         } 
         if (section === 'aggregate' && this.$data.expression && this.$data.view.length) {
-          return
+          return true
         }
         if (section === 'head' && this.$data.tableFields.length) {
-          return
+          return true
         }
-        return {
-          display: 'none'
-        }
+        return false
       }
     }
   }
@@ -219,8 +217,11 @@
 
 <template>
   <div>
-    <p :style="display('methods')" class="text-center">
-      <span :style="display('filter')">
+    <p :style="{
+      'text-align': 'center',
+      'display': display('methods') ? null : 'none'
+    }">
+      <span :style="display('filter') ? null : 'display:none'">
         <tmx-filter
           :active="filters"
           :fields="tableFields"
@@ -230,7 +231,7 @@
         >
         </tmx-filter>&nbsp;
       </span>
-      <span :style="display('group')">
+      <span :style="display('group') ? null : 'display:none'">
         <tmx-group
           :active="groups"
           :fields="tableFields"
@@ -249,7 +250,7 @@
           :label="m.label"
         />&nbsp;
       </span>
-      <span :style="display('download')">
+      <span :style="display('download') ? null : 'display:none'">
         <tmx-download
           v-bind="download"
           :fields="getFields('download')"
@@ -259,7 +260,10 @@
         </tmx-download>&nbsp;
       </span>
     </p>
-    <p :style="display('pager')" class="text-center">
+    <p :style="{
+      'text-align': 'center',
+      'display': display('pager') ? null : 'none'
+    }">
       <tmx-pager
         :model="model"
         :rows="rows"
@@ -270,8 +274,8 @@
     </p>
     <table class="table table-striped table-bordered table-condensed table-hover">
       <thead>
-        <tr :style="display('search')">
-          <th colspan="100%" class="text-center">
+        <tr :style="display('search') ? null : 'display:none'">
+          <th colspan="100%" style="text-align:center">
             <tmx-search
               :input="data1"
               :output="data2"
@@ -280,16 +284,16 @@
             ></tmx-search>
           </th>
         </tr>
-        <tr :style="display('aggregate')">
+        <tr :style="display('aggregate') ? null : 'display:none'">
           <th
             v-for="field in tableFields"
             v-show="isVisible(field)"
-            class="text-center"
+            style="text-align:center"
           >
             {{aggregateData(field)}}
           </th>
         </tr>
-        <tr :style="display('head')">
+        <tr :style="display('head') ? null : 'display:none'">
           <tmx-head
             v-for="field in tableFields"
             v-show="isVisible(field)"
@@ -317,7 +321,7 @@
         </tr>
       </tbody>
     </table>
-    <p v-if="!data" class="text-center">
+    <p v-if="!data" style="text-align:center">
       <tmx-icon name="sync" scale="6" spin></tmx-icon>
     </p>
   </div>

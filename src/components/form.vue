@@ -101,7 +101,7 @@
         :size="size"
         :label="translate('close')"
       />
-      <h4 v-if="label || icon" class="modal-title text-center">
+      <h4 v-if="label || icon" style="text-align:center" class="modal-title">
         <tmx-icon :name="convert(icon)" /> {{label}}
       </h4>
     </div>

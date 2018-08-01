@@ -176,7 +176,8 @@ module.exports = [
           component: 'block',
           tests: {
             content: {
-              class: "container text-center",
+              style: "text-align:center",
+              class: "container",
               content: {
                 class: "panel panel-default",
                 content: [

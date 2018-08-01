@@ -48,10 +48,7 @@
     <div v-if="src || barcode" class="col-xs-2" style="height:100%;padding:10px">
       <tmx-image v-if="src" :src="src"></tmx-image>
     </div>
-    <div :class="{
-      'text-center': center,
-      'col-xs-8': src || barcode
-    }">
+    <div :style="center ? 'text-align:center' : null" :class="{'col-xs-8': src || barcode}">
       <h1 v-if="size == 1">{{label}} <small v-if="sublabel">{{sublabel}}</small></h1>
       <h2 v-else-if="size == 2">{{label}} <small v-if="sublabel">{{sublabel}}</small></h2>
       <h4 v-else-if="size == 4">{{label}} <small v-if="sublabel">{{sublabel}}</small></h4>

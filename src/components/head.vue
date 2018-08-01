@@ -92,7 +92,7 @@
 </script>
 
 <template>
-  <th class="text-center" style="vertical-align:middle">
+  <th style="vertical-align:middle;text-align:center">
     <tmx-button
       v-if="check"
       type="success"

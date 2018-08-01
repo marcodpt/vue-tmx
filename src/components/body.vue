@@ -100,13 +100,11 @@
 </script>
 
 <template>
-  <td :class="{
-      'text-center': center()
-    }" :style="{
-      'vertical-align': 'middle',
-      'background-color': bgcolor()
-    }"
-  >
+  <td :style="{
+    'text-align': center() ? 'center' : null,
+    'vertical-align': 'middle',
+    'background-color': bgcolor()
+  }">
     <tmx-button
       v-if="button && click"
       :type="button"

@@ -144,7 +144,7 @@
     <div :class="['modal-dialog modal-' + size]">
       <div v-if="isOpen" :id="id" class="modal-content">
         <div v-if="icon2 || label2" class="modal-header">
-          <h4 class="modal-title text-center">
+          <h4 style="text-align:center" class="modal-title">
             <tmx-icon :name="convert(icon2)" />
             {{label2}}
           </h4>

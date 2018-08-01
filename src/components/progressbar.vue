@@ -40,8 +40,8 @@
     }"
   >
     <div
-      class="text-center"
       :style="{
+        'text-align': 'center',
         'width': (value > 100 ? 100 : value) + '%',
         'border-radius': borderRadius,
         'background-color': barcolor,
