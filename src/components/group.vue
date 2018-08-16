@@ -129,7 +129,7 @@
     :items="active"
   >
     <a v-on:click="click(scope.index)" style="cursor:pointer;" slot-scope="scope">
-      <tmx-icon name="remove" />
+      <tmx-icon name="times" />
       {{itemLabel(scope.item)}}
     </a>
   </tmx-button-split>

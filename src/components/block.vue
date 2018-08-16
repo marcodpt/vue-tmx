@@ -1,5 +1,4 @@
 <script type="text/babel">
-  import T from 'libt'
   import tmxTag from './tag.vue'
 
   module.exports = {

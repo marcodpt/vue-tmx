@@ -627,19 +627,6 @@ module.exports = [
           }
         }
       }, {
-        label: 'Header',
-        path: 'header',
-        component: 'tmx-test',
-        props: {
-          component: 'header',
-          tests: {
-            label: 'I am the header label',
-            sublabel: 'And i am the header sublabel',
-            pageHeader: true,
-            center: true
-          }
-        }
-      }, {
         label: 'Panel',
         path: 'panel',
         component: 'tmx-test',

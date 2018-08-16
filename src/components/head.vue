@@ -19,6 +19,10 @@
         type: String,
         default: ''
       },
+      placeholder: {
+        type: String,
+        default: ''
+      },
       icon: {
         type: String,
         default: ''
@@ -106,7 +110,7 @@
       :style="{cursor: sort && id !== '' ? 'pointer' : undefined}"
     >
       <tmx-icon :name="convert(icon)"/>
-      {{label}}
+      {{label || placeholder}}
       <span v-if="model[modelId] === id" class="caret"></span>
       <span v-if="model[modelId] === '-' + id" class="dropup">
         <span class="caret"></span>

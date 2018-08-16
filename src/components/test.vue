@@ -223,7 +223,6 @@
       <tmx-filter v-if="component === 'filter'" v-bind="model" />
       <tmx-form v-if="component === 'form'" v-bind="model" />
       <tmx-group v-if="component === 'group'" v-bind="model" />
-      <tmx-header v-if="component === 'header'" v-bind="model" />
       <tmx-head v-if="component === 'head'" v-bind="model" />
       <tmx-icon v-if="component === 'icon'" v-bind="model" />
       <tmx-input v-if="component === 'input'" v-bind="model" />

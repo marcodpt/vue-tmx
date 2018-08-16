@@ -17,7 +17,6 @@
   import filter from './components/filter.vue'
   import form from './components/form.vue'
   import group from './components/group.vue'
-  import header from './components/header.vue'
   import head from './components/head.vue'
   import icon from './components/icon.vue'
   import image from './components/image.vue'
@@ -51,7 +50,6 @@
     filter: filter,
     form: form,
     group: group,
-    header: header,
     head: head,
     icon: icon,
     image: image,
