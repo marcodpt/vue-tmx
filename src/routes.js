@@ -214,18 +214,6 @@ module.exports = [
             value: '12345abc'
           }
         }
-      }, {
-        label: 'Chart',
-        path: 'chart',
-        component: 'tmx-test',
-        props: {
-          component: 'chart',
-          tests: {
-            data: table.data,
-            fieldX: 'age',
-            fieldY: 'balance'
-          }
-        }
       }
     ]
   }, {

@@ -28,7 +28,6 @@
     "build": "browserify -e src/app.vue -o app.js"
   },
   "dependencies": {
-    "chart.js": "^2.7.2",
     "jsbarcode": "^3.8.0",
     "libt": "0.0.1",
     "vue-awesome": "^3.0.5",

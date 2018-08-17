@@ -5,7 +5,6 @@
   import body from './components/body.vue'
   import buttonSplit from './components/buttonSplit.vue'
   import button from './components/button.vue'
-  import chart from './components/chart.vue'
   import checkbox from './components/checkbox.vue'
   import data from './components/data.vue'
   import download from './components/download.vue'
@@ -34,7 +33,6 @@
     body: body,
     buttonSplit: buttonSplit,
     button: button,
-    chart: chart,
     checkbox: checkbox,
     data: data,
     download: download,
