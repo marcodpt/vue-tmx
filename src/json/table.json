@@ -2,7 +2,7 @@
   "methods": [
     {
       "button": "success",
-      "icon": "pencil",
+      "icon": "pencil-alt",
       "label": "Insert",
       "click": "&post"
     }, {

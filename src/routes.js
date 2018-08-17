@@ -81,7 +81,7 @@ table.methods.forEach((method, i) => {
   if (method.click === '&post') {
     table.methods[i].click = function () {
       this.$root.$data.modal = {
-        icon: 'pencil',
+        icon: 'pencil-alt',
         label: 'Insert',
         fields: [
           {
@@ -96,7 +96,7 @@ table.methods.forEach((method, i) => {
         submit: model => {
           this.$root.$data.modal = {
             text: JSON.stringify(model, undefined, 2),
-            icon: 'pencil',
+            icon: 'pencil-alt',
             label: 'Post',
             fields: []
           }
@@ -304,7 +304,7 @@ module.exports = [
         props: {
           component: 'icon',
           tests: {
-            name: 'ok'
+            name: 'check'
           }
         }
       }, {
@@ -355,16 +355,6 @@ module.exports = [
               {label: 'Github', href: 'http://www.github.com'},
               {label: 'Gitlab', href: 'http://www.gitlab.com', icon: 'cog'}
             ]
-          }
-        }
-      }, {
-        label: 'Image',
-        path: 'image',
-        component: 'tmx-test',
-        props: {
-          component: 'image',
-          tests: {
-            src: 'static/icon.jpg'
           }
         }
       }, {

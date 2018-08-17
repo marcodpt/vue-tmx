@@ -69,7 +69,7 @@
     ]"
     type="button"
   >
-    <tmx-icon :name="convert(icon)" />
+    <tmx-icon :name="icon" />
     {{label}}
   </button>
 </template>

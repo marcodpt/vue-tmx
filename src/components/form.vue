@@ -96,13 +96,13 @@
         v-if="onClose"
         type="danger"
         class="pull-left"
-        icon="remove"
+        icon="times"
         :click="onClose"
         :size="size"
         :label="translate('close')"
       />
       <h4 v-if="label || icon" style="text-align:center" class="modal-title">
-        <tmx-icon :name="convert(icon)" /> {{label}}
+        <tmx-icon :name="icon" /> {{label}}
       </h4>
     </div>
     <div class="modal-body">

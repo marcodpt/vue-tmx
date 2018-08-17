@@ -118,10 +118,6 @@
       },
       submit: function () {
         var model = T.copy(this.$data.form.model)
-        model.icon = this.convert(model.icon)
-        if (this.component === 'icon') {
-          model.name = this.convert(model.name)
-        }
         this.$data.compile.forEach(key => {
           if (model[key] !== '') {
             try {
@@ -207,7 +203,7 @@
       <tmx-body v-if="component === 'body'" v-bind="model" />
       <tmx-button-split v-if="component === 'button-split'" v-bind="model">
         <a v-on:click="model.click(scope.index)" style="cursor:pointer;" slot-scope="scope">
-          <tmx-icon name="remove" />
+          <tmx-icon name="times" />
           {{scope.item}}
         </a>
       </tmx-button-split>
@@ -237,7 +233,6 @@
       <tmx-text v-if="component === 'text'" v-bind="model" />
       <div style="margin:auto;width:100px">
         <tmx-barcode v-if="component === 'barcode'" v-bind="model" />
-        <tmx-image v-if="component === 'image'" v-bind="model" />
       </div>
     </div>
     <tmx-form

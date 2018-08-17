@@ -96,9 +96,9 @@
         if (this.isIcon(this.icon)) {
           this.$data.icon2 = this.icon
         } else if (this.submit) {
-          this.$data.icon2 = 'question-sign'
+          this.$data.icon2 = 'question-circle'
         } else {
-          this.$data.icon2 = 'exclamation-sign'
+          this.$data.icon2 = 'exclamation-circle'
         }
 
         if (this.isAlert(this.alert)) {
@@ -145,7 +145,7 @@
       <div v-if="isOpen" :id="id" class="modal-content">
         <div v-if="icon2 || label2" class="modal-header">
           <h4 style="text-align:center" class="modal-title">
-            <tmx-icon :name="convert(icon2)" />
+            <tmx-icon :name="icon2" />
             {{label2}}
           </h4>
         </div>
@@ -165,8 +165,8 @@
           <div style="clear: both;"></div>
         </div>
         <div class="modal-footer">
-          <tmx-button v-if="submit" type="primary" icon="ok" :click="run" :label="translate('confirm')" />
-          <tmx-button type="danger" icon="remove" :click="hide" :label="translate('close')" />
+          <tmx-button v-if="submit" type="primary" icon="check" :click="run" :label="translate('confirm')" />
+          <tmx-button type="danger" icon="times" :click="hide" :label="translate('close')" />
         </div>
       </div>
     </div>

@@ -39,7 +39,7 @@
         icon: 'user',
         actions: [
           {
-            icon: "off",
+            icon: "power-off",
             label: "Quit",
             onClick: function () {
               window.location.href = "https://github.com/marcodpt/tmx"

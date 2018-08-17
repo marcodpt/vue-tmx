@@ -143,7 +143,7 @@
         <a v-if="label || sublabel || icon" class="navbar-brand">
           {{label}}
           <small>
-            <tmx-icon :name="convert(icon)" />
+            <tmx-icon :name="icon" />
             {{sublabel}}
           </small>
         </a>
@@ -158,7 +158,7 @@
         <ul class="nav navbar-nav navbar-right" v-if="actions.length">
           <li v-for="action in actions">
             <a @click="action.onClick" style="cursor:pointer;">
-              <tmx-icon :name="convert(action.icon)" />
+              <tmx-icon :name="action.icon" />
               {{action.label}}
             </a>
           </li>

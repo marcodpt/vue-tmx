@@ -19,7 +19,6 @@
   import group from './components/group.vue'
   import head from './components/head.vue'
   import icon from './components/icon.vue'
-  import image from './components/image.vue'
   import input from './components/input.vue'
   import item from './components/item.vue'
   import modal from './components/modal.vue'
@@ -51,7 +50,6 @@
     group: group,
     head: head,
     icon: icon,
-    image: image,
     input: input,
     item: item,
     modal: modal,

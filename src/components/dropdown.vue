@@ -47,14 +47,14 @@
       :aria-expanded="isOpen"
       style="cursor:pointer;"
     >
-      <tmx-icon :name="convert(icon)" />
+      <tmx-icon :name="icon" />
       {{label}}
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
       <li v-for="link in links">
         <a :href="link.href">
-          <tmx-icon :name="convert(link.icon)" />
+          <tmx-icon :name="link.icon" />
           {{link.label}}
         </a>
       </li>

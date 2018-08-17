@@ -109,7 +109,7 @@
       style="text-decoration:none;"
       :style="{cursor: sort && id !== '' ? 'pointer' : undefined}"
     >
-      <tmx-icon :name="convert(icon)"/>
+      <tmx-icon :name="icon"/>
       {{label || placeholder}}
       <span v-if="model[modelId] === id" class="caret"></span>
       <span v-if="model[modelId] === '-' + id" class="dropup">

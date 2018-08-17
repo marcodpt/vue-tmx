@@ -318,34 +318,6 @@ _.selectRange = function (label, begin, end, step) {
   return options
 }
 
-_.convert = function (icon) {
-  var T = {
-    'refresh': 'sync-alt',
-    'pencil': 'pencil-alt',
-    'ok': 'check',
-    'off': 'power-off',
-    'time': 'clock',
-    'picture': 'image',
-    'info-sign': 'info-circle',
-    'warning-sign': 'exclamation-triangle',
-    'question-sign': 'question-circle',
-    'exclamation-sign': 'exclamation-circle',
-    'unchecked': 'square',
-    'import': 'upload',
-    'send': 'paper-plane',
-    'duplicate': 'clone',
-    'scale': 'weight',
-    'remove': 'times',
-    'log-in': 'sign-in-alt',
-    'scissors': 'cut',
-    'usd': 'dollar-sign',
-    'cloud-upload': 'cloud-upload-alt',
-    'cloud-download': 'cloud-download-alt'
-  }
-
-  return T[icon] ? T[icon] : icon 
-}
-
 module.exports = {
   methods: _
 }
