@@ -125,43 +125,6 @@ table.methods.forEach((method, i) => {
 
 module.exports = [
   {
-    label: 'Tags',
-    path: '/tags',
-    component: {
-      template: '<router-view></router-view>'
-    },
-    children: [
-      {
-        label: 'Carousel',
-        path: 'carousel',
-        component: 'tmx-test',
-        props: {
-          component: 'carousel',
-          tests: {
-            style: "width:400px",
-            class: "thumbnail justify",
-            time: 2,
-            buttons: true,
-            slides: [
-              {
-                text: "Lorem ipsum porttitor eget vehicula mollis turpis ornare phasellus sociosqu, quam ultricies himenaeos dictumst tempus fringilla massa sociosqu leo, arcu tristique posuere dictumst imperdiet ornare aliquam venenatis. mattis egestas ligula est convallis hendrerit placerat, integer inceptos ultricies sodales fusce aenean tellus, scelerisque blandit eleifend donec elementum.",
-                video: "static/video.mp4"
-              }, {
-                label: "First slide",
-                image: "static/icon.jpg"
-              }, {
-                label: "Second slide",
-                text: "Lorem ipsum porttitor eget vehicula mollis turpis ornare phasellus sociosqu, quam ultricies himenaeos dictumst tempus fringilla massa sociosqu leo, arcu tristique posuere dictumst imperdiet ornare aliquam venenatis. mattis egestas ligula est convallis hendrerit placerat, integer inceptos ultricies sodales fusce aenean tellus, scelerisque blandit eleifend donec elementum.",
-                video: "static/video.mp4",
-              }, {
-                image: "static/icon.jpg"
-              }
-            ]
-          }
-        }
-      }
-    ]
-  }, {
     label: 'Basic block',
     path: '/basic',
     component: {
