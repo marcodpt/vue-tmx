@@ -627,20 +627,6 @@ module.exports = [
           }
         }
       }, {
-        label: 'Panel',
-        path: 'panel',
-        component: 'tmx-test',
-        props: {
-          component: 'panel',
-          tests: {
-            toogle: true,
-            open: true,
-            type: 'primary',
-            label: 'I am a panel!',
-            text: 'And i am the body\nFull of ideas'
-          }
-        }
-      }, {
         label: 'Form',
         path: 'form',
         component: 'tmx-test',

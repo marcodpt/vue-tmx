@@ -25,7 +25,6 @@
   import modal from './components/modal.vue'
   import navbar from './components/navbar.vue'
   import pager from './components/pager.vue'
-  import panel from './components/panel.vue'
   import progressbar from './components/progressbar.vue'
   import search from './components/search.vue'
   import select from './components/select.vue'
@@ -58,7 +57,6 @@
     modal: modal,
     navbar: navbar,
     pager: pager,
-    panel: panel,
     progressbar: progressbar,
     search: search,
     select: select,

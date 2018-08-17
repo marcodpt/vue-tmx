@@ -230,7 +230,6 @@
       <tmx-modal v-if="component === 'modal'" v-bind="model" />
       <tmx-navbar v-if="component === 'navbar'" v-bind="model"></tmx-navbar>
       <tmx-pager v-if="component === 'pager'" v-bind="model" />
-      <tmx-panel v-if="component === 'panel'" v-bind="model" />
       <tmx-progressbar v-if="component === 'progressbar'" v-bind="model" />
       <tmx-search v-if="component === 'search'" v-bind="model" />
       <tmx-select v-if="component === 'select'" v-bind="model" />
