@@ -20,7 +20,7 @@ _.languages = function () {
 }
 
 _.listenClick = function (toogle) {
-  window.addEventListener('click', (event) => {   
+  document.body.addEventListener('click', (event) => {   
     var element = document.getElementById(this.id)
     if (element && element.contains(event.target)){
       if (toogle) {

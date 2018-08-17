@@ -25930,7 +25930,7 @@ _.languages = function () {
 _.listenClick = function (toogle) {
   var _this = this;
 
-  window.addEventListener('click', function (event) {
+  document.body.addEventListener('click', function (event) {
     var element = document.getElementById(_this.id);
     if (element && element.contains(event.target)) {
       if (toogle) {
