@@ -1,7 +1,6 @@
 <script type="text/babel">
   import lib from './lib.js'
 
-  import barcode from './components/barcode.vue'
   import body from './components/body.vue'
   import buttonSplit from './components/buttonSplit.vue'
   import button from './components/button.vue'
@@ -29,7 +28,6 @@
 
   module.exports = {
     lib: lib,
-    barcode: barcode,
     body: body,
     buttonSplit: buttonSplit,
     button: button,

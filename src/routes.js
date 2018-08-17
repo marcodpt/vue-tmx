@@ -204,16 +204,6 @@ module.exports = [
             language: 'en'
           }
         }
-      }, {
-        label: 'Barcode',
-        path: 'barcode',
-        component: 'tmx-test',
-        props: {
-          component: 'barcode',
-          tests: {
-            value: '12345abc'
-          }
-        }
       }
     ]
   }, {

@@ -228,9 +228,6 @@
       <tmx-select v-if="component === 'select'" v-bind="model" />
       <tmx-table v-if="component === 'table'" v-bind="model" />
       <tmx-text v-if="component === 'text'" v-bind="model" />
-      <div style="margin:auto;width:100px">
-        <tmx-barcode v-if="component === 'barcode'" v-bind="model" />
-      </div>
     </div>
     <tmx-form
       v-bind="form" :submit="submit" icon="cog" :label="component"
