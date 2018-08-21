@@ -86,12 +86,6 @@
       data: {
         type: Array
       },
-      run: {
-        type: Function,
-        default (target, model) {
-          T.debug(`run: ${target}`, model)
-        }
-      },
       language: {
         type: String,
         default: 'en'

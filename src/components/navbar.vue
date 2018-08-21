@@ -3,12 +3,14 @@
   import lib from '../lib.js'
   import tmxDropdown from './dropdown.vue'
   import tmxIcon from './icon.vue'
+  import tmxTree from './tree.vue'
 
   module.exports = {
     mixins: [lib],
     components: {
       'tmx-dropdown': tmxDropdown,
-      'tmx-icon': tmxIcon
+      'tmx-icon': tmxIcon,
+      'tmx-tree': tmxTree
     },
     props: {
       routes: {
@@ -45,13 +47,22 @@
         section: {},
         page: {},
         router: [],
-        isOpen: false
+        isOpen: false,
+        fade: false
       }
     },
     mounted: function () {
       this.setRouter()
     },
     methods: {
+      open: function () {
+        this.$data.fade = true;
+        document.getElementById("mySidenav").style.width = "300px";
+      },
+      close: function () {
+        this.$data.fade = false;
+        document.getElementById("mySidenav").style.width = "0";
+      },
       toogle: function () {
         this.$data.isOpen = !this.$data.isOpen
       },
@@ -134,36 +145,76 @@
 </script>
 
 <template>
-  <nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" aria-expanded="false" @click="toogle">
-          <tmx-icon name="bars" />
-        </button>
-        <a v-if="label || sublabel || icon" class="navbar-brand">
-          {{label}}
-          <small>
-            <tmx-icon :name="icon" />
-            {{sublabel}}
-          </small>
+  <div>
+    <div class="bar">
+      <div class="subbar" style="text-align:left;">
+        <a @click="open" style="font-size:36px;">&#8801;</a>
+      </div>
+      <div class="subbar" style="text-align:center;">
+        <h4>
+          TMX <small>{{section.label}} / {{page.label}}</small>
+        </h4>
+      </div>
+      <div class="subbar" style="text-align:right;">
+        <a v-for="action in actions" @click="action.onClick">
+          <tmx-icon :name="action.icon" />
+          {{action.label}}
         </a>
       </div>
-      <div :class="[isOpen ? '' : 'collapse navbar-collapse']">
-        <ul class="nav navbar-nav">
-          <tmx-dropdown v-bind="section">
-          </tmx-dropdown>
-          <tmx-dropdown v-bind="page">
-          </tmx-dropdown>
-        </ul>
-        <ul class="nav navbar-nav navbar-right" v-if="actions.length">
-          <li v-for="action in actions">
-            <a @click="action.onClick" style="cursor:pointer;">
-              <tmx-icon :name="action.icon" />
-              {{action.label}}
-            </a>
-          </li>
-        </ul>
-      </div>
     </div>
-  </nav>
+    <div id="mySidenav" class="sidenav">
+      <tmx-tree :data="routes" :close="{click: close}"/>
+    </div>
+    <div v-show="fade" @click="close" class="fadeMe"></div>
+  </div>
 </template>
+
+<style>
+  .bar {
+    display: table; 
+    background-color:#f8f8f8;
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    color: #777;
+  }
+
+  .subbar {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 5px 15px;
+  }
+
+  .bar a {
+    color: #777;
+  }
+  .bar a:hover, .bar a:focus {
+    color: #333;
+    text-decoration:none;
+  }
+
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    background-color:#eee;
+    overflow-x: hidden;
+    transition: 0.5s;
+  }
+
+  .fadeMe {
+    opacity:0.7;
+    filter: alpha(opacity=20);
+    background-color:#000; 
+    width:100%; 
+    height:100%; 
+    z-index:1999;
+    top:0; 
+    left:0; 
+    position:fixed; 
+    transition: 0.5s;
+  }
+</style>
