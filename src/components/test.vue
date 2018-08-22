@@ -210,7 +210,6 @@
       <tmx-checkbox v-if="component === 'checkbox'" v-bind="model" />
       <tmx-data v-if="component === 'data'" v-bind="model" />
       <tmx-download v-if="component === 'download'" v-bind="model" />
-      <tmx-dropdown v-if="component === 'dropdown'" v-bind="model" />
         <tmx-fields v-if="component === 'fields'" v-bind="model" /> 
       <tmx-file v-if="component === 'file'" v-bind="model" />
       <tmx-filter v-if="component === 'filter'" v-bind="model" />
@@ -221,7 +220,6 @@
       <tmx-input v-if="component === 'input'" v-bind="model" />
       <tmx-item v-if="component === 'item'" v-bind="model" />
       <tmx-modal v-if="component === 'modal'" v-bind="model" />
-      <tmx-navbar v-if="component === 'navbar'" v-bind="model"></tmx-navbar>
       <tmx-pager v-if="component === 'pager'" v-bind="model" />
       <tmx-progressbar v-if="component === 'progressbar'" v-bind="model" />
       <tmx-search v-if="component === 'search'" v-bind="model" />
