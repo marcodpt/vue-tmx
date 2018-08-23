@@ -54,7 +54,7 @@
     "tape": "^4.8.0",
     "vue": "^2.4.1",
     "vue-router": "^3.0.1",
-    "vue-tree-nav": "0.0.1",
+    "vue-tree-nav": "0.0.2",
     "vueify": "^9.4.1"
   }
 }

@@ -9,7 +9,7 @@
 </head>
 <body>
   <div id="app">
-    <vue-tree-nav v-if="routes" :routes="routes">
+    <vue-tree-nav v-if="routes" :routes="routes" :location="$route.fullPath">
       <template slot="left">
         <tmx-icon name="user"></tmx-icon>
         marcodpt

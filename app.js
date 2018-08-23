@@ -3426,7 +3426,7 @@ module.exports = VueRouter;
 e.target.composing||(t.search=e.target.value)}}}),t._v(" "),n("button",{directives:[{name:"show",rawName:"v-show",value:t.showClearButton,expression:"showClearButton"}],staticClass:"clear",attrs:{disabled:t.disabled,type:"button",title:"Clear selection"},on:{click:t.clearSelection}},[n("span",{attrs:{"aria-hidden":"true"}},[t._v("×")])]),t._v(" "),t.noDrop?t._e():n("i",{ref:"openIndicator",staticClass:"open-indicator",attrs:{role:"presentation"}}),t._v(" "),t._t("spinner",[n("div",{directives:[{name:"show",rawName:"v-show",value:t.mutableLoading,expression:"mutableLoading"}],staticClass:"spinner"},[t._v("Loading...")])])],2),t._v(" "),n("transition",{attrs:{name:t.transition}},[t.dropdownOpen?n("ul",{ref:"dropdownMenu",staticClass:"dropdown-menu",style:{"max-height":t.maxHeight}},[t._l(t.filteredOptions,function(e,r){return n("li",{key:r,class:{active:t.isOptionSelected(e),highlight:r===t.typeAheadPointer},on:{mouseover:function(e){t.typeAheadPointer=r}}},[n("a",{on:{mousedown:function(n){n.preventDefault(),t.select(e)}}},[t._t("option",[t._v("\n          "+t._s(t.getOptionLabel(e))+"\n        ")],null,e)],2)])}),t._v(" "),t.filteredOptions.length?t._e():n("li",{staticClass:"no-options"},[t._t("no-options",[t._v("Sorry, no matching options.")])],2)],2):t._e()])],1)},staticRenderFns:[]}},function(t,e,n){function r(t,e){for(var n=0;n<t.length;n++){var r=t[n],o=f[r.id];if(o){o.refs++;for(var i=0;i<o.parts.length;i++)o.parts[i](r.parts[i]);for(;i<r.parts.length;i++)o.parts.push(u(r.parts[i],e))}else{for(var a=[],i=0;i<r.parts.length;i++)a.push(u(r.parts[i],e));f[r.id]={id:r.id,refs:1,parts:a}}}}function o(t){for(var e=[],n={},r=0;r<t.length;r++){var o=t[r],i=o[0],a=o[1],s=o[2],u=o[3],l={css:a,media:s,sourceMap:u};n[i]?n[i].parts.push(l):e.push(n[i]={id:i,parts:[l]})}return e}function i(t,e){var n=h(),r=g[g.length-1];if("top"===t.insertAt)r?r.nextSibling?n.insertBefore(e,r.nextSibling):n.appendChild(e):n.insertBefore(e,n.firstChild),g.push(e);else{if("bottom"!==t.insertAt)throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");n.appendChild(e)}}function a(t){t.parentNode.removeChild(t);var e=g.indexOf(t);e>=0&&g.splice(e,1)}function s(t){var e=document.createElement("style");return e.type="text/css",i(t,e),e}function u(t,e){var n,r,o;if(e.singleton){var i=v++;n=b||(b=s(e)),r=l.bind(null,n,i,!1),o=l.bind(null,n,i,!0)}else n=s(e),r=c.bind(null,n),o=function(){a(n)};return r(t),function(e){if(e){if(e.css===t.css&&e.media===t.media&&e.sourceMap===t.sourceMap)return;r(t=e)}else o()}}function l(t,e,n,r){var o=n?"":r.css;if(t.styleSheet)t.styleSheet.cssText=y(e,o);else{var i=document.createTextNode(o),a=t.childNodes;a[e]&&t.removeChild(a[e]),a.length?t.insertBefore(i,a[e]):t.appendChild(i)}}function c(t,e){var n=e.css,r=e.media,o=e.sourceMap;if(r&&t.setAttribute("media",r),o&&(n+="\n/*# sourceURL="+o.sources[0]+" */",n+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(o))))+" */"),t.styleSheet)t.styleSheet.cssText=n;else{for(;t.firstChild;)t.removeChild(t.firstChild);t.appendChild(document.createTextNode(n))}}var f={},p=function(t){var e;return function(){return"undefined"==typeof e&&(e=t.apply(this,arguments)),e}},d=p(function(){return/msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase())}),h=p(function(){return document.head||document.getElementsByTagName("head")[0]}),b=null,v=0,g=[];t.exports=function(t,e){e=e||{},"undefined"==typeof e.singleton&&(e.singleton=d()),"undefined"==typeof e.insertAt&&(e.insertAt="bottom");var n=o(t);return r(n,e),function(t){for(var i=[],a=0;a<n.length;a++){var s=n[a],u=f[s.id];u.refs--,i.push(u)}if(t){var l=o(t);r(l,e)}for(var a=0;a<i.length;a++){var u=i[a];if(0===u.refs){for(var c=0;c<u.parts.length;c++)u.parts[c]();delete f[u.id]}}}};var y=function(){var t=[];return function(e,n){return t[e]=n,t.filter(Boolean).join("\n")}}()},function(t,e,n){var r=n(81);"string"==typeof r&&(r=[[t.id,r,""]]);n(86)(r,{});r.locals&&(t.exports=r.locals)}])});
 
 },{}],7:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".tree_nav_bar {\n  display: table; \n  background-color:#eee;\n  position: relative;\n  width: 100%;\n  color: #4a4a4a;\n  margin: 0 0 20px 0;\n}\n\n.tree_nav_subbar {\n  display: table-cell;\n  vertical-align: middle;\n  padding: 0 15px;\n  margin: 0;\n}\n\n.tree_nav_bar a {\n  color: #4a4a4a;\n  text-decoration:none;\n  padding: 0 10px;\n}\n.tree_nav_bar a:hover, .tree_nav_bar a:focus {\n  color: #42b983;\n  cursor: pointer;\n  text-decoration:none;\n}\n\n.tree_nav_sidebar {\n  height: 100%;\n  min-width: 300px;\n  top: 0;\n  left: 0;\n  background-color: #eee;\n  position:absolute;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".tree_nav_bar {\n  display: table; \n  background-color:#eee;\n  position: relative;\n  width: 100%;\n  color: #4a4a4a;\n  margin: 0 0 20px 0;\n}\n\n.tree_nav_subbar {\n  display: table-cell;\n  vertical-align: middle;\n  padding: 0 15px;\n  margin: 0;\n}\n\n.tree_nav_bar a {\n  color: #4a4a4a;\n  text-decoration:none;\n  padding: 0 10px;\n}\n.tree_nav_bar a:hover, .tree_nav_bar a:focus {\n  color: #42b983;\n  cursor: pointer;\n  text-decoration:none;\n}\n\n.tree_nav_sidebar {\n  height: 100%;\n  min-width: 300px;\n  top: 0;\n  left: 0;\n  background-color: #eee;\n  position:absolute;\n  overflow-y:auto;\n}")
 ;(function(){
 'use strict';
 
@@ -3452,16 +3452,22 @@ module.exports = {
       default: function _default() {
         return [];
       }
+    },
+    location: {
+      type: String,
+      default: ''
     }
   },
   data: function data() {
     return {
       sideBar: 0,
-      path: ''
+      path: '',
+      tree: [],
+      links: {}
     };
   },
   mounted: function mounted() {
-    this.build();
+    this.setRoutes();
   },
   methods: {
     open: function open() {
@@ -3470,22 +3476,55 @@ module.exports = {
     close: function close() {
       this.$data.sideBar = 0;
     },
-    build: function build() {
+    setLocation: function setLocation() {
       var _this = this;
 
       this.$data.path = '';
-      this.$route.matched.forEach(function (match) {
-        if (_this.$data.path) {
-          _this.$data.path += ' / ';
+      Object.keys(this.$data.links).sort().forEach(function (key) {
+        if (('#' + _this.location).indexOf(key) !== -1) {
+          _this.$data.path = _this.$data.links[key];
         }
-        _this.$data.path += match.name;
+      });
+      this.close();
+    },
+    setRoutes: function setRoutes() {
+      this.$data.tree = [];
+      this.$data.links = {};
+      this.transverse(this.routes, this.$data.tree, '', '#');
+      this.setLocation();
+    },
+    transverse: function transverse(Input, Output, label, path) {
+      var _this2 = this;
+
+      Input.forEach(function (input) {
+        var abs = input.path && input.path.substr(0, 1) === '/';
+
+        var newLabel = input.label || input.name || (abs ? input.path.substr(1) : input.path);
+        if (newLabel && (input.path || '').indexOf(':') === -1 && !input.redirect) {
+          Output.push({});
+          var i = Output.length - 1;
+
+          Output[i].label = newLabel;
+          newLabel = (label ? label + ' / ' : '') + newLabel;
+
+          var newPath = abs ? '#' + input.path : (path || '') + '/' + input.path;
+          if (input.children) {
+            Output[i].children = [];
+            _this2.transverse(input.children, Output[i].children, newLabel, newPath);
+          } else {
+            Output[i].href = input.href || newPath;
+            _this2.$data.links[input.href || newPath] = newLabel;
+          }
+        }
       });
     }
   },
   watch: {
-    '$route.fullPath': function $routeFullPath() {
-      this.build();
-      this.close();
+    location: function location() {
+      this.setLocation();
+    },
+    routes: function routes() {
+      this.setRoutes();
     }
   }
 };
@@ -3493,7 +3532,7 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"tree_nav_bar"},[_c('div',{staticClass:"tree_nav_subbar",staticStyle:{"text-align":"left"}},[(_vm.routes.length)?_c('a',{staticStyle:{"font-size":"250%"},on:{"click":_vm.open}},[_vm._v("≡")]):_vm._e(),_vm._v(" "),_vm._t("left",null,{path:_vm.path})],2),_vm._v(" "),_c('div',{staticClass:"tree_nav_subbar",staticStyle:{"text-align":"center"}},[_vm._t("default",null,{path:_vm.path})],2),_vm._v(" "),_c('div',{staticClass:"tree_nav_subbar",staticStyle:{"text-align":"right"}},[_vm._t("right",null,{path:_vm.path})],2)]),_vm._v(" "),(_vm.routes.length)?_c('vue-over-body',{attrs:{"open":_vm.sideBar,"dialogClass":"tree_nav_sidebar"}},[_c('tree',{attrs:{"close":_vm.close}}),_vm._v(" "),_vm._l((_vm.routes),function(route){return _c('tree',_vm._b({},'tree',route,false))})],2):_vm._e()],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"tree_nav_bar"},[_c('div',{staticClass:"tree_nav_subbar",staticStyle:{"text-align":"left"}},[(_vm.tree.length)?_c('a',{staticStyle:{"font-size":"250%"},on:{"click":_vm.open}},[_vm._v("≡")]):_vm._e(),_vm._v(" "),_vm._t("left",null,{path:_vm.path})],2),_vm._v(" "),_c('div',{staticClass:"tree_nav_subbar",staticStyle:{"text-align":"center"}},[_vm._t("default",null,{path:_vm.path})],2),_vm._v(" "),_c('div',{staticClass:"tree_nav_subbar",staticStyle:{"text-align":"right"}},[_vm._t("right",null,{path:_vm.path})],2)]),_vm._v(" "),(_vm.tree.length)?_c('vue-over-body',{attrs:{"open":_vm.sideBar,"dialogClass":"tree_nav_sidebar"}},[_c('tree',{attrs:{"close":_vm.close}}),_vm._v(" "),_vm._l((_vm.tree),function(leaf){return _c('tree',_vm._b({attrs:{"location":_vm.location}},'tree',leaf,false))}),_vm._v(" "),_c('div',{staticStyle:{"height":"20px"}})],2):_vm._e()],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -3520,11 +3559,15 @@ module.exports = {
         return [];
       }
     },
-    name: {
+    label: {
       type: String,
       default: ''
     },
     href: {
+      type: String,
+      default: ''
+    },
+    location: {
       type: String,
       default: ''
     },
@@ -3557,6 +3600,9 @@ module.exports = {
       return {
         'padding-left': '' + (this.total + this.step) + this.unit
       };
+    },
+    isActive: function isActive() {
+      return ('#' + this.location).indexOf(this.href) !== -1;
     }
   }
 };
@@ -3564,7 +3610,7 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.close)?_c('a',{staticClass:"tree_nav_link tree_nav_child",staticStyle:{"text-align":"right"},on:{"click":_vm.close}},[_vm._v("\n    ✖\n  ")]):_vm._e(),_vm._v(" "),(_vm.children.length)?_c('a',{staticClass:"tree_nav_link tree_nav_parent",style:(_vm.style()),on:{"click":function($event){_vm.toogle()}}},[_vm._v("\n    "+_vm._s(_vm.name)+"\n    "),_c('span',{staticStyle:{"float":"right"}},[_vm._v(_vm._s(_vm.open ? '▲' : ' ▼'))])]):(_vm.href)?_c('router-link',{staticClass:"tree_nav_link tree_nav_child",style:(_vm.style()),attrs:{"active-class":"tree_nav_active","to":_vm.href}},[_vm._v("\n    "+_vm._s(_vm.name)+"\n  ")]):_vm._e(),_vm._v(" "),_vm._l((_vm.children),function(child){return (child.name)?_c('tree',_vm._b({directives:[{name:"show",rawName:"v-show",value:(_vm.open),expression:"open"}],attrs:{"step":_vm.step,"total":_vm.total + _vm.step,"unit":_vm.unit}},'tree',child,false)):_vm._e()})],2)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.close)?_c('a',{staticClass:"tree_nav_link tree_nav_child",staticStyle:{"text-align":"right"},on:{"click":_vm.close}},[_vm._v("\n    ✖\n  ")]):(_vm.children.length)?_c('a',{staticClass:"tree_nav_link tree_nav_parent",style:(_vm.style()),on:{"click":function($event){_vm.toogle()}}},[_vm._v("\n    "+_vm._s(_vm.label)+"\n    "),_c('span',{staticStyle:{"float":"right"}},[_vm._v(_vm._s(_vm.open ? '▲' : ' ▼'))])]):_c('a',{class:['tree_nav_link', 'tree_nav_child', _vm.isActive() ? 'tree_nav_active' : ''],style:(_vm.style()),attrs:{"href":_vm.href}},[_vm._v("\n    "+_vm._s(_vm.label)+"\n  ")]),_vm._v(" "),_vm._l((_vm.children),function(child){return (child.label)?_c('tree',_vm._b({directives:[{name:"show",rawName:"v-show",value:(_vm.open),expression:"open"}],attrs:{"step":_vm.step,"total":_vm.total + _vm.step,"unit":_vm.unit,"location":_vm.location}},'tree',child,false)):_vm._e()})],2)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -26443,15 +26489,12 @@ table.methods.forEach(function (method, i) {
 });
 
 module.exports = [{
-  name: 'Basic block',
   path: '/basic',
   component: {
     template: '<router-view></router-view>'
   },
   children: [{
-    name: 'Icon',
     path: 'icon',
-    href: '/basic/icon',
     component: 'tmx-test',
     props: {
       component: 'icon',
@@ -26460,9 +26503,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Button',
     path: 'button',
-    href: '/basic/button',
     component: 'tmx-test',
     props: {
       component: 'button',
@@ -26476,9 +26517,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Button Split',
     path: 'split',
-    href: '/basic/split',
     component: 'tmx-test',
     props: {
       component: 'button-split',
@@ -26497,9 +26536,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Data',
     path: 'data',
-    href: '/basic/data',
     component: 'tmx-test',
     props: {
       component: 'data',
@@ -26512,15 +26549,12 @@ module.exports = [{
     }
   }]
 }, {
-  name: 'Form Fields',
   path: '/fields',
   component: {
     template: '<router-view></router-view>'
   },
   children: [{
-    name: 'Checkbox',
     path: 'checkbox',
-    href: '/fields/checkbox',
     component: 'tmx-test',
     props: {
       component: 'checkbox',
@@ -26530,9 +26564,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Progress Bar',
     path: 'progressbar',
-    href: '/fields/progressbar',
     component: 'tmx-test',
     props: {
       component: 'progressbar',
@@ -26543,9 +26575,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Input',
     path: 'input',
-    href: '/fields/input',
     component: 'tmx-test',
     props: {
       component: 'input',
@@ -26555,9 +26585,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Text',
     path: 'text',
-    href: '/fields/text',
     component: 'tmx-test',
     props: {
       component: 'text',
@@ -26567,9 +26595,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Select',
     path: 'select',
-    href: '/fields/select',
     component: 'tmx-test',
     props: {
       component: 'select',
@@ -26582,9 +26608,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'File',
     path: 'file',
-    href: '/fields/file',
     component: 'tmx-test',
     props: {
       component: 'file',
@@ -26594,9 +26618,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Item',
     path: 'item',
-    href: '/fields/item',
     component: 'tmx-test',
     props: {
       component: 'item',
@@ -26607,15 +26629,12 @@ module.exports = [{
     }
   }]
 }, {
-  name: 'Table Controls',
   path: '/controls',
   component: {
     template: '<router-view></router-view>'
   },
   children: [{
-    name: 'Pager',
     path: 'pager',
-    href: '/controls/pager',
     component: 'tmx-test',
     props: {
       component: 'pager',
@@ -26626,9 +26645,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Filter',
     path: 'filter',
-    href: '/controls/filter',
     component: 'tmx-test',
     props: {
       component: 'filter',
@@ -26639,9 +26656,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Group',
     path: 'group',
-    href: '/controls/group',
     component: 'tmx-test',
     props: {
       component: 'group',
@@ -26652,9 +26667,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Download',
     path: 'download',
-    href: '/controls/download',
     component: 'tmx-test',
     props: {
       component: 'download',
@@ -26664,9 +26677,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Head',
     path: 'head',
-    href: '/controls/head',
     component: 'tmx-test',
     props: {
       component: 'head',
@@ -26680,9 +26691,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Body',
     path: 'body',
-    href: '/controls/body',
     component: 'tmx-test',
     props: {
       component: 'body',
@@ -26692,9 +26701,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Search',
     path: 'search',
-    href: '/controls/search',
     component: 'tmx-test',
     props: {
       component: 'search',
@@ -26710,15 +26717,12 @@ module.exports = [{
     }
   }]
 }, {
-  name: 'Components',
   path: '/components',
   component: {
     template: '<router-view></router-view>'
   },
   children: [{
-    name: 'Form',
     path: 'form',
-    href: '/components/form',
     component: 'tmx-test',
     props: {
       component: 'form',
@@ -26728,9 +26732,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Modal',
     path: 'modal',
-    href: '/components/modal',
     component: 'tmx-test',
     props: {
       component: 'modal',
@@ -26745,9 +26747,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Raw Table',
     path: 'raw',
-    href: '/components/raw',
     component: 'tmx-test',
     props: {
       component: 'table',
@@ -26756,9 +26756,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Loading Table',
     path: 'spinner',
-    href: '/components/spinner',
     component: 'tmx-test',
     props: {
       component: 'table',
@@ -26775,9 +26773,7 @@ module.exports = [{
       }
     }
   }, {
-    name: 'Complete Table',
     path: 'table',
-    href: '/components/table',
     component: 'tmx-test',
     props: {
       component: 'table',

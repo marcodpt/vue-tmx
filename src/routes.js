@@ -125,16 +125,13 @@ table.methods.forEach((method, i) => {
 
 module.exports = [
   {
-    name: 'Basic block',
     path: '/basic',
     component: {
       template: '<router-view></router-view>'
     },
     children: [
       {
-        name: 'Icon',
         path: 'icon',
-        href: '/basic/icon',
         component: 'tmx-test',
         props: {
           component: 'icon',
@@ -143,9 +140,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Button',
         path: 'button',
-        href: '/basic/button',
         component: 'tmx-test',
         props: {
           component: 'button',
@@ -159,9 +154,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Button Split',
         path: 'split',
-        href: '/basic/split',
         component: 'tmx-test',
         props: {
           component: 'button-split',
@@ -180,9 +173,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Data',
         path: 'data',
-        href: '/basic/data',
         component: 'tmx-test',
         props: {
           component: 'data',
@@ -196,16 +187,13 @@ module.exports = [
       }
     ]
   }, {
-    name: 'Form Fields',
     path: '/fields',
     component: {
       template: '<router-view></router-view>'
     },
     children: [
       {
-        name: 'Checkbox',
         path: 'checkbox',
-        href: '/fields/checkbox',
         component: 'tmx-test',
         props: {
           component: 'checkbox',
@@ -215,9 +203,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Progress Bar',
         path: 'progressbar',
-        href: '/fields/progressbar',
         component: 'tmx-test',
         props: {
           component: 'progressbar',
@@ -228,9 +214,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Input',
         path: 'input',
-        href: '/fields/input',
         component: 'tmx-test',
         props: {
           component: 'input',
@@ -240,9 +224,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Text',
         path: 'text',
-        href: '/fields/text',
         component: 'tmx-test',
         props: {
           component: 'text',
@@ -252,9 +234,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Select',
         path: 'select',
-        href: '/fields/select',
         component: 'tmx-test',
         props: {
           component: 'select',
@@ -273,9 +253,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'File',
         path: 'file',
-        href: '/fields/file',
         component: 'tmx-test',
         props: {
           component: 'file',
@@ -285,9 +263,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Item',
         path: 'item',
-        href: '/fields/item',
         component: 'tmx-test',
         props: {
           component: 'item',
@@ -299,16 +275,13 @@ module.exports = [
       }
     ]
   }, {
-    name: 'Table Controls',
     path: '/controls',
     component: {
       template: '<router-view></router-view>'
     },
     children: [
       {
-        name: 'Pager',
         path: 'pager',
-        href: '/controls/pager',
         component: 'tmx-test',
         props: {
           component: 'pager',
@@ -319,9 +292,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Filter',
         path: 'filter',
-        href: '/controls/filter',
         component: 'tmx-test',
         props: {
           component: 'filter',
@@ -332,9 +303,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Group',
         path: 'group',
-        href: '/controls/group',
         component: 'tmx-test',
         props: {
           component: 'group',
@@ -345,9 +314,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Download',
         path: 'download',
-        href: '/controls/download',
         component: 'tmx-test',
         props: {
           component: 'download',
@@ -357,9 +324,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Head',
         path: 'head',
-        href: '/controls/head',
         component: 'tmx-test',
         props: {
           component: 'head',
@@ -373,9 +338,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Body',
         path: 'body',
-        href: '/controls/body',
         component: 'tmx-test',
         props: {
           component: 'body',
@@ -385,9 +348,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Search',
         path: 'search',
-        href: '/controls/search',
         component: 'tmx-test',
         props: {
           component: 'search',
@@ -404,16 +365,13 @@ module.exports = [
       }
     ]
   }, {
-    name: 'Components',
     path: '/components',
     component: {
       template: '<router-view></router-view>'
     },
     children: [
       {
-        name: 'Form',
         path: 'form',
-        href: '/components/form',
         component: 'tmx-test',
         props: {
           component: 'form',
@@ -423,9 +381,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Modal',
         path: 'modal',
-        href: '/components/modal',
         component: 'tmx-test',
         props: {
           component: 'modal',
@@ -440,9 +396,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Raw Table',
         path: 'raw',
-        href: '/components/raw',
         component: 'tmx-test',
         props: {
           component: 'table',
@@ -451,9 +405,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Loading Table',
         path: 'spinner',
-        href: '/components/spinner',
         component: 'tmx-test',
         props: {
           component: 'table',
@@ -470,9 +422,7 @@ module.exports = [
           }
         }
       }, {
-        name: 'Complete Table',
         path: 'table',
-        href: '/components/table',
         component: 'tmx-test',
         props: {
           component: 'table',
