@@ -89,6 +89,27 @@
       language: {
         type: String,
         default: 'en'
+      },
+      context: {
+        type: String,
+        default: 'default',
+        validator: lib.methods.isPanel
+      },
+      icon: {
+        type: String,
+        default: '',
+        validator: lib.methods.isIcon
+      },
+      label: {
+        type: String,
+        default: ''
+      },
+      onClose: {
+        type: Function
+      },
+      text: {
+        type: String,
+        default: ''
       }
     },
     data: function () {
@@ -177,6 +198,19 @@
         return R
       },
       display: function (section) {
+        if (section === 'header' && (this.icon || this.label || this.onClose)) {
+          return true
+        }
+        if (section === 'body') {
+          var x = false
+          var X = ['methods', 'filter', 'group', 'download', 'pager', 'text']
+          X.forEach(section => {
+            if (this.display(section)) {
+              x = true
+            }
+          })
+          return x
+        }
         if (section === 'methods' && (
           this.filter || this.group || this.methods.length || this.download
         )) {
@@ -210,113 +244,129 @@
 </script>
 
 <template>
-  <div>
-    <p :style="{
-      'text-align': 'center',
-      'display': display('methods') ? null : 'none'
-    }">
-      <span :style="display('filter') ? null : 'display:none'">
-        <tmx-filter
-          :active="filters"
-          :fields="tableFields"
-          :input="data0"
-          :output="data1"
-          :language="language"
-        >
-        </tmx-filter>&nbsp;
-      </span>
-      <span :style="display('group') ? null : 'display:none'">
-        <tmx-group
-          :active="groups"
-          :fields="tableFields"
-          :input="data2"
-          :output="data3"
-          :language="language"
-        >
-        </tmx-group>&nbsp;
-      </span>
-      <span v-for="m in methods">
-        <tmx-button
-          :type="m.button"
-          :icon="m.icon"
-          :click="m.click"
-          :data="m.model"
-          :label="m.label"
-        />&nbsp;
-      </span>
-      <span :style="display('download') ? null : 'display:none'">
-        <tmx-download
-          v-bind="download"
-          :fields="getFields('download')"
-          :data="data3"
-          :language="language"
-        >
-        </tmx-download>&nbsp;
-      </span>
-    </p>
-    <p :style="{
-      'text-align': 'center',
-      'display': display('pager') ? null : 'none'
-    }">
-      <tmx-pager
-        :model="model"
-        :rows="rows"
-        :input="data3"
-        :output="view"
-        :language="language"
-      ></tmx-pager>
-    </p>
-    <table class="table table-striped table-bordered table-condensed table-hover">
-      <thead>
-        <tr :style="display('search') ? null : 'display:none'">
-          <th colspan="100%" style="text-align:center">
-            <tmx-search
-              :input="data1"
-              :output="data2"
-              :model="model"
-              :language="language"
-            ></tmx-search>
-          </th>
-        </tr>
-        <tr :style="display('aggregate') ? null : 'display:none'">
-          <th
-            v-for="field in tableFields"
-            v-show="isVisible(field)"
-            style="text-align:center"
-          >
-            {{aggregateData(field)}}
-          </th>
-        </tr>
-        <tr :style="display('head') ? null : 'display:none'">
-          <tmx-head
-            v-for="field in tableFields"
-            v-show="isVisible(field)"
-            v-bind="field"
-            :model="model"
-            :data="data3"
-            :check="field.format === 'boolean' && field.static === false && !groups.length"
-            :sort="sort"
-          >
-          </tmx-head>
-        </tr>
-      </thead>
-      <tbody v-if="data">
-        <tr v-for="row in view" :style="{'background-color' : row.bgcolor}">
-          <tmx-body
-            v-for="field in tableFields"
-            v-show="isVisible(field)"
-            :model="row"
+  <div :class="'panel panel-' + context">
+    <div class="panel-heading" :style="display('header') ? null : 'display:none'">
+      <button v-if="onClose" type="button" class="close" @click="onClose">
+        <tmx-icon name="times"/>
+      </button>
+      <h3 class="panel-title text-center">
+        <tmx-icon :name="icon" /> {{label}}
+      </h3>
+    </div>
+    <div class="panel-body" :style="display('body') ? null : 'display:none'">
+      <div 
+        v-if="text"
+        style="white-space:pre-line;"
+      ><big>{{text}}</big></div>
+      <p :style="{
+        'text-align': 'center',
+        'display': display('methods') ? null : 'none'
+      }">
+        <span :style="display('filter') ? null : 'display:none'">
+          <tmx-filter
+            :active="filters"
+            :fields="tableFields"
+            :input="data0"
+            :output="data1"
             :language="language"
-            :static="groups.length ? true : field.static"
-            :click="field.click"
-            v-bind="field"
           >
-          </tmx-body>
-        </tr>
-      </tbody>
-    </table>
-    <p v-if="!data" style="text-align:center">
-      <tmx-icon name="sync" scale="6" spin></tmx-icon>
-    </p>
+          </tmx-filter>&nbsp;
+        </span>
+        <span :style="display('group') ? null : 'display:none'">
+          <tmx-group
+            :active="groups"
+            :fields="tableFields"
+            :input="data2"
+            :output="data3"
+            :language="language"
+          >
+          </tmx-group>&nbsp;
+        </span>
+        <span v-for="m in methods">
+          <tmx-button
+            :type="m.button"
+            :icon="m.icon"
+            :click="m.click"
+            :data="m.model"
+            :label="m.label"
+          />&nbsp;
+        </span>
+        <span :style="display('download') ? null : 'display:none'">
+          <tmx-download
+            v-bind="download"
+            :fields="getFields('download')"
+            :data="data3"
+            :language="language"
+          >
+          </tmx-download>&nbsp;
+        </span>
+      </p>
+      <p :style="{
+        'text-align': 'center',
+        'display': display('pager') ? null : 'none'
+      }">
+        <tmx-pager
+          :model="model"
+          :rows="rows"
+          :input="data3"
+          :output="view"
+          :language="language"
+        ></tmx-pager>
+      </p>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-condensed table-hover">
+        <thead>
+          <tr :style="display('search') ? null : 'display:none'">
+            <th colspan="100%" style="text-align:center">
+              <tmx-search
+                :input="data1"
+                :output="data2"
+                :model="model"
+                :language="language"
+              ></tmx-search>
+            </th>
+          </tr>
+          <tr :style="display('aggregate') ? null : 'display:none'">
+            <th
+              v-for="field in tableFields"
+              v-show="isVisible(field)"
+              style="text-align:center"
+            >
+              {{aggregateData(field)}}
+            </th>
+          </tr>
+          <tr :style="display('head') ? null : 'display:none'">
+            <tmx-head
+              v-for="field in tableFields"
+              v-show="isVisible(field)"
+              v-bind="field"
+              :model="model"
+              :data="data3"
+              :check="field.format === 'boolean' && field.static === false && !groups.length"
+              :sort="sort"
+            >
+            </tmx-head>
+          </tr>
+        </thead>
+        <tbody v-if="data">
+          <tr v-for="row in view" :style="{'background-color' : row.bgcolor}">
+            <tmx-body
+              v-for="field in tableFields"
+              v-show="isVisible(field)"
+              :model="row"
+              :language="language"
+              :static="groups.length ? true : field.static"
+              :click="field.click"
+              v-bind="field"
+            >
+            </tmx-body>
+          </tr>
+        </tbody>
+      </table>
+      <p v-if="!data" style="text-align:center;margin:40px 0">
+        <tmx-icon name="sync" scale="6" spin></tmx-icon>
+      </p>
+    </div>
   </div>
 </template>

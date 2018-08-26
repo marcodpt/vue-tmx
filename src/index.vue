@@ -2,12 +2,11 @@
   import lib from './lib.js'
 
   import body from './components/body.vue'
-  import buttonSplit from './components/buttonSplit.vue'
   import button from './components/button.vue'
   import checkbox from './components/checkbox.vue'
   import data from './components/data.vue'
   import download from './components/download.vue'
-  import fields from './components/fields.vue'
+  import dropdown from './components/dropdown.vue'
   import file from './components/file.vue'
   import filter from './components/filter.vue'
   import form from './components/form.vue'
@@ -27,12 +26,11 @@
   module.exports = {
     lib: lib,
     body: body,
-    buttonSplit: buttonSplit,
+    dropdown: dropdown,
     button: button,
     checkbox: checkbox,
     data: data,
     download: download,
-    fields: fields,
     file: file,
     filter: filter,
     form: form,

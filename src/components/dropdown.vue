@@ -61,7 +61,7 @@
       aria-haspopup="true"
       :aria-expanded="isOpen"
     >
-      <span class="caret"></span>
+      <tmx-icon name="caret-down"/>
     </button>
     <ul v-if="items && items.length" class="dropdown-menu">
       <li v-for="(item, index) in items">

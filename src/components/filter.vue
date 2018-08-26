@@ -1,14 +1,14 @@
 <script type="text/babel">
   import T from 'libt'
   import lib from '../lib.js'
-  import tmxButtonSplit from './buttonSplit.vue'
+  import tmxDropdown from './dropdown.vue'
   import tmxIcon from './icon.vue'
   import tmxButton from './button.vue'
 
   module.exports = {
     mixins: [lib],
     components: {
-      'tmx-button-split': tmxButtonSplit,
+      'tmx-dropdown': tmxDropdown,
       'tmx-icon': tmxIcon,
       'tmx-button': tmxButton
     },
@@ -174,7 +174,7 @@
 </script>
 
 <template>
-  <tmx-button-split
+  <tmx-dropdown
     :type="button"
     :icon="icon"
     :click="click"
@@ -185,5 +185,5 @@
       <tmx-icon name="times" />
       {{getLabel(scope.item)}}
     </a>
-  </tmx-button-split>
+  </tmx-dropdown>
 </template>

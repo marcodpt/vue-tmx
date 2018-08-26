@@ -1,23 +1,17 @@
 <script type="text/babel">
   import T from 'libt'
   import lib from '../lib.js'
-  import tmxFields from './fields.vue'
-  import tmxIcon from './icon.vue'
-  import tmxButton from './button.vue'
+  import tmxForm from './form.vue'
 
   module.exports = {
     mixins: [lib],
     components: {
-      'tmx-fields': tmxFields,
-      'tmx-icon': tmxIcon,
-      'tmx-button': tmxButton
+      'tmx-form': tmxForm
     },
     props: {
       model: {
         type: Object,
-        default: function () {
-          return {}
-        }
+        default: () => {return {}}
       },
       fields: {
         type: Array
@@ -75,6 +69,7 @@
         isOpen: false,
         fadeIn: false,
         size: 'sm',
+        buttons: [],
         icon2: '',
         label2: '',
         alert2: ''
@@ -119,15 +114,26 @@
           this.$data.label2 = this.translate('alert')
         }
 
+        var buttons = []
+
+        if (this.submit) {
+          buttons.push({
+            type: 'primary',
+            icon: 'check',
+            label: this.translate('confirm')
+          })
+        }
+        buttons.push({
+          type: 'danger',
+          icon: 'times',
+          label: this.translate('close'),
+          click: this.hide
+        })
+        this.populate(buttons, this.$data.buttons)
+
         this.$data.isOpen = true
         setTimeout(() => this.$data.fadeIn = true, 0)
         document.body.className = 'modal-open'
-      },
-      run: function () {
-        if (typeof this.submit === 'function' && this.validateModel()) {
-          this.submit(this.model)
-          this.hide()
-        }
       }
     }
   }
@@ -142,33 +148,20 @@
     }"
   >
     <div :class="['modal-dialog modal-' + size]">
-      <div v-if="isOpen" :id="id" class="modal-content">
-        <div v-if="icon2 || label2" class="modal-header">
-          <h4 style="text-align:center" class="modal-title">
-            <tmx-icon :name="icon2" />
-            {{label2}}
-          </h4>
-        </div>
-        <div v-if="size === 'lg' || text" class="modal-body">
-          <tmx-fields
-            v-if="size === 'lg'"
-            :model="model"
-            :fields="fields"
-            :language="language"
-            :compact="submit === undefined"
-          ></tmx-fields>
-          <div 
-            v-if="text"
-            :class="['alert', 'alert-' + alert2] " 
-            style="white-space:pre-line;"
-          ><big>{{text}}</big></div>
-          <div style="clear: both;"></div>
-        </div>
-        <div class="modal-footer">
-          <tmx-button v-if="submit" type="primary" icon="check" :click="run" :label="translate('confirm')" />
-          <tmx-button type="danger" icon="times" :click="hide" :label="translate('close')" />
-        </div>
-      </div>
+      <tmx-form
+        :id="id"
+        v-if="isOpen"
+        :model="model"
+        :fields="fields"
+        :submit="submit"
+        :icon="icon2"
+        :label="label2"
+        :alert="alert2"
+        :text="text"
+        :language="language"
+        :buttons="buttons"
+        :onClose="hide"
+      />
     </div>
   </div>
 </template>

@@ -6,7 +6,7 @@
 
   var components = {}
   Object.keys(tmx).forEach(key => {
-    components[`tmx-${key === 'buttonSplit' ? 'button-split' : key}`] = tmx[key]
+    components[`tmx-${key}`] = tmx[key]
   })
 
   module.exports = {
@@ -200,17 +200,16 @@
     <tmx-modal v-bind="modal" :show="show" />
     <div v-if="ready">
       <tmx-body v-if="component === 'body'" v-bind="model" />
-      <tmx-button-split v-if="component === 'button-split'" v-bind="model">
+      <tmx-dropdown v-if="component === 'dropdown'" v-bind="model">
         <a v-on:click="model.click(scope.index)" style="cursor:pointer;" slot-scope="scope">
           <tmx-icon name="times" />
           {{scope.item}}
         </a>
-      </tmx-button-split>
+      </tmx-dropdown>
       <tmx-button v-if="component === 'button'" v-bind="model" />
       <tmx-checkbox v-if="component === 'checkbox'" v-bind="model" />
       <tmx-data v-if="component === 'data'" v-bind="model" />
       <tmx-download v-if="component === 'download'" v-bind="model" />
-        <tmx-fields v-if="component === 'fields'" v-bind="model" /> 
       <tmx-file v-if="component === 'file'" v-bind="model" />
       <tmx-filter v-if="component === 'filter'" v-bind="model" />
       <tmx-form v-if="component === 'form'" v-bind="model" />

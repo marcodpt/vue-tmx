@@ -154,10 +154,10 @@ module.exports = [
           }
         }
       }, {
-        path: 'split',
+        path: 'dropdown',
         component: 'tmx-test',
         props: {
-          component: 'button-split',
+          component: 'dropdown',
           tests: {
             click: function (index) {
               if (index === undefined) {
