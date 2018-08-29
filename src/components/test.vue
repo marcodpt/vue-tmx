@@ -32,9 +32,7 @@
         },
         model: {},
         compile: [],
-        ready: false,
-        show: 0,
-        modal: null
+        ready: false
       }
 
       return data
@@ -57,8 +55,8 @@
         var model = {}
         
         this.$data.compile = []
-        Object.keys(components[`tmx-${this.component}`].props).forEach(key => {
-          var prop = components[`tmx-${this.component}`].props[key]
+        Object.keys(components[`tmx-${this.getComp()}`].props || {}).forEach(key => {
+          var prop = components[`tmx-${this.getComp()}`].props[key]
           if (prop.default !== undefined) {
             if (typeof prop.default === 'function' && prop.type !== Function) {
               model[key] = prop.default()
@@ -132,13 +130,19 @@
         })
 
         var model2 = T.copy(model)
-        var p = components[`tmx-${this.component}`].props
+        var p = components[`tmx-${this.getComp()}`].props || {}
         Object.keys(p).forEach(key => {
           if (p[key].type === Boolean && model[key] !== undefined) {
             model2[key] = model[key] ? true : false
           } 
         })
         this.syncObject(model2, this.$data.model)
+        if (this.component === 'modal') {
+          this.$root.$data.modal = model2
+        }
+      },
+      getComp: function () {
+        return this.component === 'modal' ? 'form' : this.component
       },
       getType: function (type) {
         var ret = ''
@@ -186,10 +190,6 @@
     watch: {
       $route: function () {
         this.build()
-      },
-      '$root.$data.modal': function () {
-        this.$data.modal = this.$root.$data.modal
-        this.$data.show += 1
       }
     }
   }
@@ -197,7 +197,6 @@
 
 <template>
   <div>
-    <tmx-modal v-bind="modal" :show="show" />
     <div v-if="ready">
       <tmx-body v-if="component === 'body'" v-bind="model" />
       <tmx-dropdown v-if="component === 'dropdown'" v-bind="model">
@@ -218,7 +217,6 @@
       <tmx-icon v-if="component === 'icon'" v-bind="model" />
       <tmx-input v-if="component === 'input'" v-bind="model" />
       <tmx-item v-if="component === 'item'" v-bind="model" />
-      <tmx-modal v-if="component === 'modal'" v-bind="model" />
       <tmx-pager v-if="component === 'pager'" v-bind="model" />
       <tmx-progressbar v-if="component === 'progressbar'" v-bind="model" />
       <tmx-search v-if="component === 'search'" v-bind="model" />

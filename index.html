@@ -9,23 +9,15 @@
 </head>
 <body>
   <div id="app">
-    <vue-tree-nav v-if="routes" :routes="routes" :location="$route.fullPath">
-      <template slot="left">
-        <tmx-icon name="user"></tmx-icon>
-        marcodpt
-      </template>
-      <h3 slot-scope="{path}">
-        TMX test <small>{{path}}</small>
-      </h3>
-      <template slot="right">
-        <a href="https://github.com/marcodpt/tmx">
-          GitHub
-        </a>
-      </template>
+    <div style="color:#f3f3f3;background-color:#666666;padding:20px">
+      <h1 style="margin:0;">TMX</h1>
+    </div>
+    <vue-tree-nav :side="routes" :right="right" :location="$route.fullPath">
     </vue-tree-nav>
     <div class="container">
       <router-view></router-view>
     </div>
+    <tmx-modal></tmx-modal>
   </div>
   <script src="app.js"></script>
 </body>

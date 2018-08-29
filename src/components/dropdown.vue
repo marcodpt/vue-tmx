@@ -34,7 +34,14 @@
       }
     },
     mounted: function () {
-      this.listenClick(true)
+      document.body.addEventListener('click', (event) => {   
+        var element = document.getElementById(this.id)
+        if (element && element.contains(event.target)){
+          this.$data.isOpen = this.$data.isOpen ? false : true
+        } else {
+          this.$data.isOpen = false
+        }
+      })
     },
     data: function () {
       return {

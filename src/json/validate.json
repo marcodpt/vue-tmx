@@ -6,17 +6,6 @@
     "date",
     "string",
     "json"
-  ], 
-  "Block": [
-    "container",
-    "jumbotron"
-  ], 
-  "Background": [
-    "primary",
-    "success",
-    "info",
-    "warning",
-    "danger"
   ],
   "Alert": [
     "success",

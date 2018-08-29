@@ -19,19 +19,6 @@ _.languages = function () {
   return Object.keys(lang)
 }
 
-_.listenClick = function (toogle) {
-  document.body.addEventListener('click', (event) => {   
-    var element = document.getElementById(this.id)
-    if (element && element.contains(event.target)){
-      if (toogle) {
-        this.$data.isOpen = this.$data.isOpen ? false : true
-      }
-    } else {
-      this.$data.isOpen = false
-    }
-  })
-}
-
 _.downloadFile = function (fileName, source, type) {
   if (type === 'text') {
     source = 'data:text/plain;charset=utf-8,' + encodeURI(source) 

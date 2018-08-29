@@ -198,46 +198,50 @@
         return R
       },
       display: function (section) {
+        var s = 'display:none'
         if (section === 'header' && (this.icon || this.label || this.onClose)) {
-          return true
+          return ''
         }
         if (section === 'body') {
-          var x = false
+          var x = s
           var X = ['methods', 'filter', 'group', 'download', 'pager', 'text']
           X.forEach(section => {
-            if (this.display(section)) {
-              x = true
+            if (this.display(section) === '') {
+              x = ''
             }
           })
           return x
         }
+        if (section === 'text' && this.text) {
+          return ''
+        } 
         if (section === 'methods' && (
           this.filter || this.group || this.methods.length || this.download
         )) {
-          return true
+          return ''
         }
         if (section === 'filter' && this.filter) {
-          return true
+          return ''
         } 
         if (section === 'group' && this.group) {
-          return true
+          return ''
         } 
         if (section === 'download' && this.download) {
-          return true
+          return ''
         } 
         if (section === 'pager' && this.rows) {
-          return true
+          return ''
         }
         if (section === 'search' && this.search) {
-          return true
+          return ''
         } 
         if (section === 'aggregate' && this.$data.expression && this.$data.view.length) {
-          return true
+          return ''
         }
         if (section === 'head' && this.$data.tableFields.length) {
-          return true
+          return ''
         }
-        return false
+        return s
       }
     }
   }
@@ -245,7 +249,7 @@
 
 <template>
   <div :class="'panel panel-' + context">
-    <div class="panel-heading" :style="display('header') ? null : 'display:none'">
+    <div class="panel-heading" :style="display('header')">
       <button v-if="onClose" type="button" class="close" @click="onClose">
         <tmx-icon name="times"/>
       </button>
@@ -253,16 +257,13 @@
         <tmx-icon :name="icon" /> {{label}}
       </h3>
     </div>
-    <div class="panel-body" :style="display('body') ? null : 'display:none'">
+    <div class="panel-body" :style="display('body')">
       <div 
         v-if="text"
-        style="white-space:pre-line;"
+        :style="'white-space:pre-line;' + display('text')"
       ><big>{{text}}</big></div>
-      <p :style="{
-        'text-align': 'center',
-        'display': display('methods') ? null : 'none'
-      }">
-        <span :style="display('filter') ? null : 'display:none'">
+      <p :style="'text-align:center;' + display('methods')">
+        <span :style="display('filter')">
           <tmx-filter
             :active="filters"
             :fields="tableFields"
@@ -272,7 +273,7 @@
           >
           </tmx-filter>&nbsp;
         </span>
-        <span :style="display('group') ? null : 'display:none'">
+        <span :style="display('group')">
           <tmx-group
             :active="groups"
             :fields="tableFields"
@@ -291,7 +292,7 @@
             :label="m.label"
           />&nbsp;
         </span>
-        <span :style="display('download') ? null : 'display:none'">
+        <span :style="display('download')">
           <tmx-download
             v-bind="download"
             :fields="getFields('download')"
@@ -301,10 +302,7 @@
           </tmx-download>&nbsp;
         </span>
       </p>
-      <p :style="{
-        'text-align': 'center',
-        'display': display('pager') ? null : 'none'
-      }">
+      <p :style="'text-align:center;' + display('pager')">
         <tmx-pager
           :model="model"
           :rows="rows"
@@ -317,7 +315,7 @@
     <div class="table-responsive">
       <table class="table table-striped table-bordered table-condensed table-hover">
         <thead>
-          <tr :style="display('search') ? null : 'display:none'">
+          <tr :style="display('search')">
             <th colspan="100%" style="text-align:center">
               <tmx-search
                 :input="data1"
@@ -327,7 +325,7 @@
               ></tmx-search>
             </th>
           </tr>
-          <tr :style="display('aggregate') ? null : 'display:none'">
+          <tr :style="display('aggregate')">
             <th
               v-for="field in tableFields"
               v-show="isVisible(field)"
@@ -336,7 +334,7 @@
               {{aggregateData(field)}}
             </th>
           </tr>
-          <tr :style="display('head') ? null : 'display:none'">
+          <tr :style="display('head')">
             <tmx-head
               v-for="field in tableFields"
               v-show="isVisible(field)"

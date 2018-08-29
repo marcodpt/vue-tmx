@@ -1,176 +1,108 @@
 <script type="text/babel">
-  import T from 'libt'
   import lib from '../lib.js'
   import tmxForm from './form.vue'
+  import overBody from 'vue-over-body'
 
   module.exports = {
     mixins: [lib],
     components: {
-      'tmx-form': tmxForm
-    },
-    props: {
-      model: {
-        type: Object,
-        default: () => {return {}}
-      },
-      fields: {
-        type: Array
-      },
-      submit: {
-        type: Function
-      },
-      icon: {
-        type: String
-      },
-      label: {
-        type: String
-      },
-      alert: {
-        type: String
-      },
-      text: {
-        type: String,
-        default: ''
-      },
-      show: {
-        type: Number,
-        default: 1
-      },
-      language: {
-        type: String,
-        default: 'en'
-      }
-    },
-    mounted: function () {
-      this.listenClick()
-      if (this.show) {
-        this.open()
-      }
+      'tmx-form': tmxForm,
+      'vue-over-body': overBody
     },
     watch: {
-      show: function () {
-        if (this.show) {
-          this.open()
-        } else {
-          this.hide()
-        }
-      },
-      isOpen: function () {
-        if (this.$data.isOpen) {
-          this.open()
-        } else {
-          this.hide()
-        }
+      '$root.$data.modal': function () {
+        this.open(this.$root.$data.modal)
       }
     },
     data: function () {
       return {
-        id: 'content_' + T.randomId()(),
-        isOpen: false,
-        fadeIn: false,
-        size: 'sm',
-        buttons: [],
-        icon2: '',
-        label2: '',
-        alert2: ''
+        index: 99999,
+        isOpen: 0,
+        size: 0,
+        buttons: []
       }
     },
     methods: {
       hide: function () {
-        this.$data.isOpen = false
-        this.$data.fadeIn = false
-        document.body.className = ''
+        this.$data.isOpen = 0
+        this.$root.$data.modal = null
       },
-      open: function () {
-        if (this.fields instanceof Array) {
-          this.$data.size = this.fields.length ? 'lg' : 'sm'
-        } else {
-          this.$data.size = Object.keys(this.model).length ? 'lg' : 'sm'
+      open: function (x) {
+        if (x == null) {
+          return
         }
 
-        if (this.isIcon(this.icon)) {
-          this.$data.icon2 = this.icon
-        } else if (this.submit) {
-          this.$data.icon2 = 'question-circle'
+        if ((x.fields instanceof Array && x.fields.length) || Object.keys(x.model || {}).length) {
+          this.$data.size = 900 
         } else {
-          this.$data.icon2 = 'exclamation-circle'
+          this.$data.size = 300
         }
 
-        if (this.isAlert(this.alert)) {
-          this.$data.alert2 = this.alert
-        } else if (this.submit) {
-          this.$data.alert2 = 'info'
-        } else {
-          this.$data.alert2 = 'danger'
+        if (!x.icon || !this.isIcon(x.icon)) {
+          if (x.submit) {
+            x.icon = 'question-circle'
+          } else {
+            x.icon = 'exclamation-circle'
+          }
         }
 
-        if (this.label !== undefined) {
-          this.$data.label2 = this.label
-        } else if (this.submit) {
-          this.$data.label2 = this.translate('confirm')
-        } else if (this.$data.alert2 === 'danger') {
-          this.$data.label2 = this.translate('error')
-        } else {
-          this.$data.label2 = this.translate('alert')
-        }
+        if (!this.isAlert(x.alert)) {
+          if (x.submit) {
+            x.alert = 'info'
+          } else {
+            x.alert = 'danger'
+          }
+        } 
 
-        var buttons = []
+        if (x.label == null) {
+          if (this.submit) {
+            this.$data.label2 = this.translate('confirm')
+          } else if (this.$data.alert2 === 'danger') {
+            this.$data.label2 = this.translate('error')
+          } else {
+            this.$data.label2 = this.translate('alert')
+          }
+        } 
 
-        if (this.submit) {
-          buttons.push({
+        x.buttons = x.buttons || []
+
+        if (x.submit) {
+          x.buttons.push({
             type: 'primary',
             icon: 'check',
             label: this.translate('confirm')
           })
         }
-        buttons.push({
+        x.buttons.push({
           type: 'danger',
           icon: 'times',
           label: this.translate('close'),
           click: this.hide
         })
-        this.populate(buttons, this.$data.buttons)
 
-        this.$data.isOpen = true
-        setTimeout(() => this.$data.fadeIn = true, 0)
-        document.body.className = 'modal-open'
+        x.onClose = this.hide
+
+        this.$data.isOpen = ++this.$data.index
       }
     }
   }
 </script>
 
 <template>
-  <div
-    :class="['modal fade', fadeIn ? 'in' : '']"
-    role="dialog"
-    :style="{
-      display: isOpen ? 'block' : 'none'
-    }"
-  >
-    <div :class="['modal-dialog modal-' + size]">
-      <tmx-form
-        :id="id"
-        v-if="isOpen"
-        :model="model"
-        :fields="fields"
-        :submit="submit"
-        :icon="icon2"
-        :label="label2"
-        :alert="alert2"
-        :text="text"
-        :language="language"
-        :buttons="buttons"
-        :onClose="hide"
-      />
-    </div>
-  </div>
+  <vue-over-body :open="isOpen" :dialog-style="{'width': size + 'px'}" before="before" after="after">
+    <tmx-form v-bind="$root.$data.modal"/>
+  </vue-over-body>
 </template>
 
 <style>
-  .modal {
-    transition: all 0.3s ease;
+  .before {
+    opacity: 0;
+    top: -100px;
+    max-width: 90%;
+    margin: 30px auto;
   }
-  .modal.in {
-    background-color: rgba(0,0,0,0.5);
+  .after {
+    top: 0;
+    opacity: 1;
   }
 </style>

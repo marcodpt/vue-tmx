@@ -2,7 +2,7 @@
   import Vue from '../node_modules/vue/dist/vue.js'
   import VueRouter from 'vue-router'
   import treeNav from 'vue-tree-nav'
-  import tmxIcon from './components/icon.vue'
+  import tmxModal from './components/modal.vue'
   import tmxTest from './components/test.vue'
 
   import routes from './routes.js'
@@ -10,7 +10,7 @@
   Vue.use(VueRouter)
 
   Vue.component('tmx-test', tmxTest)
-  Vue.component('tmx-icon', tmxIcon)
+  Vue.component('tmx-modal', tmxModal)
   Vue.component('vue-tree-nav', treeNav)
 
   var setComponent = (routes) => {
@@ -34,6 +34,12 @@
     router: router,
     data: {
       routes: routes,
+      right: [
+        {
+          href: "https://github.com/marcodpt/tmx",
+          icon: "brands/github"
+        }
+      ],
       modal: null
     }
   }).$mount('#app')
