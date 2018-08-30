@@ -132,7 +132,7 @@ module.exports = [
     children: [
       {
         path: 'icon',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'icon',
           tests: {
@@ -141,13 +141,13 @@ module.exports = [
         }
       }, {
         path: 'button',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'button',
           tests: {
-            data: 'You click me!',
+            data: {msg: 'You click me!'},
             click: function (data) {
-              window.alert(data)
+              window.alert(data.msg)
             },
             icon: 'play',
             label: 'Click me with router view!'
@@ -155,7 +155,7 @@ module.exports = [
         }
       }, {
         path: 'dropdown',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'dropdown',
           tests: {
@@ -174,7 +174,7 @@ module.exports = [
         }
       }, {
         path: 'data',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'data',
           tests: {
@@ -194,7 +194,7 @@ module.exports = [
     children: [
       {
         path: 'checkbox',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'checkbox',
           tests: {
@@ -204,7 +204,7 @@ module.exports = [
         }
       }, {
         path: 'progressbar',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'progressbar',
           tests: {
@@ -215,7 +215,7 @@ module.exports = [
         }
       }, {
         path: 'input',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'input',
           tests: {
@@ -225,7 +225,7 @@ module.exports = [
         }
       }, {
         path: 'text',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'text',
           tests: {
@@ -235,7 +235,7 @@ module.exports = [
         }
       }, {
         path: 'select',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'select',
           tests: {
@@ -254,7 +254,7 @@ module.exports = [
         }
       }, {
         path: 'file',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'file',
           tests: {
@@ -264,7 +264,7 @@ module.exports = [
         }
       }, {
         path: 'item',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'item',
           tests: {
@@ -282,7 +282,7 @@ module.exports = [
     children: [
       {
         path: 'pager',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'pager',
           tests: {
@@ -293,7 +293,7 @@ module.exports = [
         }
       }, {
         path: 'filter',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'filter',
           tests: {
@@ -304,7 +304,7 @@ module.exports = [
         }
       }, {
         path: 'group',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'group',
           tests: {
@@ -315,7 +315,7 @@ module.exports = [
         }
       }, {
         path: 'download',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'download',
           tests: {
@@ -325,7 +325,7 @@ module.exports = [
         }
       }, {
         path: 'head',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'head',
           tests: {
@@ -339,7 +339,7 @@ module.exports = [
         }
       }, {
         path: 'body',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'body',
           tests: {
@@ -349,7 +349,7 @@ module.exports = [
         }
       }, {
         path: 'search',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'search',
           tests: {
@@ -372,7 +372,7 @@ module.exports = [
     children: [
       {
         path: 'form',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'form',
           tests: {
@@ -382,7 +382,7 @@ module.exports = [
         }
       }, {
         path: 'modal',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'modal',
           tests: {
@@ -397,7 +397,7 @@ module.exports = [
         }
       }, {
         path: 'raw',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'table',
           tests: {
@@ -406,7 +406,7 @@ module.exports = [
         }
       }, {
         path: 'spinner',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'table',
           tests: {
@@ -423,7 +423,7 @@ module.exports = [
         }
       }, {
         path: 'table',
-        component: 'tmx-test',
+        component: 'tmx-tests',
         props: {
           component: 'table',
           tests: {

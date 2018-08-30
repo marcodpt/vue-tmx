@@ -72,7 +72,10 @@
     </button>
     <ul v-if="items && items.length" class="dropdown-menu">
       <li v-for="(item, index) in items">
-        <slot :index="index" :item="item"></slot>
+        <a @click="item.click()" style="cursor:pointer;">
+          <tmx-icon :name="item.icon" />
+          {{item.label}}
+        </a>
       </li>
     </ul>
   </div>

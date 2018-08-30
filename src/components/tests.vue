@@ -1,0 +1,82 @@
+<script type="text/babel">
+  import T from 'libt'
+  import tmx from '../index.vue'
+
+  var components = {}
+  Object.keys(tmx).forEach(key => {
+    if (key !== 'lib') {
+      components[`tmx-${key}`] = tmx[key]
+    }
+  })
+
+  module.exports = {
+    components: components,
+    props: {
+      component: {
+        type: String,
+        default: ''
+      },
+      tests: {
+        type: Object,
+        default: function () {
+          return {}
+        }
+      }
+    },
+    data: function () {
+      return {
+        ready: false
+      }
+    },
+    methods: {
+      callback: function () {
+        this.$data.ready = true
+        if (this.component === 'modal') {
+          this.$root.$data.modal = T.copy(this.model)
+        }
+      },
+      getProps: function () {
+        var name = 'tmx-' + (this.component === 'modal' ? 'form' : this.component)
+        return this.$options.components[name].props
+      }
+    },
+    watch: {
+      component: function () {
+        this.$data.ready = false
+      }
+    }
+  }
+</script>
+
+<template>
+  <div>
+    <div v-if="ready">
+      <tmx-body v-if="component === 'body'" v-bind="tests" />
+      <tmx-dropdown v-if="component === 'dropdown'" v-bind="tests" />
+      <tmx-button v-if="component === 'button'" v-bind="tests" />
+      <tmx-checkbox v-if="component === 'checkbox'" v-bind="tests" />
+      <tmx-data v-if="component === 'data'" v-bind="tests" />
+      <tmx-download v-if="component === 'download'" v-bind="tests" />
+      <tmx-file v-if="component === 'file'" v-bind="tests" />
+      <tmx-filter v-if="component === 'filter'" v-bind="tests" />
+      <tmx-form v-if="component === 'form'" v-bind="tests" />
+      <tmx-group v-if="component === 'group'" v-bind="tests" />
+      <tmx-head v-if="component === 'head'" v-bind="tests" />
+      <tmx-icon v-if="component === 'icon'" v-bind="tests" />
+      <tmx-input v-if="component === 'input'" v-bind="tests" />
+      <tmx-item v-if="component === 'item'" v-bind="tests" />
+      <tmx-pager v-if="component === 'pager'" v-bind="tests" />
+      <tmx-progressbar v-if="component === 'progressbar'" v-bind="tests" />
+      <tmx-search v-if="component === 'search'" v-bind="tests" />
+      <tmx-select v-if="component === 'select'" v-bind="tests" />
+      <tmx-table v-if="component === 'table'" v-bind="tests" />
+      <tmx-text v-if="component === 'text'" v-bind="tests" />
+    </div>
+    <tmx-playground
+      :model="tests"
+      :name="component"
+      :props="getProps()"
+      :callback="callback"
+    ></tmx-playground>
+  </div>
+</template>

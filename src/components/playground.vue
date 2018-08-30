@@ -1,27 +1,29 @@
 <script type="text/babel">
   import T from 'libt'
-  import table from '../json/table.json'
-  import form from '../json/form.json'
-  import tmx from '../index.vue'
-
-  var components = {}
-  Object.keys(tmx).forEach(key => {
-    components[`tmx-${key}`] = tmx[key]
-  })
+  import lib from '../lib.js'
+  import form from './form.vue'
 
   module.exports = {
-    mixins: [tmx.lib],
-    components: components,
+    mixins: [lib],
+    components: {
+      'tmx-form': form
+    },
     props: {
-      component: {
-        type: String,
-        default: 'icon'
-      },
-      tests: {
+      model: {
         type: Object,
-        default: function () {
-          return {}
-        }
+        default: () => ({})
+      },
+      props: {
+        type: Object,
+        default: () => ({})
+      },
+      name: {
+        type: String,
+        default: ''
+      },
+      callback: {
+        type: Function,
+        required: true
       }
     },
     data: function () {
@@ -30,33 +32,16 @@
           model: {},
           fields: []
         },
-        model: {},
-        compile: [],
-        ready: false
+        compile: []
       }
 
       return data
     },
     mounted: function () {
       this.build()
-      //var M = this.$route.matched
-      //console.log(JSON.stringify(M[M.length - 1].props.default, undefined, 2))
     },
     methods: {
-      getProps: function () {
-        var props = {}
-        try {
-          var M = this.$route.matched
-          props = M[M.length - 1].components.default.options.props
-        } catch (err) {
-          T.debug('cannot locate component props', err.toString())
-        }
-
-        return components[`tmx-${this.component === 'modal' ? 'form' : this.component}`].props || {}
-        return props
-      },
       build: function () {
-        this.$data.ready = false
         var fields = [
           {
             id: 'style',
@@ -69,9 +54,8 @@
         var model = {}
         
         this.$data.compile = []
-        var p = this.getProps()
-        Object.keys(p).forEach(key => {
-          var prop = p[key]
+        Object.keys(this.props).forEach(key => {
+          var prop = this.props[key]
           if (prop.default !== undefined) {
             if (typeof prop.default === 'function' && prop.type !== Function) {
               model[key] = prop.default()
@@ -101,7 +85,7 @@
           })
         })
 
-        model = T.merge(model)(this.tests)
+        model = T.merge(model)(this.model)
         var F = []
         model = T.iterate(value => {
           if (typeof value === 'function') {
@@ -127,7 +111,6 @@
         this.syncObject(model, this.$data.form.model)
         this.populate(fields, this.$data.form.fields)
         this.submit()
-        this.$data.ready = true
       },
       submit: function () {
         var model = T.copy(this.$data.form.model)
@@ -145,16 +128,13 @@
         })
 
         var model2 = T.copy(model)
-        var p = this.getProps()
-        Object.keys(p).forEach(key => {
-          if (p[key].type === Boolean && model[key] !== undefined) {
+        Object.keys(this.props).forEach(key => {
+          if (this.props[key].type === Boolean && model[key] !== undefined) {
             model2[key] = model[key] ? true : false
           } 
         })
-        this.syncObject(model2, this.$data.model)
-        if (this.component === 'modal') {
-          this.$root.$data.modal = model2
-        }
+        this.syncObject(model2, this.model)
+        this.callback()
       },
       getType: function (type) {
         var ret = ''
@@ -200,7 +180,7 @@
       }
     },
     watch: {
-      '$route.fullPath': function () {
+      name: function () {
         this.build()
       }
     }
@@ -208,36 +188,12 @@
 </script>
 
 <template>
-  <div>
-    <div v-if="ready">
-      <tmx-body v-if="component === 'body'" v-bind="model" />
-      <tmx-dropdown v-if="component === 'dropdown'" v-bind="model" />
-      <tmx-button v-if="component === 'button'" v-bind="model" />
-      <tmx-checkbox v-if="component === 'checkbox'" v-bind="model" />
-      <tmx-data v-if="component === 'data'" v-bind="model" />
-      <tmx-download v-if="component === 'download'" v-bind="model" />
-      <tmx-file v-if="component === 'file'" v-bind="model" />
-      <tmx-filter v-if="component === 'filter'" v-bind="model" />
-      <tmx-form v-if="component === 'form'" v-bind="model" />
-      <tmx-group v-if="component === 'group'" v-bind="model" />
-      <tmx-head v-if="component === 'head'" v-bind="model" />
-      <tmx-icon v-if="component === 'icon'" v-bind="model" />
-      <tmx-input v-if="component === 'input'" v-bind="model" />
-      <tmx-item v-if="component === 'item'" v-bind="model" />
-      <tmx-pager v-if="component === 'pager'" v-bind="model" />
-      <tmx-progressbar v-if="component === 'progressbar'" v-bind="model" />
-      <tmx-search v-if="component === 'search'" v-bind="model" />
-      <tmx-select v-if="component === 'select'" v-bind="model" />
-      <tmx-table v-if="component === 'table'" v-bind="model" />
-      <tmx-text v-if="component === 'text'" v-bind="model" />
-    </div>
-    <tmx-form
-      v-bind="form" :submit="submit" icon="cog" :label="component"
-      :buttons="[{
-        type: 'primary',
-        icon: 'cog',
-        label: 'Rebuild'
-      }]"
-    />
-  </div>
+  <tmx-form
+    v-bind="form" :submit="submit" icon="cog" :label="'Live Playground '+name"
+    :buttons="[{
+      type: 'primary',
+      icon: 'cog',
+      label: 'Rebuild'
+    }]"
+  />
 </template>

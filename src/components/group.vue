@@ -110,6 +110,17 @@
           return field
         }
         return X[0].label || X[0].id || field
+      },
+      getItems: function () {
+        return this.active.map((a, i) => {
+          return {
+            icon: 'times',
+            label: this.itemLabel(a),
+            click: () => {
+              this.click(i)
+            }
+          }
+        })
       }
     },
     watch: {
@@ -126,11 +137,7 @@
     :icon="icon"
     :click="click"
     :label="translate('group')"
-    :items="active"
+    :items="getItems()"
   >
-    <a v-on:click="click(scope.index)" style="cursor:pointer;" slot-scope="scope">
-      <tmx-icon name="times" />
-      {{itemLabel(scope.item)}}
-    </a>
   </tmx-dropdown>
 </template>

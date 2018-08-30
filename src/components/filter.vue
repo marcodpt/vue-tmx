@@ -156,6 +156,17 @@
         }
 
         return `${path} ${operator} ${this.formatData(w.value, format)}`
+      },
+      getItems: function () {
+        return this.active.map((a, i) => {
+          return {
+            icon: 'times',
+            label: this.getLabel(a),
+            click: () => {
+              this.click(i)
+            }
+          }
+        })
       }
     },
     watch: {
@@ -179,11 +190,7 @@
     :icon="icon"
     :click="click"
     :label="translate('filter')"
-    :items="active"
+    :items="getItems()"
   >
-    <a v-on:click="click(scope.index)" style="cursor:pointer;" slot-scope="scope">
-      <tmx-icon name="times" />
-      {{getLabel(scope.item)}}
-    </a>
   </tmx-dropdown>
 </template>
