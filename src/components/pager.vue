@@ -37,10 +37,6 @@
           return []
         }
       },
-      language: {
-        type: String,
-        default: 'en'
-      },
       label: {
         type: String,
         default: ''
@@ -100,7 +96,7 @@
         }
 
         if (action === undefined || this.$data.oldPage !== this.model[this.id]) {
-          this.populate(T.pager(this.rows)(this.model[this.id])(this.input), this.output)
+          T.sync(this.output, T.pager(this.rows)(this.model[this.id])(this.input))
         }
       },
       begin: function () {
@@ -116,7 +112,19 @@
         this.setPage('end')
       },
       getLabel: function () {
-        return this.selectOptions(this.selectRange(this.label || this.translate('pager'), 1, this.pages))
+        var label = this.label || (this.translate('pager') + ' ($page / $total)')
+        var options = []
+        for (var i = 1; i <= this.pages; i += 1) {
+          options.push({
+            id: i,
+            label: T.compose(
+              T.replaceAll('$total', this.pages),
+              T.replaceAll('$page', i)
+            )(label)
+          })
+        }
+
+        return options
       }
     },
     watch: {
@@ -149,7 +157,7 @@
       <tmx-select
         :id="id"
         :model="model"
-        :source="getLabel()"
+        :options="getLabel()"
         required
         style="background-color:white;border-radius:5px"
       ></tmx-select>

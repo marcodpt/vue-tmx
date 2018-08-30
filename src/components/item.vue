@@ -58,6 +58,9 @@
       source: {
         type: Function
       },
+      options: {
+        type: Array
+      },
       method: {
         type: Function
       },
@@ -86,10 +89,6 @@
         type: String,
         default: ''
       },
-      language: {
-        type: String,
-        default: 'en'
-      },
       size: {
         type: String,
         default: 'md',
@@ -115,7 +114,7 @@
 
         if (this.static) {
           input = 'static'
-        } else if (this.source) {
+        } else if (this.source || this.options) {
           input = 'select'
         } else if (F[0] === 'boolean') {
           input = 'select'
@@ -140,8 +139,16 @@
 
         return href
       },
-      getSource: function () {
-        return this.format === 'boolean' ? this.selectOptions(this.selectBool()) : this.source
+      getOptions: function () {
+        return this.format === 'boolean' ? [
+          {
+            id: 0,
+            label: this.translate('falseLabel')
+          }, {
+            id: 1,
+            label: this.translate('trueLabel')
+          }
+        ] : this.options
       }
     },
     data: function () {
@@ -151,9 +158,9 @@
           id: this.id,
           format: this.format,
           placeholder: this.placeholder,
-          source: this.getSource(),
+          source: this.source,
+          options: this.getOptions(),
           dependencies: this.dependencies,
-          language: this.language,
           required: this.required,
           size: this.size,
           multiple: this.multiple,
@@ -171,19 +178,19 @@
       },
       format: function () {
         this.$data.elem.format = this.format
-        this.$data.elem.source = this.getSource()
+        this.$data.elem.options = this.getOptions()
       },
       placeholder: function () {
         this.$data.elem.placeholder = this.placeholder
       },
       source: function () {
-        this.$data.elem.source = this.getSource()
+        this.$data.elem.source = this.source
+      },
+      options: function () {
+        this.$data.elem.options = this.getOptions()
       },
       dependencies: function () {
         this.$data.elem.dependencies = this.dependencies
-      },
-      language: function () {
-        this.$data.elem.language = this.language
       },
       size: function () {
         this.$data.elem.size = this.size

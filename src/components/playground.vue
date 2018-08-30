@@ -80,7 +80,7 @@
             id: key,
             label: `${key} (${type})`,
             format: format,
-            source: this.getSource(key === 'icon' ? this.isIcon : prop.validator),
+            options: this.getOptions(key === 'icon' ? this.isIcon : prop.validator),
             required: prop.required
           })
         })
@@ -108,8 +108,8 @@
           }
         })
 
-        this.syncObject(model, this.$data.form.model)
-        this.populate(fields, this.$data.form.fields)
+        T.sync(this.$data.form.model, model, this.$set)
+        T.sync(this.$data.form.fields, fields)
         this.submit()
       },
       submit: function () {
@@ -133,7 +133,7 @@
             model2[key] = model[key] ? true : false
           } 
         })
-        this.syncObject(model2, this.model)
+        T.sync(this.model, model2, this.$set)
         this.callback()
       },
       getType: function (type) {
@@ -170,11 +170,11 @@
           return this.getType(types)
         }
       },
-      getSource: function (validator) {
+      getOptions: function (validator) {
         if (validator) {
-          var options = validator(null, true)
+          var options = validator(T.identity)
           if (options instanceof Array) {
-            return this.selectOptions(options)
+            return options
           }
         }
       }

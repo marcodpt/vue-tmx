@@ -12,6 +12,10 @@
   module.exports = {
     components: components,
     props: {
+      case: {
+        type: String,
+        default: ''
+      },
       component: {
         type: String,
         default: ''
@@ -21,6 +25,9 @@
         default: function () {
           return {}
         }
+      },
+      isReady: {
+        type: Function
       }
     },
     data: function () {
@@ -31,8 +38,11 @@
     methods: {
       callback: function () {
         this.$data.ready = true
+        if (this.isReady) {
+          this.isReady()
+        } 
         if (this.component === 'modal') {
-          this.$root.$data.modal = T.copy(this.model)
+          this.$root.$data.modal = T.copy(this.tests)
         }
       },
       getProps: function () {

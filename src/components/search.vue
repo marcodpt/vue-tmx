@@ -29,10 +29,6 @@
           return []
         }
       },
-      language: {
-        type: String,
-        default: 'en'
-      },
       onChange: {
         type: Function,
         default () {}
@@ -67,7 +63,7 @@
           }
         })
 
-        this.populate(R, this.output)
+        T.sync(this.output, R)
 
         this.onChange()
       }

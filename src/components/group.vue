@@ -44,10 +44,6 @@
         default: function () {
           return []
         }
-      },
-      language: {
-        type: String,
-        default: 'en'
       }
     },
     mounted: function () {
@@ -62,12 +58,12 @@
           }
         })
         if (this.active.length) {
-          this.populate(T.group(this.active.reduce((O, a) => {
+          T.sync(this.output, T.group(this.active.reduce((O, a) => {
             O[a] = a
             return O
-          }, {}), obj)(this.input), this.output) 
+          }, {}), obj)(this.input)) 
         } else {
-          this.populate(this.input, this.output)
+          T.sync(this.output, this.input)
         }
       },
       add: function (model) {
@@ -83,13 +79,13 @@
             format: 'string',
             label: this.translate('group'),
             id: 'group',
-            source: this.selectOptions(T.where([
+            options: T.where([
               {
                 path: 'label',
                 operator: '!==',
                 value: ''
               }
-            ])(this.fields)),
+            ])(this.fields),
             required: true
           }]
           modal.icon = this.icon

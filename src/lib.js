@@ -6,32 +6,11 @@ var T = require('libt')
 var _ = {}
 
 Object.keys(validate).forEach(function (key) {
-  _['is' + key] = function (value, all) {
-    if (all) {
-      return validate[key]
-    } else {
-      return validate[key].indexOf(value) !== -1
-    }
-  }
+  _['is' + key] = T.contains(validate[key])
 })
 
-_.languages = function () {
-  return Object.keys(lang)
-}
-
-_.downloadFile = function (fileName, source, type) {
-  if (type === 'text') {
-    source = 'data:text/plain;charset=utf-8,' + encodeURI(source) 
-  }
-
-  var a = document.createElement('a')
-  a.href = source
-  a.target = '_blank'
-  a.download = fileName
-
-  document.body.appendChild(a)
-  a.click()
-  document.body.removeChild(a)
+_.translate = function (field) {
+  return lang['pt-br'][field]
 }
 
 _.formatData = function (value, format) {
@@ -104,26 +83,6 @@ _.formatData = function (value, format) {
   return String(value)
 }
 
-_.translate = function (field) {
-  var language = this.language
-  if (this.language === undefined || lang[this.language] === undefined) {
-    var language = 'en'
-  }
-
-  return lang[language][field]
-}
-
-_.syncObject = function (input, output) {
-  Object.keys(output).forEach(key => {
-    if (input[key] === undefined) {
-      this.$set(output, key)
-    }
-  })
-  Object.keys(input).forEach(key => {
-    this.$set(output, key, input[key])
-  })
-}
-
 _.setFields = function (Data) {
   var Fields = []
 
@@ -175,63 +134,6 @@ _.setFields = function (Data) {
   })
 
   return Fields
-}
-
-_.populate = function (Input, Output) {
-  while (Output.length > 0) {
-    Output.pop()
-  }
-  Input.forEach(row => {
-    Output.push(row)
-  })
-}
-
-_.selectOptions = function (options) {
-  return function (model, callback) {
-    if (options == null) {
-      callback([])
-    } else {
-      callback(options)
-    }
-  }
-}
-
-_.selectBool = function () {
-  return [
-    {
-      id: 0,
-      label: this.translate('falseLabel')
-    }, {
-      id: 1,
-      label: this.translate('trueLabel')
-    }
-  ]
-}
-
-_.selectRange = function (label, begin, end, step) {
-  label = label == null ? '$index' : label
-  begin = T.parse('integer')(begin)
-  begin = begin == null ? 1 : begin
-  end = T.parse('integer')(end)
-  end = end == null ? 1 : end
-  step = T.parse('integer')(step)
-  step = step ? step : 1
-  step = ((end >= begin && step < 0) || (end < begin && step > 0)) ? (step * -1) : step
-
-  var options = []
-  for (var index = begin; (step > 0 && index <= end) || (step < 0 && index >= end); index += step) {
-    options.push({
-      id: index,
-      label: T.compose(
-        T.replaceAll('$end', end),
-        T.replaceAll('$begin', begin),
-        T.replaceAll('$step', step),
-        T.replaceAll('$index', index),
-      )(label)
-    })
-  }
-
-  return options
 }
 
 module.exports = {

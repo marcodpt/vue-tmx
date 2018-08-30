@@ -31,10 +31,6 @@
       onClose: {
         type: Function
       },
-      language: {
-        type: String,
-        default: 'en'
-      },
       size: {
         type: String,
         default: 'md',
@@ -111,9 +107,9 @@
       },
       load: function () {
         if (!(this.fields instanceof Array)) {
-          this.populate(this.setFields(this.model), this.$data.fields2)
+          T.sync(this.$data.fields2, this.setFields(this.model))
         } else {
-          this.populate(this.fields, this.$data.fields2)
+          T.sync(this.$data.fields2, this.fields)
         }
         this.$data.fields2.forEach(field => {
           this.$set(this.model, field.id, T.parse(field.format)(this.model[field.id]))
@@ -211,7 +207,6 @@
           :model="model"
           v-bind="field"
           :static="field.static || compact"
-          :language="language"
           :compact="compact"
           :size="field.size || size"
         >

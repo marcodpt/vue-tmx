@@ -1,4 +1,5 @@
 <script type="text/babel">
+  import T from 'libt'
   import lib from '../lib.js'
   import tmxButton from './button.vue'
 
@@ -58,10 +59,6 @@
       file: {
         type: String,
         default: "download"
-      },
-      language: {
-        type: String,
-        default: 'en'
       }
     },
     methods: {
@@ -122,7 +119,7 @@
           file += '.' + ext
         }
 
-        this.downloadFile(file, s, 'text')
+        T.download(document, file, s, 'text')
       }
     }
   }

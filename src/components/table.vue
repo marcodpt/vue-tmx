@@ -86,10 +86,6 @@
       data: {
         type: Array
       },
-      language: {
-        type: String,
-        default: 'en'
-      },
       context: {
         type: String,
         default: 'default',
@@ -167,7 +163,7 @@
               this.$set(this.data[i], field.id, T.parse(field.format)(row[field.id]))
             })
           })
-          this.populate(this.data, this.$data.data0)
+          T.sync(this.$data.data0, this.data)
         }
 
         this.$data.isLoading = false 
@@ -269,7 +265,6 @@
             :fields="tableFields"
             :input="data0"
             :output="data1"
-            :language="language"
           >
           </tmx-filter>&nbsp;
         </span>
@@ -279,7 +274,6 @@
             :fields="tableFields"
             :input="data2"
             :output="data3"
-            :language="language"
           >
           </tmx-group>&nbsp;
         </span>
@@ -297,7 +291,6 @@
             v-bind="download"
             :fields="getFields('download')"
             :data="data3"
-            :language="language"
           >
           </tmx-download>&nbsp;
         </span>
@@ -308,7 +301,6 @@
           :rows="rows"
           :input="data3"
           :output="view"
-          :language="language"
         ></tmx-pager>
       </p>
     </div>
@@ -321,7 +313,6 @@
                 :input="data1"
                 :output="data2"
                 :model="model"
-                :language="language"
               ></tmx-search>
             </th>
           </tr>
@@ -353,7 +344,6 @@
               v-for="field in tableFields"
               v-show="isVisible(field)"
               :model="row"
-              :language="language"
               :static="groups.length ? true : field.static"
               :click="field.click"
               v-bind="field"

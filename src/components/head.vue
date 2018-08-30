@@ -61,7 +61,7 @@
       reSort: function () {
         this.$data.lock = true
         if (this.model[this.modelId]) {
-          this.populate(T.sort([this.model[this.modelId]])(this.data), this.data)
+          T.sync(this.data, T.sort([this.model[this.modelId]])(this.data))
         }
       },
       runSort: function () {

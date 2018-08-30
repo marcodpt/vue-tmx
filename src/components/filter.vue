@@ -44,10 +44,6 @@
         default: function () {
           return []
         }
-      },
-      language: {
-        type: String,
-        default: 'en'
       }
     },
     mounted: function () {
@@ -55,7 +51,7 @@
     },
     methods: {
       run: function () {
-        this.populate(T.where(this.active)(this.input), this.output)
+        T.sync(this.output, T.where(this.active)(this.input))
       },
       add: function (m) {
         var unique = true
@@ -107,19 +103,19 @@
               format: 'string',
               label: this.translate('filterField'),
               id: 'path',
-              source: this.selectOptions(T.where([
+              options: T.where([
                 {
                   path: 'label',
                   operator: '!==',
                   value: ''
                 }
-              ])(this.fields)),
+              ])(this.fields),
               required: true
             }, {
               format: 'string',
               label: this.translate('filterOperator'),
               id: 'operator',
-              source: this.selectOptions(this.getOperators()),
+              options: this.getOperators(),
               required: true
             }, {
               format: 'string',

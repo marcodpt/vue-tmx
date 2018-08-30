@@ -1,5 +1,6 @@
 var table = require('./json/table.json')
 var form = require('./json/form.json')
+var validate = require('./json/validate.json')
 
 form.fields.forEach((field, i) => {
   if (field.source === '&country') {
@@ -159,14 +160,16 @@ module.exports = [
         props: {
           component: 'dropdown',
           tests: {
-            click: function (index) {
-              if (index === undefined) {
-                this.items.push('item ' + (this.items.length + 1))
-              } else {
-                this.items.splice(index, 1)
-              }
+            click: function () {
+              var animals = ['dog', 'cat', 'horse', 'bird', 'lion', 'wolf', 'bear', 'pig', 'elephant']
+              var label = animals[Math.floor(Math.random() * animals.length)]
+              this.items.push({
+                label: label,
+                icon: 'exclamation',
+                click: () => window.alert(label)
+              })
             },
-            items: ['x', 'y', 'z'],
+            items: [],
             label: 'Click me!',
             icon: 'plus',
             type: 'primary'
@@ -180,8 +183,7 @@ module.exports = [
           tests: {
             model: {id: '2018-12-25'},
             id: 'id',
-            format: 'date',
-            language: 'en'
+            format: 'date'
           }
         }
       }
@@ -391,7 +393,6 @@ module.exports = [
             submit: function () {
               console.log('submited')
               console.log(this.model)
-              window.alert('You submitted me!')
             }
           }
         }

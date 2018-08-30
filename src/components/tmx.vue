@@ -19,10 +19,6 @@
       onClose: {
         type: Function
       },
-      language: {
-        type: String,
-        default: 'en'
-      },
       size: {
         type: String,
         default: 'md',

@@ -31,21 +31,21 @@
       },
       dependencies: {
         type: Array,
-        default: function () {
-          return []
-        }
+        default: () => []
+      },
+      options: {
+        type: Array,
+        default: () => []
       },
       source: {
         type: Function,
-        required: true
+        default: function (model, callback) {
+          callback(this.options)
+        }
       },
       required: {
         type: Boolean,
         default: false
-      },
-      language: {
-        type: String,
-        default: 'en'
       }
     },
     mounted: function () {
@@ -86,17 +86,17 @@
           options.forEach(option => {
             values.push({
               id: this.anyOf(option.id, option.label, option),
-              label: String(this.anyOf(option.label === '' ? '_' : option.label, option.id, option))
+              label: String(this.anyOf(option.label, option.id, option) || '_')
             })
           })
         }
-        this.populate(values, this.$data.values)
+        T.sync(this.$data.values, values)
         this.syncValue (true)
       },
       anyOf: function (x, y, z) {
-        if (!(x == null)) {
+        if (x != null) {
           return x
-        } else if (!(y == null)) {
+        } else if (y != null) {
           return y
         } else {
           return z
@@ -120,7 +120,7 @@
             if (typeof v !== 'object' || v == null || v instanceof Array) {
               this.$data.value = {}
             } 
-            this.syncObject(value, this.$data.value)
+            T.sync(this.$data.value, value, this.$set)
             set = true
           }
         })
@@ -161,6 +161,9 @@
         }
       },
       source: function () {
+        this.setOptions()
+      },
+      options: function () {
         this.setOptions()
       }
     }

@@ -3,7 +3,6 @@
   import VueRouter from 'vue-router'
   import treeNav from 'vue-tree-nav'
   import tmxModal from './components/modal.vue'
-  import tmxTest from './components/test.vue'
   import tmxTests from './components/tests.vue'
   import tmxPlayground from './components/playground.vue'
 
@@ -11,7 +10,6 @@
 
   Vue.use(VueRouter)
 
-  Vue.component('tmx-test', tmxTest)
   Vue.component('tmx-tests', tmxTests)
   Vue.component('tmx-playground', tmxPlayground)
   Vue.component('tmx-modal', tmxModal)

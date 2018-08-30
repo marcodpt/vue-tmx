@@ -55,10 +55,6 @@
       },
       click: {
         type: Function
-      },
-      language: {
-        type: String,
-        default: 'en'
       }
     },
     data: function () {
@@ -66,8 +62,7 @@
         elem: {
           id: this.id,
           format: this.format,
-          placeholder: this.placeholder,
-          language: this.language
+          placeholder: this.placeholder
         }
       }
     },
@@ -80,9 +75,6 @@
       },
       placeholder: function () {
         this.$data.elem.placeholder = this.placeholder
-      },
-      language: function () {
-        this.$data.elem.language = this.language
       }
     },
     methods: {

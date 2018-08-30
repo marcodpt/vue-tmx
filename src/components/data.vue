@@ -32,10 +32,6 @@
       href: {
         type: String,
         default: ''
-      },
-      language: {
-        type: String,
-        default: 'en'
       }
     },
     methods: {

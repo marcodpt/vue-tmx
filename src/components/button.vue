@@ -1,4 +1,5 @@
 <script type="text/babel">
+  import T from 'libt'
   import lib from '../lib.js'
   import tmxIcon from './icon.vue'
 
@@ -45,12 +46,13 @@
     },
     methods: {
       clicked: function () {
-        if (this.click && !this.disabled) {
+        if (this.disabled) {
+          return
+        } else if (this.click) {
           this.click(this.data)
-        }
-        if (this.src && !this.disabled) {
+        } else if (this.src) {
           var X = this.src.split('/')
-          this.downloadFile(X[X.length - 1], this.src)
+          T.download(document, X[X.length - 1], this.src)
         }
       }
     }
@@ -59,7 +61,7 @@
 
 <template>
   <button 
-    v-on:click="clicked"
+    @click="clicked"
     :class="[
       'btn', 
       'btn-' + size, 
