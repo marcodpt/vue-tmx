@@ -4,22 +4,17 @@
     "integer",
     "number",
     "date",
+    "color",
     "string",
-    "json"
+    "json",
+    "js"
   ],
   "Alert": [
     "success",
     "info",
     "warning",
-    "danger"
-  ],
-  "Panel": [
-    "default",
-    "primary",
-    "success",
-    "info",
-    "warning",
-    "danger"
+    "danger",
+    "default"
   ],
   "Button": [
     "default",
@@ -33,8 +28,7 @@
   "Size": [
     "lg",
     "md",
-    "sm",
-    "xs"
+    "sm"
   ],
   "Icon": [
     "",

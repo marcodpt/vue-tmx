@@ -428,6 +428,9 @@ module.exports = [
         props: {
           component: 'table',
           tests: {
+            label: 'Complete Table',
+            icon: 'table',
+            text: 'This is a full table example\nIt has all features you can imagine\nYou can filter data with the Search bar or the Filter button\nIt has aggregate functions acting on some fields\nYou can sort it\nYou can use aggregate fields\nDownload data in json or csv\nAnd even add custom methods',
             fields: table.fields,
             data: table.data,
             methods: table.methods,

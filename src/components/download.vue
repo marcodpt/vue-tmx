@@ -88,7 +88,7 @@
           this.data.forEach(row => {
             var obj = {}
             this.fields.forEach(field => {
-              obj[this.cast[field.id] || field.id] = this.formatData(row[field.id], field.format)
+              obj[this.cast[field.id] || field.id] = T.format(row[field.id], field.format, this.translate)
             })
             S.push(obj)
           })
@@ -108,7 +108,7 @@
               s += this.line
             }
             this.fields.forEach(field => {
-              s += this.formatData(row[field.id], field.format) + this.field
+              s += T.format(row[field.id], field.format, this.translate) + this.field
             })
             s = s.substr(0, s.length - 1)
           })

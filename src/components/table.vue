@@ -31,20 +31,10 @@
           return {
             sort: null,
             page: 1,
-            search: ''
+            search: '',
+            filters: [],
+            groups: []
           }
-        }
-      },
-      filters: {
-        type: Array,
-        default: function () {
-          return []
-        }
-      },
-      groups: {
-        type: Array,
-        default: function () {
-          return []
         }
       },
       download: {
@@ -86,11 +76,6 @@
       data: {
         type: Array
       },
-      context: {
-        type: String,
-        default: 'default',
-        validator: lib.methods.isPanel
-      },
       icon: {
         type: String,
         default: '',
@@ -102,10 +87,6 @@
       },
       onClose: {
         type: Function
-      },
-      text: {
-        type: String,
-        default: ''
       }
     },
     data: function () {
@@ -170,11 +151,11 @@
       },
       aggregateData: function (field) {
         if (field.expression && this.aggregate) {
-          return this.formatData(T.evaluate(field.expression)(this.$data.data2), field.format)
+          return T.format(T.evaluate(field.expression)(this.$data.data2), field.format, this.translate)
         }
       },
       isVisible: function (field) {
-        if (!this.groups.length || this.groups.indexOf(field.id) !== -1 || field.expression) {
+        if (!this.model.groups.length || this.model.groups.indexOf(field.id) !== -1 || field.expression) {
           return true
         }
         return false
@@ -198,19 +179,6 @@
         if (section === 'header' && (this.icon || this.label || this.onClose)) {
           return ''
         }
-        if (section === 'body') {
-          var x = s
-          var X = ['methods', 'filter', 'group', 'download', 'pager', 'text']
-          X.forEach(section => {
-            if (this.display(section) === '') {
-              x = ''
-            }
-          })
-          return x
-        }
-        if (section === 'text' && this.text) {
-          return ''
-        } 
         if (section === 'methods' && (
           this.filter || this.group || this.methods.length || this.download
         )) {
@@ -244,78 +212,86 @@
 </script>
 
 <template>
-  <div :class="'panel panel-' + context">
-    <div class="panel-heading" :style="display('header')">
-      <button v-if="onClose" type="button" class="close" @click="onClose">
-        <tmx-icon name="times"/>
-      </button>
-      <h3 class="panel-title text-center">
-        <tmx-icon :name="icon" /> {{label}}
-      </h3>
-    </div>
-    <div class="panel-body" :style="display('body')">
-      <div 
-        v-if="text"
-        :style="'white-space:pre-line;' + display('text')"
-      ><big>{{text}}</big></div>
-      <p :style="'text-align:center;' + display('methods')">
-        <span :style="display('filter')">
-          <tmx-filter
-            :active="filters"
-            :fields="tableFields"
-            :input="data0"
-            :output="data1"
-          >
-          </tmx-filter>&nbsp;
-        </span>
-        <span :style="display('group')">
-          <tmx-group
-            :active="groups"
-            :fields="tableFields"
-            :input="data2"
-            :output="data3"
-          >
-          </tmx-group>&nbsp;
-        </span>
-        <span v-for="m in methods">
-          <tmx-button
-            :type="m.button"
-            :icon="m.icon"
-            :click="m.click"
-            :data="m.model"
-            :label="m.label"
-          />&nbsp;
-        </span>
-        <span :style="display('download')">
-          <tmx-download
-            v-bind="download"
-            :fields="getFields('download')"
-            :data="data3"
-          >
-          </tmx-download>&nbsp;
-        </span>
-      </p>
-      <p :style="'text-align:center;' + display('pager')">
-        <tmx-pager
-          :model="model"
-          :rows="rows"
-          :input="data3"
-          :output="view"
-        ></tmx-pager>
-      </p>
-    </div>
+  <div>
     <div class="table-responsive">
-      <table class="table table-striped table-bordered table-condensed table-hover">
+      <table class="table table-bordered table-condensed" style="margin-bottom:0">
         <thead>
-          <tr :style="display('search')">
+          <tr :style="display('header')">
             <th colspan="100%" style="text-align:center">
+              <button v-if="onClose" type="button" class="close" @click="onClose">
+                <tmx-icon name="times"/>
+              </button>
+              <h4>
+                <tmx-icon :name="icon" /> {{label}}
+              </h4>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr :style="display('methods')">
+            <td colspan="100%" style="text-align:center">
+              <span :style="display('filter')">
+                <tmx-filter
+                  :active="model.filters"
+                  :fields="tableFields"
+                  :input="data0"
+                  :output="data1"
+                >
+                </tmx-filter>&nbsp;
+              </span>
+              <span :style="display('group')">
+                <tmx-group
+                  :active="model.groups"
+                  :fields="tableFields"
+                  :input="data2"
+                  :output="data3"
+                >
+                </tmx-group>&nbsp;
+              </span>
+              <span v-for="m in methods">
+                <tmx-button
+                  :type="m.button"
+                  :icon="m.icon"
+                  :click="m.click"
+                  :data="m.model"
+                  :label="m.label"
+                />&nbsp;
+              </span>
+              <span :style="display('download')">
+                <tmx-download
+                  v-bind="download"
+                  :fields="getFields('download')"
+                  :data="data3"
+                >
+                </tmx-download>&nbsp;
+              </span>
+            </td>
+          </tr>
+          <tr :style="display('pager')">
+            <td colspan="100%" style="text-align:center">
+              <tmx-pager
+                :model="model"
+                :rows="rows"
+                :input="data3"
+                :output="view"
+              ></tmx-pager>
+            </td>
+          </tr>
+          <tr :style="display('search')">
+            <td colspan="100%" style="text-align:center">
               <tmx-search
                 :input="data1"
                 :output="data2"
                 :model="model"
               ></tmx-search>
-            </th>
+            </td>
           </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-condensed table-hover">
+        <thead>
           <tr :style="display('aggregate')">
             <th
               v-for="field in tableFields"
@@ -332,7 +308,7 @@
               v-bind="field"
               :model="model"
               :data="data3"
-              :check="field.format === 'boolean' && field.static === false && !groups.length"
+              :check="field.format === 'boolean' && field.static === false && !model.groups.length"
               :sort="sort"
             >
             </tmx-head>
@@ -344,7 +320,7 @@
               v-for="field in tableFields"
               v-show="isVisible(field)"
               :model="row"
-              :static="groups.length ? true : field.static"
+              :static="model.groups.length ? true : field.static"
               :click="field.click"
               v-bind="field"
             >

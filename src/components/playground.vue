@@ -165,7 +165,7 @@
             }
             str += this.getType(type)
           })
-          return str
+          return this.getType(types[0])
         } else {
           return this.getType(types)
         }

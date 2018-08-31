@@ -36,7 +36,7 @@
     },
     methods: {
       getValue: function () {
-        return this.formatData(this.model[this.id], this.format)
+        return T.format(this.model[this.id], this.format, this.translate)
       },
       getStyle: function () {
         return {

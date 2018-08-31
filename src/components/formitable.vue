@@ -1,16 +1,14 @@
 <script type="text/babel">
   import T from 'libt'
   import lib from '../lib.js'
-  import tmxIcon from './icon.vue'
-  import tmxButton from './button.vue'
-  import tmxItem from './item.vue'
+  import tmxForm from './form.vue'
+  import tmxTable from './table.vue'
 
   module.exports = {
     mixins: [lib],
     components: {
-      'tmx-icon': tmxIcon,
-      'tmx-button': tmxButton,
-      'tmx-item': tmxItem
+      'tmx-form': tmxForm,
+      'tmx-table': tmxTable
     },
     props: {
       model: {
@@ -115,13 +113,6 @@
           this.$set(this.model, field.id, T.parse(field.format)(this.model[field.id]))
         })
       },
-      getClass: function () {
-        if (['success', 'info', 'warning', 'danger'].indexOf(this.alert) !== -1) {
-          return 'alert alert-' + this.alert
-        } else {
-          return 'well'
-        }
-      },
       validateModel: function () {
         var valid = true
         this.fields.forEach((field, i) => {
@@ -207,7 +198,6 @@
       </h4>
     </div>
     <div v-if="hasFields() || text" class="modal-body">
-      <div style="clear: both;"></div>
       <form class="form-horizontal" @submit.prevent="submit">
         <tmx-item
           v-for="(field, index) in fields2"
@@ -220,10 +210,9 @@
         >
         </tmx-item>
       </form>
-      <div style="clear: both;"></div>
       <div 
         v-if="text"
-        :class="getClass()" 
+        :class="['alert', 'alert-' + alert] " 
         style="white-space:pre-line;"
       ><big>{{text}}</big></div>
       <div style="clear: both;"></div>

@@ -90,7 +90,7 @@
         })(this.input) 
 
         X.forEach((x, i) => {
-          X[i].label = this.formatData(x.id, this.getFormat(model.path))
+          X[i].label = T.format(x.id, this.getFormat(model.path), this.translate)
         })
 
         callback(X)
@@ -151,7 +151,7 @@
           format = X[0]['format']
         }
 
-        return `${path} ${operator} ${this.formatData(w.value, format)}`
+        return `${path} ${operator} ${T.format(w.value, format, this.translate)}`
       },
       getItems: function () {
         return this.active.map((a, i) => {

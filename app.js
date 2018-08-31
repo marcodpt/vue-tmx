@@ -128,7 +128,7 @@ T.parse = function (format) {
   }
 }
 
-/* string and regex */
+/* string and regex*/
 T.match = function (regex) {
   return (X) => {
     if (regex === 'integer') {
@@ -183,7 +183,7 @@ T.replaceAll = function (search, replacement) {
   }
 }
 
-/* array and object */
+/* array and object*/
 T.iterate = function (callback) {
   const step = (X, path) => {
     if (X != null && typeof X === 'object') {
@@ -541,34 +541,34 @@ T.pager = function (size) {
   }
 }
 
-/**
- * Identity function.
- *
- * @func identity 
- * @param {mixed} X
- * @return {mixed}
- * @example
- *
- * T.identity(2) //=> 2
- * T.identity(['bar', 'foo']) //=> ['bar', 'foo']
- */
+/*
+  Identity function.
+
+  @func identity 
+  @param {mixed} X
+  @return {mixed}
+  @example
+
+  T.identity(2) //=> 2
+  T.identity(['bar', 'foo']) //=> ['bar', 'foo']
+*/
 T.identity = function (X) {
   return X
 }
 
-/**
- * Check if value belongs to array.
- *
- * @func contains
- * @param {array|string} source
- * @param {mixed} value
- * @return {boolean|array|string}
- * @example
- *
- * T.contains(['cat', 'ball'], 'cat') //=> true
- * T.contains(['cat', 'ball'], 'dog') //=> false
- * T.contains(['cat', 'ball'], T.identity) //=> ['cat', 'ball']
- */
+/*
+  Check if value belongs to array.
+
+  @func contains
+  @param {array|string} source
+  @param {mixed} value
+  @return {boolean|array|string}
+  @example
+
+  T.contains(['cat', 'ball'], 'cat') //=> true
+  T.contains(['cat', 'ball'], 'dog') //=> false
+  T.contains(['cat', 'ball'], T.identity) //=> ['cat', 'ball']
+*/
 T.contains = function (source) {
   return function (value) {
     if (value === T.identity) {
@@ -579,39 +579,39 @@ T.contains = function (source) {
   }
 }
 
-/**
- * Sync two objects preserving pointer. With side effect for dom update.
- *
- * @func contains
- * @param {object} Output - Object that will be modified for syncronization 
- * @param {object} Input - Object that will not be modified, only data source
- * @param {syncFnc} syncFnc - Function that will change values like Vue.$set
- * @callback syncFnc
- * @param {object} obj - Object that will not be modified
- * @param {string} key - key that will be modified
- * @param {mixed} value - new value to obj[key]
- * @example
- *
- * var X = ['cat', 'ball']
- * var P = X
- * var Y = ['dog', 'house', 'bird']
- * T.sync(X, Y)
- *
- * X === Y //=> false
- * P === X //=> true
- * X //=> ['dog', 'house', 'bird']
- * Y //=> ['dog', 'house', 'bird']
- *
- * var X = {pet: 'cat', it: 'ball'}
- * var P = X
- * var Y = {pet: ['dog', 'bird'], location: 'house'}
- * T.sync(X, Y)
- *
- * X === Y //=> false
- * P === X //=> true
- * X //=> {pet: ['dog', 'bird'], location: 'house'}
- * Y //=> {pet: ['dog', 'bird'], location: 'house'}
- */
+/*
+  Sync two objects preserving pointer. With side effect for dom update.
+
+  @func contains
+  @param {object} Output - Object that will be modified for syncronization 
+  @param {object} Input - Object that will not be modified, only data source
+  @param {syncFnc} syncFnc - Function that will change values like Vue.$set
+  @callback syncFnc
+  @param {object} obj - Object that will not be modified
+  @param {string} key - key that will be modified
+  @param {mixed} value - new value to obj[key]
+  @example
+
+  var X = ['cat', 'ball']
+  var P = X
+  var Y = ['dog', 'house', 'bird']
+  T.sync(X, Y)
+
+  X === Y //=> false
+  P === X //=> true
+  X //=> ['dog', 'house', 'bird']
+  Y //=> ['dog', 'house', 'bird']
+
+  var X = {pet: 'cat', it: 'ball'}
+  var P = X
+  var Y = {pet: ['dog', 'bird'], location: 'house'}
+  T.sync(X, Y)
+
+  X === Y //=> false
+  P === X //=> true
+  X //=> {pet: ['dog', 'bird'], location: 'house'}
+  Y //=> {pet: ['dog', 'bird'], location: 'house'}
+*/
 T.sync = function (Output, Input, syncFnc) {
   if (Output instanceof Array && Input instanceof Array) {
     while (Output.length > 0) {
@@ -638,35 +638,116 @@ T.sync = function (Output, Input, syncFnc) {
   })
 }
 
-/**
- * Install in vue js as plugin, with side effect
- *
- * @func install
- * @param {object} Vue - VueJs constructor 
- * @example
- *
- * import T from 'libt'
- *
- * Vue.use(T)
- */
-T.install = function (Vue, name = '$T') {
-  Object.defineProperty(Vue.prototype, name);
+/*
+  format raw database data into human readable data
+
+  @func format
+  @param {mixed} value - raw value
+  @param {string} format - String with format
+  @param {translateFnc} translateFnc - Function that will return some values: trueLabel, falseLabel, numberSeparator, decimalSeparator, date (ex.yyyy-MM-dd)
+  @callback translateFnc
+  @param {string} query - information queried
+  @return {string} formatted data
+  @example
+
+  T.format(2.58, 'boolean') //=> true
+  T.format(2.58, 'integer') //=> 2
+  T.format(2.58, 'integer:4') //=> 0002
+  T.format(2.58, 'number') //=> 2.58
+  T.format(2.58, 'number:1') //=> 2.6
+  T.format(2.58, 'number:3') //=> 2.580
+  T.format('2018-08-31T12:18:46+00:00', 'string') //=> 2018-08-31T12:18:46+00:00
+  T.format('2018-08-31T12:18:46+00:00', 'string:10') //=> 2018-08-31
+  T.format('2018-08-31T12:18:46+00:00', 'date') //=> 2018-08-31
+
+*/
+T.format = function (value, format, translate) {
+  if (value === null || value === undefined) {
+    return ''
+  }
+  if (typeof translate !== 'function') {
+    translate = () => {}
+  }
+
+  if (typeof format !== 'string') {
+    format = ''
+  }
+
+  var F = format.split(':')
+  var type = F[0]
+  var p1 = parseInt(F[1] || 0)
+  var x, s
+
+  if (type === 'boolean') {
+    if (value && value !== '0' && value !== 'false') {
+      return translate('trueLabel') || 'true'
+    } else {
+      return translate('falseLabel') || 'false'
+    }
+  } else if (type === 'integer') {
+    x = parseInt(value)
+    if (!isNaN(x)) {
+      s = String(x)
+      while (s.length < p1) {
+        s = '0' + s
+      }
+      return s
+    }
+  } else if (type === 'number') {
+    x = parseFloat(value)
+    if (!isNaN(x)) {
+      if (p1 > 0 || (p1 === 0 && F[1] === '0')) {
+        s = String(x.toFixed(p1))
+      } else {
+        s = String(x)
+      }
+      var N = s.split('.')
+      N[0] = N[0].replace(/(\d)(?=(\d{3})+$)/g, '$1' + (translate('numberSeparator') || ''))
+      N[1] = N.length > 1 ? (translate('decimalSeparator') || '.') + N[1] : ''
+      return N[0] + N[1]
+    }
+  } else if (type === 'string') {
+    s = String(value)
+    if (F.indexOf('rgb') > -1) {
+      return ''
+    }
+    if (p1) {
+      return s.substr(0, p1)
+    }
+    return s
+  } else if (type === 'date' && T.match('date')(value)) {
+    s = String(value)
+    var D = {
+      yyyy: s.substr(0, 4),
+      yy: s.substr(2, 2),
+      MM: s.substr(5, 2),
+      M: parseInt(s.substr(5, 2)),
+      dd: s.substr(8, 2),
+      d: parseInt(s.substr(8, 2))
+    }
+    x = translate('date') || 'yyyy-MM-dd'
+    Object.keys(D).forEach(function (key) {
+      x = x.replace(new RegExp(key, 'g'), D[key])
+    })
+    return x
+  }
+
+  return String(value)
 }
 
+/*
+  trigger browser download 
 
-/**
- * trigger browser download 
- *
- * @func download 
- * @param {object} document - Browser object
- * @param {string} name - File name on download prompt
- * @param {string} file - File content
- * @param {string} type - Add some mime type, available types: text
- * @example
- *
- * T.download(window.document, 'myFile', 'content')
- *
- */
+  @func download 
+  @param {object} document - Browser object
+  @param {string} name - File name on download prompt
+  @param {string} file - File content
+  @param {string} type - Add some mime type, available types: text
+  @example
+
+  T.download(window.document, 'myFile', 'content')
+
+*/
 T.download = function (document, name, file, type) {
   if (!document) {
     return
@@ -684,6 +765,21 @@ T.download = function (document, name, file, type) {
   document.body.appendChild(a)
   a.click()
   document.body.removeChild(a)
+}
+
+/*
+  Install in vue js as plugin, with side effect
+
+  @func install
+  @param {object} Vue - VueJs constructor 
+  @example
+
+  import T from 'libt'
+
+  Vue.use(T)
+*/
+T.install = function (Vue, name = '$T') {
+  Object.defineProperty(Vue.prototype, name);
 }
 
 module.exports = T
@@ -22200,6 +22296,9 @@ module.exports = {
         return '#' + this.model[this.id];
       }
       return null;
+    },
+    getLabel: function getLabel() {
+      return _libt2.default.format(this.model[id], this.format, this.translate);
     }
   }
 };
@@ -22211,7 +22310,7 @@ __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createEle
   'text-align': _vm.center() ? 'center' : null,
   'vertical-align': 'middle',
   'background-color': _vm.bgcolor()
-})},[(_vm.button && _vm.click)?_c('tmx-button',{attrs:{"type":_vm.button,"icon":_vm.icon,"click":_vm.click,"data":_vm.model,"label":_vm.label}}):(_vm.click)?_c('tmx-button',{attrs:{"type":"info","icon":_vm.icon,"click":_vm.click,"data":_vm.model,"label":_vm.formatData(_vm.model[_vm.id], _vm.format)}}):(_vm.static)?_c('tmx-data',_vm._b({attrs:{"model":_vm.model}},'tmx-data',_vm.elem,false)):(_vm.format === 'boolean')?_c('tmx-checkbox',_vm._b({attrs:{"model":_vm.model}},'tmx-checkbox',_vm.elem,false)):_c('tmx-input',_vm._b({attrs:{"model":_vm.model}},'tmx-input',_vm.elem,false))],1)}
+})},[(_vm.button && _vm.click)?_c('tmx-button',{attrs:{"type":_vm.button,"icon":_vm.icon,"click":_vm.click,"data":_vm.model,"label":_vm.label}}):(_vm.click)?_c('tmx-button',{attrs:{"type":"info","icon":_vm.icon,"click":_vm.click,"data":_vm.model,"label":_vm.getLabel()}}):(_vm.static)?_c('tmx-data',_vm._b({attrs:{"model":_vm.model}},'tmx-data',_vm.elem,false)):(_vm.format === 'boolean')?_c('tmx-checkbox',_vm._b({attrs:{"model":_vm.model}},'tmx-checkbox',_vm.elem,false)):_c('tmx-input',_vm._b({attrs:{"model":_vm.model}},'tmx-input',_vm.elem,false))],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -22399,7 +22498,7 @@ module.exports = {
   },
   methods: {
     getValue: function getValue() {
-      return this.formatData(this.model[this.id], this.format);
+      return _libt2.default.format(this.model[this.id], this.format, this.translate);
     },
     getStyle: function getStyle() {
       return {
@@ -22530,7 +22629,7 @@ module.exports = {
         this.data.forEach(function (row) {
           var obj = {};
           _this.fields.forEach(function (field) {
-            obj[_this.cast[field.id] || field.id] = _this.formatData(row[field.id], field.format);
+            obj[_this.cast[field.id] || field.id] = _libt2.default.format(row[field.id], field.format, _this.translate);
           });
           S.push(obj);
         });
@@ -22550,7 +22649,7 @@ module.exports = {
             s += _this.line;
           }
           _this.fields.forEach(function (field) {
-            s += _this.formatData(row[field.id], field.format) + _this.field;
+            s += _libt2.default.format(row[field.id], field.format, _this.translate) + _this.field;
           });
           s = s.substr(0, s.length - 1);
         });
@@ -22815,7 +22914,7 @@ module.exports = {
       })(this.input);
 
       X.forEach(function (x, i) {
-        X[i].label = _this.formatData(x.id, _this.getFormat(model.path));
+        X[i].label = _libt2.default.format(x.id, _this.getFormat(model.path), _this.translate);
       });
 
       callback(X);
@@ -22876,7 +22975,7 @@ module.exports = {
         format = X[0]['format'];
       }
 
-      return path + ' ' + operator + ' ' + this.formatData(w.value, format);
+      return path + ' ' + operator + ' ' + _libt2.default.format(w.value, format, this.translate);
     },
     getItems: function getItems() {
       var _this2 = this;
@@ -23061,6 +23160,13 @@ module.exports = {
         _this2.$set(_this2.model, field.id, _libt2.default.parse(field.format)(_this2.model[field.id]));
       });
     },
+    getClass: function getClass() {
+      if (['success', 'info', 'warning', 'danger'].indexOf(this.alert) !== -1) {
+        return 'alert alert-' + this.alert;
+      } else {
+        return 'well';
+      }
+    },
     validateModel: function validateModel() {
       var _this3 = this;
 
@@ -23094,13 +23200,13 @@ module.exports = {
           }
         }
         if (!error && !empty && field.min > _this3.model[field.id]) {
-          var err = _libt2.default.replaceAll('$min', _this3.formatData(field.min, field.format))(_this3.translate('min'));
+          var err = _libt2.default.replaceAll('$min', _libt2.default.format(field.min, field.format, _this3.translate))(_this3.translate('min'));
           _this3.$set(_this3.fields[i], 'error', label + ' ' + err);
           valid = false;
           error = true;
         }
         if (!error && !empty && field.max < _this3.model[field.id]) {
-          var err = _libt2.default.replaceAll('$max', _this3.formatData(field.max, field.format))(_this3.translate('max'));
+          var err = _libt2.default.replaceAll('$max', _libt2.default.format(field.max, field.format, _this3.translate))(_this3.translate('max'));
           _this3.$set(_this3.fields[i], 'error', label + ' ' + err);
           valid = false;
           error = true;
@@ -23139,7 +23245,7 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"thumbnail"},[(_vm.onClose || _vm.label || _vm.icon)?_c('div',{staticClass:"modal-header"},[(_vm.onClose)?_c('button',{staticClass:"close",attrs:{"type":"button"},on:{"click":_vm.onClose}},[_c('tmx-icon',{attrs:{"name":"times"}})],1):_vm._e(),_vm._v(" "),(_vm.label || _vm.icon)?_c('h4',{staticClass:"modal-title",staticStyle:{"text-align":"center"}},[_c('tmx-icon',{attrs:{"name":_vm.icon}}),_vm._v(" "+_vm._s(_vm.label)+"\n    ")],1):_vm._e()]):_vm._e(),_vm._v(" "),(_vm.hasFields() || _vm.text)?_c('div',{staticClass:"modal-body"},[_c('form',{staticClass:"form-horizontal",on:{"submit":function($event){$event.preventDefault();_vm.submit($event)}}},_vm._l((_vm.fields2),function(field,index){return _c('tmx-item',_vm._b({key:index,attrs:{"model":_vm.model,"static":field.static || _vm.compact,"compact":_vm.compact,"size":field.size || _vm.size}},'tmx-item',field,false))})),_vm._v(" "),(_vm.text)?_c('div',{class:['alert', 'alert-' + _vm.alert],staticStyle:{"white-space":"pre-line"}},[_c('big',[_vm._v(_vm._s(_vm.text))])],1):_vm._e(),_vm._v(" "),_c('div',{staticStyle:{"clear":"both"}})]):_vm._e(),_vm._v(" "),(_vm.buttons.length)?_c('div',{staticClass:"modal-footer"},_vm._l((_vm.buttons),function(button){return _c('tmx-button',_vm._b({attrs:{"click":button.click || _vm.run,"size":button.size || _vm.size}},'tmx-button',button,false))})):_vm._e()])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"thumbnail"},[(_vm.onClose || _vm.label || _vm.icon)?_c('div',{staticClass:"modal-header"},[(_vm.onClose)?_c('button',{staticClass:"close",attrs:{"type":"button"},on:{"click":_vm.onClose}},[_c('tmx-icon',{attrs:{"name":"times"}})],1):_vm._e(),_vm._v(" "),(_vm.label || _vm.icon)?_c('h4',{staticClass:"modal-title",staticStyle:{"text-align":"center"}},[_c('tmx-icon',{attrs:{"name":_vm.icon}}),_vm._v(" "+_vm._s(_vm.label)+"\n    ")],1):_vm._e()]):_vm._e(),_vm._v(" "),(_vm.hasFields() || _vm.text)?_c('div',{staticClass:"modal-body"},[_c('div',{staticStyle:{"clear":"both"}}),_vm._v(" "),_c('form',{staticClass:"form-horizontal",on:{"submit":function($event){$event.preventDefault();_vm.submit($event)}}},_vm._l((_vm.fields2),function(field,index){return _c('tmx-item',_vm._b({key:index,attrs:{"model":_vm.model,"static":field.static || _vm.compact,"compact":_vm.compact,"size":field.size || _vm.size}},'tmx-item',field,false))})),_vm._v(" "),_c('div',{staticStyle:{"clear":"both"}}),_vm._v(" "),(_vm.text)?_c('div',{class:_vm.getClass(),staticStyle:{"white-space":"pre-line"}},[_c('big',[_vm._v(_vm._s(_vm.text))])],1):_vm._e(),_vm._v(" "),_c('div',{staticStyle:{"clear":"both"}})]):_vm._e(),_vm._v(" "),(_vm.buttons.length)?_c('div',{staticClass:"modal-footer"},_vm._l((_vm.buttons),function(button){return _c('tmx-button',_vm._b({attrs:{"click":button.click || _vm.run,"size":button.size || _vm.size}},'tmx-button',button,false))})):_vm._e()])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -24302,7 +24408,7 @@ module.exports = {
           }
           str += _this3.getType(type);
         });
-        return str;
+        return this.getType(types[0]);
       } else {
         return this.getType(types);
       }
@@ -24792,20 +24898,10 @@ module.exports = {
         return {
           sort: null,
           page: 1,
-          search: ''
+          search: '',
+          filters: [],
+          groups: []
         };
-      }
-    },
-    filters: {
-      type: Array,
-      default: function _default() {
-        return [];
-      }
-    },
-    groups: {
-      type: Array,
-      default: function _default() {
-        return [];
       }
     },
     download: {
@@ -24847,11 +24943,6 @@ module.exports = {
     data: {
       type: Array
     },
-    context: {
-      type: String,
-      default: 'default',
-      validator: _lib2.default.methods.isPanel
-    },
     icon: {
       type: String,
       default: '',
@@ -24863,10 +24954,6 @@ module.exports = {
     },
     onClose: {
       type: Function
-    },
-    text: {
-      type: String,
-      default: ''
     }
   },
   data: function data() {
@@ -24933,11 +25020,11 @@ module.exports = {
     },
     aggregateData: function aggregateData(field) {
       if (field.expression && this.aggregate) {
-        return this.formatData(_libt2.default.evaluate(field.expression)(this.$data.data2), field.format);
+        return _libt2.default.format(_libt2.default.evaluate(field.expression)(this.$data.data2), field.format, this.translate);
       }
     },
     isVisible: function isVisible(field) {
-      if (!this.groups.length || this.groups.indexOf(field.id) !== -1 || field.expression) {
+      if (!this.model.groups.length || this.model.groups.indexOf(field.id) !== -1 || field.expression) {
         return true;
       }
       return false;
@@ -24959,23 +25046,8 @@ module.exports = {
       return R;
     },
     display: function display(section) {
-      var _this3 = this;
-
       var s = 'display:none';
       if (section === 'header' && (this.icon || this.label || this.onClose)) {
-        return '';
-      }
-      if (section === 'body') {
-        var x = s;
-        var X = ['methods', 'filter', 'group', 'download', 'pager', 'text'];
-        X.forEach(function (section) {
-          if (_this3.display(section) === '') {
-            x = '';
-          }
-        });
-        return x;
-      }
-      if (section === 'text' && this.text) {
         return '';
       }
       if (section === 'methods' && (this.filter || this.group || this.methods.length || this.download)) {
@@ -25010,7 +25082,7 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:'panel panel-' + _vm.context},[_c('div',{staticClass:"panel-heading",style:(_vm.display('header'))},[(_vm.onClose)?_c('button',{staticClass:"close",attrs:{"type":"button"},on:{"click":_vm.onClose}},[_c('tmx-icon',{attrs:{"name":"times"}})],1):_vm._e(),_vm._v(" "),_c('h3',{staticClass:"panel-title text-center"},[_c('tmx-icon',{attrs:{"name":_vm.icon}}),_vm._v(" "+_vm._s(_vm.label)+"\n    ")],1)]),_vm._v(" "),_c('div',{staticClass:"panel-body",style:(_vm.display('body'))},[(_vm.text)?_c('div',{style:('white-space:pre-line;' + _vm.display('text'))},[_c('big',[_vm._v(_vm._s(_vm.text))])],1):_vm._e(),_vm._v(" "),_c('p',{style:('text-align:center;' + _vm.display('methods'))},[_c('span',{style:(_vm.display('filter'))},[_c('tmx-filter',{attrs:{"active":_vm.filters,"fields":_vm.tableFields,"input":_vm.data0,"output":_vm.data1}}),_vm._v(" \n      ")],1),_vm._v(" "),_c('span',{style:(_vm.display('group'))},[_c('tmx-group',{attrs:{"active":_vm.groups,"fields":_vm.tableFields,"input":_vm.data2,"output":_vm.data3}}),_vm._v(" \n      ")],1),_vm._v(" "),_vm._l((_vm.methods),function(m){return _c('span',[_c('tmx-button',{attrs:{"type":m.button,"icon":m.icon,"click":m.click,"data":m.model,"label":m.label}}),_vm._v(" \n      ")],1)}),_vm._v(" "),_c('span',{style:(_vm.display('download'))},[_c('tmx-download',_vm._b({attrs:{"fields":_vm.getFields('download'),"data":_vm.data3}},'tmx-download',_vm.download,false)),_vm._v(" \n      ")],1)],2),_vm._v(" "),_c('p',{style:('text-align:center;' + _vm.display('pager'))},[_c('tmx-pager',{attrs:{"model":_vm.model,"rows":_vm.rows,"input":_vm.data3,"output":_vm.view}})],1)]),_vm._v(" "),_c('div',{staticClass:"table-responsive"},[_c('table',{staticClass:"table table-striped table-bordered table-condensed table-hover"},[_c('thead',[_c('tr',{style:(_vm.display('search'))},[_c('th',{staticStyle:{"text-align":"center"},attrs:{"colspan":"100%"}},[_c('tmx-search',{attrs:{"input":_vm.data1,"output":_vm.data2,"model":_vm.model}})],1)]),_vm._v(" "),_c('tr',{style:(_vm.display('aggregate'))},_vm._l((_vm.tableFields),function(field){return _c('th',{directives:[{name:"show",rawName:"v-show",value:(_vm.isVisible(field)),expression:"isVisible(field)"}],staticStyle:{"text-align":"center"}},[_vm._v("\n            "+_vm._s(_vm.aggregateData(field))+"\n          ")])})),_vm._v(" "),_c('tr',{style:(_vm.display('head'))},_vm._l((_vm.tableFields),function(field){return _c('tmx-head',_vm._b({directives:[{name:"show",rawName:"v-show",value:(_vm.isVisible(field)),expression:"isVisible(field)"}],attrs:{"model":_vm.model,"data":_vm.data3,"check":field.format === 'boolean' && field.static === false && !_vm.groups.length,"sort":_vm.sort}},'tmx-head',field,false))}))]),_vm._v(" "),(_vm.data)?_c('tbody',_vm._l((_vm.view),function(row){return _c('tr',{style:({'background-color' : row.bgcolor})},_vm._l((_vm.tableFields),function(field){return _c('tmx-body',_vm._b({directives:[{name:"show",rawName:"v-show",value:(_vm.isVisible(field)),expression:"isVisible(field)"}],attrs:{"model":row,"static":_vm.groups.length ? true : field.static,"click":field.click}},'tmx-body',field,false))}))})):_vm._e()]),_vm._v(" "),(!_vm.data)?_c('p',{staticStyle:{"text-align":"center","margin":"40px 0"}},[_c('tmx-icon',{attrs:{"name":"sync","scale":"6","spin":""}})],1):_vm._e()])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"table-responsive"},[_c('table',{staticClass:"table table-bordered table-condensed",staticStyle:{"margin-bottom":"0"}},[_c('thead',[_c('tr',{style:(_vm.display('header'))},[_c('th',{staticStyle:{"text-align":"center"},attrs:{"colspan":"100%"}},[(_vm.onClose)?_c('button',{staticClass:"close",attrs:{"type":"button"},on:{"click":_vm.onClose}},[_c('tmx-icon',{attrs:{"name":"times"}})],1):_vm._e(),_vm._v(" "),_c('h4',[_c('tmx-icon',{attrs:{"name":_vm.icon}}),_vm._v(" "+_vm._s(_vm.label)+"\n            ")],1)])])]),_vm._v(" "),_c('tbody',[_c('tr',{style:(_vm.display('methods'))},[_c('td',{staticStyle:{"text-align":"center"},attrs:{"colspan":"100%"}},[_c('span',{style:(_vm.display('filter'))},[_c('tmx-filter',{attrs:{"active":_vm.model.filters,"fields":_vm.tableFields,"input":_vm.data0,"output":_vm.data1}}),_vm._v(" \n            ")],1),_vm._v(" "),_c('span',{style:(_vm.display('group'))},[_c('tmx-group',{attrs:{"active":_vm.model.groups,"fields":_vm.tableFields,"input":_vm.data2,"output":_vm.data3}}),_vm._v(" \n            ")],1),_vm._v(" "),_vm._l((_vm.methods),function(m){return _c('span',[_c('tmx-button',{attrs:{"type":m.button,"icon":m.icon,"click":m.click,"data":m.model,"label":m.label}}),_vm._v(" \n            ")],1)}),_vm._v(" "),_c('span',{style:(_vm.display('download'))},[_c('tmx-download',_vm._b({attrs:{"fields":_vm.getFields('download'),"data":_vm.data3}},'tmx-download',_vm.download,false)),_vm._v(" \n            ")],1)],2)]),_vm._v(" "),_c('tr',{style:(_vm.display('pager'))},[_c('td',{staticStyle:{"text-align":"center"},attrs:{"colspan":"100%"}},[_c('tmx-pager',{attrs:{"model":_vm.model,"rows":_vm.rows,"input":_vm.data3,"output":_vm.view}})],1)]),_vm._v(" "),_c('tr',{style:(_vm.display('search'))},[_c('td',{staticStyle:{"text-align":"center"},attrs:{"colspan":"100%"}},[_c('tmx-search',{attrs:{"input":_vm.data1,"output":_vm.data2,"model":_vm.model}})],1)])])])]),_vm._v(" "),_c('div',{staticClass:"table-responsive"},[_c('table',{staticClass:"table table-striped table-bordered table-condensed table-hover"},[_c('thead',[_c('tr',{style:(_vm.display('aggregate'))},_vm._l((_vm.tableFields),function(field){return _c('th',{directives:[{name:"show",rawName:"v-show",value:(_vm.isVisible(field)),expression:"isVisible(field)"}],staticStyle:{"text-align":"center"}},[_vm._v("\n            "+_vm._s(_vm.aggregateData(field))+"\n          ")])})),_vm._v(" "),_c('tr',{style:(_vm.display('head'))},_vm._l((_vm.tableFields),function(field){return _c('tmx-head',_vm._b({directives:[{name:"show",rawName:"v-show",value:(_vm.isVisible(field)),expression:"isVisible(field)"}],attrs:{"model":_vm.model,"data":_vm.data3,"check":field.format === 'boolean' && field.static === false && !_vm.model.groups.length,"sort":_vm.sort}},'tmx-head',field,false))}))]),_vm._v(" "),(_vm.data)?_c('tbody',_vm._l((_vm.view),function(row){return _c('tr',{style:({'background-color' : row.bgcolor})},_vm._l((_vm.tableFields),function(field){return _c('tmx-body',_vm._b({directives:[{name:"show",rawName:"v-show",value:(_vm.isVisible(field)),expression:"isVisible(field)"}],attrs:{"model":row,"static":_vm.model.groups.length ? true : field.static,"click":field.click}},'tmx-body',field,false))}))})):_vm._e()]),_vm._v(" "),(!_vm.data)?_c('p',{staticStyle:{"text-align":"center","margin":"40px 0"}},[_c('tmx-icon',{attrs:{"name":"sync","scale":"6","spin":""}})],1):_vm._e()])])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -25737,22 +25809,17 @@ module.exports={
     "integer",
     "number",
     "date",
+    "color",
     "string",
-    "json"
+    "json",
+    "js"
   ],
   "Alert": [
     "success",
     "info",
     "warning",
-    "danger"
-  ],
-  "Panel": [
-    "default",
-    "primary",
-    "success",
-    "info",
-    "warning",
-    "danger"
+    "danger",
+    "default"
   ],
   "Button": [
     "default",
@@ -25766,8 +25833,7 @@ module.exports={
   "Size": [
     "lg",
     "md",
-    "sm",
-    "xs"
+    "sm"
   ],
   "Icon": [
     "",
@@ -26534,76 +26600,6 @@ _.translate = function (field) {
   return lang['pt-br'][field];
 };
 
-_.formatData = function (value, format) {
-  if (value === null || value === undefined) {
-    return '';
-  }
-  if (!(typeof format === 'string')) {
-    format = '';
-  }
-
-  var F = format.split(':');
-  var type = F[0];
-  var p1 = parseInt(F[1] || 0);
-  var x, s;
-
-  if (type === 'boolean') {
-    if (value && value !== '0' && value !== 'false') {
-      return this.translate('trueLabel');
-    } else {
-      return this.translate('falseLabel');
-    }
-  } else if (type === 'integer') {
-    x = parseInt(value);
-    if (!isNaN(x)) {
-      s = String(x);
-      while (s.length < p1) {
-        s = '0' + s;
-      }
-      return s;
-    }
-  } else if (type === 'number') {
-    x = parseFloat(value);
-    if (!isNaN(x)) {
-      if (p1 > 0 || p1 === 0 && F[1] === '0') {
-        s = String(x.toFixed(p1));
-      } else {
-        s = String(x);
-      }
-      var N = s.split('.');
-      N[0] = N[0].replace(/(\d)(?=(\d{3})+$)/g, '$1' + this.translate('numberSeparator'));
-      N[1] = N.length > 1 ? this.translate('decimalSeparator') + N[1] : '';
-      return N[0] + N[1];
-    }
-  } else if (type === 'string') {
-    s = String(value);
-    if (F.indexOf('rgb') > -1) {
-      return '';
-    }
-    if (p1) {
-      return s.substr(0, p1);
-    }
-    return s;
-  } else if (type === 'date' && T.match('date')(value)) {
-    s = String(value);
-    var D = {
-      yyyy: s.substr(0, 4),
-      yy: s.substr(2, 2),
-      MM: s.substr(5, 2),
-      M: parseInt(s.substr(5, 2)),
-      dd: s.substr(8, 2),
-      d: parseInt(s.substr(8, 2))
-    };
-    x = this.translate('date');
-    Object.keys(D).forEach(function (key) {
-      x = x.replace(new RegExp(key, 'g'), D[key]);
-    });
-    return x;
-  }
-
-  return String(value);
-};
-
 _.setFields = function (Data) {
   var Fields = [];
 
@@ -27083,6 +27079,9 @@ module.exports = [{
     props: {
       component: 'table',
       tests: {
+        label: 'Complete Table',
+        icon: 'table',
+        text: 'This is a full table example\nIt has all features you can imagine\nYou can filter data with the Search bar or the Filter button\nIt has aggregate functions acting on some fields\nYou can sort it\nYou can use aggregate fields\nDownload data in json or csv\nAnd even add custom methods',
         fields: table.fields,
         data: table.data,
         methods: table.methods,
