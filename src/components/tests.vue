@@ -81,6 +81,8 @@
       <tmx-select v-if="component === 'select'" v-bind="tests" />
       <tmx-table v-if="component === 'table'" v-bind="tests" />
       <tmx-text v-if="component === 'text'" v-bind="tests" />
+      <tmx-raw v-if="component === 'raw'" v-bind="tests" />
+      <tmx-refined v-if="component === 'refined'" v-bind="tests" />
     </div>
     <tmx-playground
       :model="tests"

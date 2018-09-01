@@ -446,6 +446,92 @@ module.exports = [
       }
     ]
   }, {
+    path: '/raw',
+    component: {
+      template: '<router-view></router-view>'
+    },
+    children: [
+      {
+        path: 'empty',
+        component: 'tmx-tests',
+        props: {
+          component: 'raw',
+          tests: {}
+        }
+      }, {
+        path: 'data',
+        component: 'tmx-tests',
+        props: {
+          component: 'raw',
+          tests: {
+            data: table.data
+          }
+        }
+      }, {
+        path: 'fields',
+        component: 'tmx-tests',
+        props: {
+          component: 'raw',
+          tests: {
+            fields: table.fields
+          }
+        }
+      }, {
+        path: 'both',
+        component: 'tmx-tests',
+        props: {
+          component: 'raw',
+          tests: {
+            fields: table.fields,
+            data: table.data
+          }
+        }
+      }
+    ]
+  }, {
+    path: '/refined',
+    component: {
+      template: '<router-view></router-view>'
+    },
+    children: [
+      {
+        path: 'empty',
+        component: 'tmx-tests',
+        props: {
+          component: 'refined',
+          tests: {}
+        }
+      }, {
+        path: 'data',
+        component: 'tmx-tests',
+        props: {
+          component: 'refined',
+          tests: {
+            data: table.data
+          }
+        }
+      }, {
+        path: 'fields',
+        component: 'tmx-tests',
+        props: {
+          component: 'refined',
+          tests: {
+            fields: table.fields
+          }
+        }
+      }, {
+        path: 'both',
+        component: 'tmx-tests',
+        props: {
+          component: 'refined',
+          tests: {
+            fields: table.fields,
+            data: table.data
+          }
+        }
+      }
+    ]
+  }, {
     path: '*',
     redirect: '/components/table'
   }

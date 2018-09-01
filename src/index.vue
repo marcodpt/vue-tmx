@@ -22,6 +22,8 @@
   import select from './components/select.vue'
   import table from './components/table.vue'
   import text from './components/text.vue'
+  import raw from './components/raw.vue'
+  import refined from './components/refined.vue'
 
   module.exports = {
     lib: lib,
@@ -45,6 +47,8 @@
     search: search,
     select: select,
     table: table,
-    text: text
+    text: text,
+    raw: raw,
+    refined: refined
   }
 </script>

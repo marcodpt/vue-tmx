@@ -182,6 +182,9 @@
     watch: {
       name: function () {
         this.build()
+      },
+      props: function () {
+        this.build()
       }
     }
   }
