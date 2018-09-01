@@ -38,6 +38,9 @@
       },
       getLabel: function (field, row) {
         return T.format(row[id], field.format, this.translate)
+      },
+      runSort: function () {
+
       }
     }
   }

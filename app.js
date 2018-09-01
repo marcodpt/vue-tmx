@@ -24888,7 +24888,8 @@ module.exports = {
     },
     getLabel: function getLabel(field, row) {
       return _libt2.default.format(row[id], field.format, this.translate);
-    }
+    },
+    runSort: function runSort() {}
   }
 };
 })()
