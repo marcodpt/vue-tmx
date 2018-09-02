@@ -24,6 +24,8 @@
   import text from './components/text.vue'
   import raw from './components/raw.vue'
   import refined from './components/refined.vue'
+  import formitable from './components/formitable.vue'
+  import twbs3 from './components/twbs3.vue'
 
   module.exports = {
     lib: lib,
@@ -49,6 +51,8 @@
     table: table,
     text: text,
     raw: raw,
-    refined: refined
+    refined: refined,
+    formitable: formitable,
+    twbs3: twbs3
   }
 </script>

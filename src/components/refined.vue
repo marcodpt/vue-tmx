@@ -48,7 +48,7 @@
 
 <template>
   <tmx-raw
-    class="table table-striped table-bordered table-condensed table-hover"
+    tableClass="table table-striped table-bordered table-condensed table-hover"
     :data="data"
     :fields="fields"
   >

@@ -532,6 +532,122 @@ module.exports = [
       }
     ]
   }, {
+    path: '/formitable',
+    component: {
+      template: '<router-view></router-view>'
+    },
+    children: [
+      {
+        path: 'empty',
+        component: 'tmx-tests',
+        props: {
+          component: 'formitable',
+          tests: {}
+        }
+      }, {
+        path: 'raw_object',
+        component: 'tmx-tests',
+        props: {
+          component: 'formitable',
+          tests: {
+            data: {}
+          }
+        }
+      }, {
+        path: 'raw_array',
+        component: 'tmx-tests',
+        props: {
+          component: 'formitable',
+          tests: {
+            data: []
+          }
+        }
+      }, {
+        path: 'value',
+        component: 'tmx-tests',
+        props: {
+          component: 'formitable',
+          tests: {
+            data: 5.2
+          }
+        }
+      }, {
+        path: 'function',
+        component: 'tmx-tests',
+        props: {
+          component: 'formitable',
+          tests: {
+            data: () => {window.alert('function')}
+          }
+        }
+      }, {
+        path: 'array',
+        component: 'tmx-tests',
+        props: {
+          component: 'formitable',
+          tests: {
+            data: ['car', 'ball', 'house', 'dog']
+          }
+        }
+      }, {
+        path: 'object',
+        component: 'tmx-tests',
+        props: {
+          component: 'formitable',
+          tests: {
+            data: {
+              name: 'john',
+              age: 35,
+              male: true,
+              submit: () => {window.alert('submit')}
+            }
+          }
+        }
+      }, {
+        path: 'mixed',
+        component: 'tmx-tests',
+        props: {
+          component: 'formitable',
+          tests: {
+            data: [
+              {
+                number: 3.14,
+                boolean: true,
+                string: 'pi',
+                function: () => {window.alert('pi')},
+                object: {
+                  name: 'john',
+                  age: 35,
+                  male: true,
+                  submit: () => {window.alert('submit')}
+                },
+                array: ['car', 'ball', 'house', 'dog']
+              }, {
+                number: 2.7,
+                boolean: false,
+                string: 'e',
+                function: () => {window.alert('e')},
+                object: {
+                  name: 'john',
+                  age: 35,
+                  male: true,
+                  submit: () => {window.alert('submit')}
+                },
+                array: ['car', 'ball', 'house', 'dog']
+              }
+            ]
+          }
+        }
+      }, {
+        path: 'twbs3',
+        component: 'tmx-tests',
+        props: {
+          component: 'twbs3',
+          tests: {}
+        }
+      }
+    ]
+  }, {
     path: '*',
     redirect: '/components/table'
   }

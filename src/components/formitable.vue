@@ -1,229 +1,101 @@
 <script type="text/babel">
-  import T from 'libt'
-  import lib from '../lib.js'
-  import tmxForm from './form.vue'
-  import tmxTable from './table.vue'
-
   module.exports = {
-    mixins: [lib],
-    components: {
-      'tmx-form': tmxForm,
-      'tmx-table': tmxTable
-    },
+    name: 'formitable',
     props: {
-      model: {
-        type: Object,
-        default: function () {
-          return {}
-        }
-      },
-      fields: {
-        type: Array
-      },
-      submit: {
-        type: Function
-      },
-      onChange: {
-        type: Function
-      },
-      onClose: {
-        type: Function
-      },
-      size: {
-        type: String,
-        default: 'md',
-        validator: lib.methods.isSize
-      },
-      icon: {
-        type: String,
-        default: '',
-        validator: lib.methods.isIcon
-      },
-      label: {
-        type: String,
-        default: ''
-      },
-      alert: {
-        type: String,
-        default: 'danger',
-        validator: lib.methods.isAlert
-      },
-      text: {
-        type: String,
-        default: ''
-      },
-      buttons: {
-        type: Array,
-        default: function () {
-          return []
-        }
+      data: {
+        type: [Object, Array, Function, String, Number, Boolean]
       }
     },
     data: function () {
       return {
-        backup: T.copy(this.model),
-        compact: !this.submit && !this.onChange,
-        fields2: []
+        keys: []
       }
     },
     mounted: function () {
-      this.load()
+      this.build()
     },
     watch: {
-      model: {
-        deep: true,
-        handler: function () {
-          if (typeof this.onChange === 'function') {
-            var diff = false
-            Object.keys(this.model).forEach(key => {
-              if (this.model[key] != this.$data.backup[key]) {
-                diff = true
-              }
-            })
-            if (diff && this.validateModel()) {
-              this.$data.backup = T.copy(this.model)
-              this.onChange(this.model)
-            }
-          }
-        }
-      },
-      fields: function () {
-        this.load()
+      data: function () {
+        this.build()
       }
     },
     methods: {
+      type: function (x) {
+        if (typeof x === 'function') {
+          return 'function'
+        } else if (typeof x === 'object' && x != null) {
+          if (x instanceof Array) {
+            return 'array'
+          } else {
+            return 'object'
+          }
+        } else { 
+          return 'data'
+        }
+      },
       run: function () {
-        if (typeof this.submit === 'function' && this.validateModel()) {
-          this.submit(this.model)
-          if (this.onClose) {
-            this.onClose()
-          }
+        if (this.type(this.data) === 'function') {
+          this.data()
         }
       },
-      hasFields: function () {
-        return (this.fields && this.fields.length) || Object.keys(this.model).length
-      },
-      load: function () {
-        if (!(this.fields instanceof Array)) {
-          T.sync(this.$data.fields2, this.setFields(this.model))
-        } else {
-          T.sync(this.$data.fields2, this.fields)
+      build: function () {
+        while (this.$data.keys.length) {
+          this.$data.keys.pop()
         }
-        this.$data.fields2.forEach(field => {
-          this.$set(this.model, field.id, T.parse(field.format)(this.model[field.id]))
-        })
+        var t = this.type(this.data)
+        if (t === 'array') {
+          this.data.forEach(row => {
+            this.getFields(row)
+          })
+        } else if (t === 'object') {
+          this.getFields(this.data)
+        }
       },
-      validateModel: function () {
-        var valid = true
-        this.fields.forEach((field, i) => {
-          this.$set(this.fields[i], 'error', '')
-          var error = false
-          var empty = this.model[field.id] == null
-          field.format = field.format || 'string'
-          var label = field.label || field.placeholder || field.id
-          if (field.static) {
-            return
-          }
-          if (field.format === 'json' && this.model[field.id]) {
-            try {
-              var x = JSON.parse(this.model[field.id])
-            } catch (err) {
-              this.$set(this.fields[i], 'error', `${label} ${err.toString()}`)
-              valid = false
-              error = true
+      getFields: function (row) {
+        if (this.type(row) === 'object') {
+          Object.keys(row).forEach(key => {
+            if (this.$data.keys.indexOf(key) === -1) {
+              this.$data.keys.push(key)
             }
-          }
-          if (!error && empty && field.required) {
-            if (field.format.substr(0, 6) === 'string' && !field.options && !field.src) {
-              this.$set(this.model, field.id, '')
-            } else {
-              var err = this.translate('required')
-              this.$set(this.fields[i], 'error', `${label} ${err}`)
-              valid = false
-              error = true
-            }
-          }
-          if (!error && !empty && field.min > this.model[field.id]) {
-            var err = T.replaceAll('$min', T.format(field.min, field.format, this.translate))(this.translate('min'))
-            this.$set(this.fields[i], 'error', `${label} ${err}`)
-            valid = false
-            error = true
-          }
-          if (!error && !empty && field.max < this.model[field.id]) {
-            var err = T.replaceAll('$max', T.format(field.max, field.format, this.translate))(this.translate('max'))
-            this.$set(this.fields[i], 'error', `${label} ${err}`)
-            valid = false
-            error = true
-          }
-          if (!error && !empty && field.minLen > String(this.model[field.id]).length) {
-            var err = T.replaceAll('$minLen', field.minLen)(this.translate('minLen'))
-            this.$set(this.fields[i], 'error', `${label} ${err}`)
-            valid = false
-            error = true
-          }
-          if (!error && !empty && field.maxLen < String(this.model[field.id]).length) {
-            var err = T.replaceAll('$maxLen', field.maxLen)(this.translate('maxLen'))
-            this.$set(this.fields[i], 'error', `${label} ${err}`)
-            valid = false
-            error = true
-          }
-          if (!error && !empty && field.validate instanceof Array) {
-            field.validate.forEach(v => {
-              if (!error && !T.evaluate(v.assert)(this.model)) {
-                this.$set(this.fields[i], 'error', `${label} ${v.error}`)
-                valid = false
-                error = true
-              }
-            })
-          }
-          if (!error && field.watchlen && (String(this.model[field.id]).length < field.watchlen || empty)) {
-            valid = false
-          }
-        })
-
-        return valid
+          })
+        }
       }
     }
   }
 </script>
 
 <template>
-  <div class="thumbnail">
-    <div v-if="onClose || label || icon" class="modal-header">
-      <button v-if="onClose" type="button" class="close" @click="onClose">
-        <tmx-icon name="times"/>
-      </button>
-      <h4 v-if="label || icon" style="text-align:center" class="modal-title">
-        <tmx-icon :name="icon" /> {{label}}
-      </h4>
+  <table v-if="type(data) === 'array'">
+    <thead>
+      <tr v-if="keys.length">
+        <th v-for="key in keys">
+          {{key}}
+        </th>
+      </tr>
+    </thead>
+    <tbody v-if="data">
+      <tr v-for="row in data">
+        <td v-for="key in keys">
+          <formitable :data="row[key]">
+            {{key}}
+          </formitable>
+        </td>
+        <td v-if="!keys.length">
+          <formitable :data="row" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <form v-else-if="type(data) === 'object'">
+    <div v-for="key in keys">
+      <b v-if="type(data[key]) !== 'function'">{{key}}: </b>
+      <formitable :data="data[key]">
+        {{key}}
+      </formitable>
     </div>
-    <div v-if="hasFields() || text" class="modal-body">
-      <form class="form-horizontal" @submit.prevent="submit">
-        <tmx-item
-          v-for="(field, index) in fields2"
-          :key="index"
-          :model="model"
-          v-bind="field"
-          :static="field.static || compact"
-          :compact="compact"
-          :size="field.size || size"
-        >
-        </tmx-item>
-      </form>
-      <div 
-        v-if="text"
-        :class="['alert', 'alert-' + alert] " 
-        style="white-space:pre-line;"
-      ><big>{{text}}</big></div>
-      <div style="clear: both;"></div>
-    </div>
-    <div v-if="buttons.length" class="modal-footer">
-      <tmx-button
-        v-for="button in buttons"
-        v-bind="button"
-        :click="button.click || run"
-        :size="button.size || size"
-      />
-    </div>
-  </div>
+  </form>
+  <button v-else-if="type(data) === 'function'" @click="run">
+    <slot></slot>
+  </button>
+  <span v-else>{{data}}</span>
 </template>

@@ -76,7 +76,7 @@
       "id": "happy",
       "validate": [
         {
-          "assert": "$.fruit === 'Banana' || $.happy === true",
+          "assert": "$.fruit === 'Banana' || $.happy == true",
           "error": "must be Yes or fruit is banana"
         }
       ]

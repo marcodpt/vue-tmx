@@ -83,6 +83,8 @@
       <tmx-text v-if="component === 'text'" v-bind="tests" />
       <tmx-raw v-if="component === 'raw'" v-bind="tests" />
       <tmx-refined v-if="component === 'refined'" v-bind="tests" />
+      <tmx-formitable v-if="component === 'formitable'" v-bind="tests" />
+      <tmx-twbs3 v-if="component === 'twbs3'" v-bind="tests" />
     </div>
     <tmx-playground
       :model="tests"

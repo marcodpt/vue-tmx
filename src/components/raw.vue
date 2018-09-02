@@ -6,11 +6,12 @@
     mixins: [lib],
     props: {
       data: {
-        type: Array
+        type: [Array, Object]
       },
       fields: {
         type: Array
-      }
+      },
+      tableClass: {}
     },
     data: function () {
       return {
@@ -29,6 +30,9 @@
       }
     },
     methods: {
+      isArray: function () {
+        return this.data instanceof Array || this.data == null
+      },
       build: function () {
         var Fields = []
         if (!this.fields && this.data && this.data.length) {
@@ -42,7 +46,7 @@
             Fields[i].label = field.id
           }
           if (field.static == null) {
-            field.static = true
+            field.static = this.isArray()
           }
         })
 
@@ -53,34 +57,46 @@
 </script>
 
 <template>
-  <table>
-    <thead>
-      <slot></slot>
-      <tr>
-        <th v-for="field in Fields">
-          <slot name="th" :field="field">
-            {{field.label}}
-          </slot>
-        </th>
-      </tr>
-    </thead>
-    <tbody v-if="data">
-      <tr v-for="row in data">
-        <td v-for="field in Fields">
-          <slot name="td" :field="field" :row="row" :value="row[field.id]">
-            {{row[field.id]}}
-          </slot>
-        </td>
-      </tr>
-    </tbody>
-    <tbody v-else>
-      <tr>
-        <td colspan="100%">
-          <slot name="loading">
-            Loading...
-          </slot>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div>
+    <table v-if="isArray()" :class="tableClass">
+      <thead>
+        <slot></slot>
+        <tr>
+          <th v-for="field in Fields">
+            <slot name="th" :field="field">
+              {{field.label}}
+            </slot>
+          </th>
+        </tr>
+      </thead>
+      <tbody v-if="data">
+        <tr v-for="row in data">
+          <td v-for="field in Fields">
+            <slot name="td" :field="field" :row="row" :value="row[field.id]">
+              {{row[field.id]}}
+            </slot>
+          </td>
+        </tr>
+      </tbody>
+      <tbody v-else>
+        <tr>
+          <td colspan="100%">
+            <slot name="loading">
+              Loading...
+            </slot>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <form v-else>
+      <div v-for="field in Fields">
+        <slot name="label">
+          {{field.label}}
+        </slot>
+        <slot name="value">
+          {{data[field.id]}}
+        </slot>
+      </div>
+    </form>
+  </div>
 </template>
