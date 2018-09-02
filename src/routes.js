@@ -532,7 +532,7 @@ module.exports = [
       }
     ]
   }, {
-    path: '/formitable',
+    path: '/data2html',
     component: {
       template: '<router-view></router-view>'
     },
@@ -541,14 +541,14 @@ module.exports = [
         path: 'empty',
         component: 'tmx-tests',
         props: {
-          component: 'formitable',
+          component: 'data2html',
           tests: {}
         }
       }, {
         path: 'raw_object',
         component: 'tmx-tests',
         props: {
-          component: 'formitable',
+          component: 'data2html',
           tests: {
             data: {}
           }
@@ -557,7 +557,7 @@ module.exports = [
         path: 'raw_array',
         component: 'tmx-tests',
         props: {
-          component: 'formitable',
+          component: 'data2html',
           tests: {
             data: []
           }
@@ -566,7 +566,7 @@ module.exports = [
         path: 'value',
         component: 'tmx-tests',
         props: {
-          component: 'formitable',
+          component: 'data2html',
           tests: {
             data: 5.2
           }
@@ -575,7 +575,7 @@ module.exports = [
         path: 'function',
         component: 'tmx-tests',
         props: {
-          component: 'formitable',
+          component: 'data2html',
           tests: {
             data: () => {window.alert('function')}
           }
@@ -584,7 +584,7 @@ module.exports = [
         path: 'array',
         component: 'tmx-tests',
         props: {
-          component: 'formitable',
+          component: 'data2html',
           tests: {
             data: ['car', 'ball', 'house', 'dog']
           }
@@ -593,7 +593,7 @@ module.exports = [
         path: 'object',
         component: 'tmx-tests',
         props: {
-          component: 'formitable',
+          component: 'data2html',
           tests: {
             data: {
               name: 'john',
@@ -607,7 +607,7 @@ module.exports = [
         path: 'mixed',
         component: 'tmx-tests',
         props: {
-          component: 'formitable',
+          component: 'data2html',
           tests: {
             data: [
               {

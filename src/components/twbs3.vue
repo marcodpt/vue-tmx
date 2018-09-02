@@ -1,11 +1,11 @@
 <script type="text/babel">
   import table from '../json/table.json'
   import form from '../json/form.json'
-  import formitable from './formitable.vue'
+  import data2html from './data2html.vue'
 
   module.exports = {
     components: {
-      formitable
+      data2html
     },
     data: function () {
       return {
@@ -34,13 +34,13 @@
 <template>
   <div>
     <div class="thumbnail">
-      <formitable :data="form"></formitable>
+      <data2html :data="form"></data2html>
     </div>
     <div class="thumbnail table-responsive">
-      <formitable
+      <data2html
         class="table table-striped table-bordered table-condensed table-hover"
         :data="table"
-      ></formitable>
+      ></data2html>
     </div>
   </div>
 </template>

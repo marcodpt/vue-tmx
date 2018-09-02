@@ -24,6 +24,7 @@
   import text from './components/text.vue'
   import raw from './components/raw.vue'
   import refined from './components/refined.vue'
+  import data2html from './components/data2html.vue'
   import formitable from './components/formitable.vue'
   import twbs3 from './components/twbs3.vue'
 
@@ -52,6 +53,7 @@
     text: text,
     raw: raw,
     refined: refined,
+    data2html: data2html,
     formitable: formitable,
     twbs3: twbs3
   }
