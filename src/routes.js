@@ -175,17 +175,6 @@ module.exports = [
             type: 'primary'
           }
         }
-      }, {
-        path: 'data',
-        component: 'tmx-tests',
-        props: {
-          component: 'data',
-          tests: {
-            model: {id: '2018-12-25'},
-            id: 'id',
-            format: 'date'
-          }
-        }
       }
     ]
   }, {
@@ -195,17 +184,6 @@ module.exports = [
     },
     children: [
       {
-        path: 'progressbar',
-        component: 'tmx-tests',
-        props: {
-          component: 'progressbar',
-          tests: {
-            model: {id: 32, pgbcolor: 'red'},
-            id: 'id',
-            value: 20
-          }
-        }
-      }, {
         path: 'input',
         component: 'tmx-tests',
         props: {
