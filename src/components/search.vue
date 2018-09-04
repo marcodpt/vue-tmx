@@ -80,6 +80,6 @@
 </script>
 
 <template>
-  <tmx-input :model="model" id="search" :placeholder="translate('search')">
+  <tmx-input class="form-control" :model="model" id="search" :placeholder="translate('search')">
   </tmx-input>
 </template>

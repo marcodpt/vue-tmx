@@ -213,82 +213,80 @@
 
 <template>
   <div>
-    <div class="table-responsive">
-      <table class="table table-bordered table-condensed" style="margin-bottom:0">
-        <thead>
-          <tr :style="display('header')">
-            <th colspan="100%" style="text-align:center">
-              <button v-if="onClose" type="button" class="close" @click="onClose">
-                <tmx-icon name="times"/>
-              </button>
-              <h4>
-                <tmx-icon :name="icon" /> {{label}}
-              </h4>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr :style="display('methods')">
-            <td colspan="100%" style="text-align:center">
-              <span :style="display('filter')">
-                <tmx-filter
-                  :active="model.filters"
-                  :fields="tableFields"
-                  :input="data0"
-                  :output="data1"
-                >
-                </tmx-filter>&nbsp;
-              </span>
-              <span :style="display('group')">
-                <tmx-group
-                  :active="model.groups"
-                  :fields="tableFields"
-                  :input="data2"
-                  :output="data3"
-                >
-                </tmx-group>&nbsp;
-              </span>
-              <span v-for="m in methods">
-                <tmx-button
-                  :type="m.button"
-                  :icon="m.icon"
-                  :click="m.click"
-                  :data="m.model"
-                  :label="m.label"
-                />&nbsp;
-              </span>
-              <span :style="display('download')">
-                <tmx-download
-                  v-bind="download"
-                  :fields="getFields('download')"
-                  :data="data3"
-                >
-                </tmx-download>&nbsp;
-              </span>
-            </td>
-          </tr>
-          <tr :style="display('pager')">
-            <td colspan="100%" style="text-align:center">
-              <tmx-pager
-                :model="model"
-                :rows="rows"
-                :input="data3"
-                :output="view"
-              ></tmx-pager>
-            </td>
-          </tr>
-          <tr :style="display('search')">
-            <td colspan="100%" style="text-align:center">
-              <tmx-search
-                :input="data1"
-                :output="data2"
-                :model="model"
-              ></tmx-search>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <table class="table table-bordered table-condensed" style="margin-bottom:0">
+      <thead>
+        <tr :style="display('header')">
+          <th colspan="100%" style="text-align:center">
+            <button v-if="onClose" type="button" class="close" @click="onClose">
+              <tmx-icon name="times"/>
+            </button>
+            <h4>
+              <tmx-icon :name="icon" /> {{label}}
+            </h4>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr :style="display('methods')">
+          <td colspan="100%" style="text-align:center">
+            <span :style="display('filter')">
+              <tmx-filter
+                :active="model.filters"
+                :fields="tableFields"
+                :input="data0"
+                :output="data1"
+              >
+              </tmx-filter>&nbsp;
+            </span>
+            <span :style="display('group')">
+              <tmx-group
+                :active="model.groups"
+                :fields="tableFields"
+                :input="data2"
+                :output="data3"
+              >
+              </tmx-group>&nbsp;
+            </span>
+            <span v-for="m in methods">
+              <tmx-button
+                :type="m.button"
+                :icon="m.icon"
+                :click="m.click"
+                :data="m.model"
+                :label="m.label"
+              />&nbsp;
+            </span>
+            <span :style="display('download')">
+              <tmx-download
+                v-bind="download"
+                :fields="getFields('download')"
+                :data="data3"
+              >
+              </tmx-download>&nbsp;
+            </span>
+          </td>
+        </tr>
+        <tr :style="display('pager')">
+          <td colspan="100%" style="text-align:center">
+            <tmx-pager
+              :model="model"
+              :rows="rows"
+              :input="data3"
+              :output="view"
+            ></tmx-pager>
+          </td>
+        </tr>
+        <tr :style="display('search')">
+          <td colspan="100%" style="text-align:center">
+            <tmx-search
+              :input="data1"
+              :output="data2"
+              :model="model"
+            ></tmx-search>
+          </td>
+        </tr>
+      </tbody>
+    </table>
     <div class="table-responsive">
       <table class="table table-striped table-bordered table-condensed table-hover">
         <thead>

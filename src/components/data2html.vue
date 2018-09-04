@@ -77,7 +77,9 @@
       <tr v-for="row in data">
         <td v-for="key in keys">
           <data2html :data="row[key]">
-            {{key}}
+            <span slot="button">
+              {{key}}
+            </span>
           </data2html>
         </td>
         <td v-if="!keys.length">
@@ -87,15 +89,17 @@
     </tbody>
   </table>
   <form v-else-if="type(data) === 'object'">
-    <div v-for="key in keys">
+    <slot v-for="key in keys" name="form" :id="key" :model="data">
       <b v-if="type(data[key]) !== 'function'">{{key}}: </b>
       <data2html :data="data[key]">
-        {{key}}
+        <span slot="button">
+          {{key}}
+        </span>
       </data2html>
-    </div>
+    </slot>
   </form>
   <button v-else-if="type(data) === 'function'" @click="run">
-    <slot></slot>
+    <slot name="button"></slot>
   </button>
   <span v-else>{{data}}</span>
 </template>

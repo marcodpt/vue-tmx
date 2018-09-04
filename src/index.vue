@@ -3,11 +3,8 @@
 
   import body from './components/body.vue'
   import button from './components/button.vue'
-  import checkbox from './components/checkbox.vue'
-  import data from './components/data.vue'
   import download from './components/download.vue'
   import dropdown from './components/dropdown.vue'
-  import file from './components/file.vue'
   import filter from './components/filter.vue'
   import form from './components/form.vue'
   import group from './components/group.vue'
@@ -17,15 +14,12 @@
   import item from './components/item.vue'
   import modal from './components/modal.vue'
   import pager from './components/pager.vue'
-  import progressbar from './components/progressbar.vue'
   import search from './components/search.vue'
   import select from './components/select.vue'
   import table from './components/table.vue'
-  import text from './components/text.vue'
   import raw from './components/raw.vue'
   import refined from './components/refined.vue'
   import data2html from './components/data2html.vue'
-  import formitable from './components/formitable.vue'
   import twbs3 from './components/twbs3.vue'
 
   module.exports = {
@@ -33,10 +27,7 @@
     body: body,
     dropdown: dropdown,
     button: button,
-    checkbox: checkbox,
-    data: data,
     download: download,
-    file: file,
     filter: filter,
     form: form,
     group: group,
@@ -46,15 +37,12 @@
     item: item,
     modal: modal,
     pager: pager,
-    progressbar: progressbar,
     search: search,
     select: select,
     table: table,
-    text: text,
     raw: raw,
     refined: refined,
     data2html: data2html,
-    formitable: formitable,
     twbs3: twbs3
   }
 </script>

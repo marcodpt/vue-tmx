@@ -64,10 +64,7 @@
       <tmx-body v-if="component === 'body'" v-bind="tests" />
       <tmx-dropdown v-if="component === 'dropdown'" v-bind="tests" />
       <tmx-button v-if="component === 'button'" v-bind="tests" />
-      <tmx-checkbox v-if="component === 'checkbox'" v-bind="tests" />
-      <tmx-data v-if="component === 'data'" v-bind="tests" />
       <tmx-download v-if="component === 'download'" v-bind="tests" />
-      <tmx-file v-if="component === 'file'" v-bind="tests" />
       <tmx-filter v-if="component === 'filter'" v-bind="tests" />
       <tmx-form v-if="component === 'form'" v-bind="tests" />
       <tmx-group v-if="component === 'group'" v-bind="tests" />
@@ -76,15 +73,12 @@
       <tmx-input v-if="component === 'input'" v-bind="tests" />
       <tmx-item v-if="component === 'item'" v-bind="tests" />
       <tmx-pager v-if="component === 'pager'" v-bind="tests" />
-      <tmx-progressbar v-if="component === 'progressbar'" v-bind="tests" />
       <tmx-search v-if="component === 'search'" v-bind="tests" />
       <tmx-select v-if="component === 'select'" v-bind="tests" />
       <tmx-table v-if="component === 'table'" v-bind="tests" />
-      <tmx-text v-if="component === 'text'" v-bind="tests" />
       <tmx-raw v-if="component === 'raw'" v-bind="tests" />
       <tmx-refined v-if="component === 'refined'" v-bind="tests" />
       <tmx-data2html v-if="component === 'data2html'" v-bind="tests" />
-      <tmx-formitable v-if="component === 'formitable'" v-bind="tests" />
       <tmx-twbs3 v-if="component === 'twbs3'" v-bind="tests" />
     </div>
     <tmx-playground

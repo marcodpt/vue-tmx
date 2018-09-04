@@ -5,7 +5,10 @@
     "number",
     "date",
     "string",
-    "json"
+    "color",
+    "file",
+    "json",
+    "script"
   ],
   "Alert": [
     "success",

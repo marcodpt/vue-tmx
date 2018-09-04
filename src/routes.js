@@ -195,16 +195,6 @@ module.exports = [
     },
     children: [
       {
-        path: 'checkbox',
-        component: 'tmx-tests',
-        props: {
-          component: 'checkbox',
-          tests: {
-            model: {id: true},
-            id: 'id'
-          }
-        }
-      }, {
         path: 'progressbar',
         component: 'tmx-tests',
         props: {
@@ -220,16 +210,6 @@ module.exports = [
         component: 'tmx-tests',
         props: {
           component: 'input',
-          tests: {
-            model: {id: 'Test'},
-            id: 'id'
-          }
-        }
-      }, {
-        path: 'text',
-        component: 'tmx-tests',
-        props: {
-          component: 'text',
           tests: {
             model: {id: 'Test'},
             id: 'id'
@@ -252,16 +232,6 @@ module.exports = [
                 "Riemann"
               ])
             }
-          }
-        }
-      }, {
-        path: 'file',
-        component: 'tmx-tests',
-        props: {
-          component: 'file',
-          tests: {
-            model: {},
-            id: 'id'
           }
         }
       }, {

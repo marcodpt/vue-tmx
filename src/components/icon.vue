@@ -26,8 +26,8 @@
 
 <template>
   <icon v-if="name !== ''"
-    :name="name"
     class="glyphicon"
+    :name="name"
     :spin="spin"
     :scale="scale"
   ></icon>

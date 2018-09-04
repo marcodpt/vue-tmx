@@ -1,19 +1,12 @@
 <script type="text/babel">
+  import T from 'libt'
   import lib from '../lib.js'
-  import tmxData from './data.vue'
   import tmxInput from './input.vue'
-  import tmxText from './text.vue'
-  import tmxFile from './file.vue'
-  import tmxSelect from './select.vue'
 
   module.exports = {
     mixins: [lib],
     components: {
-      'tmx-data': tmxData,
-      'tmx-input': tmxInput,
-      'tmx-text': tmxText,
-      'tmx-file': tmxFile,
-      'tmx-select': tmxSelect
+      'tmx-input': tmxInput
     },
     props: {
       model: {
@@ -108,28 +101,6 @@
       }
     },
     methods: {
-      input: function () {
-        var input = 'input'
-        var F = this.format.split(':')
-
-        if (this.static) {
-          input = 'static'
-        } else if (this.source || this.options) {
-          input = 'select'
-        } else if (F[0] === 'boolean') {
-          input = 'select'
-        } else if (F[0] === 'string') {
-          if (F.indexOf('file') !== -1) {
-            input = 'file'
-          } else if (F.indexOf('text') !== -1) {
-            input = 'text'
-          }
-        } else if (F[0] === 'json') {
-          input = 'text'
-        }
-
-        return input
-      },
       parseHref: function (href) {
         Object.keys(this.model).forEach(key => {
           while (href.indexOf(`:${key}`) !== -1 && this.model[key] !== undefined) {
@@ -149,6 +120,45 @@
             label: this.translate('trueLabel')
           }
         ] : this.options
+      },
+      getType: function () {
+        var F = this.format.split(':')
+
+        if (this.static) {
+          return ''
+        }
+
+        if (this.options || this.source || F[0] === 'boolean') {
+          return 'select'
+        } else if (F[0] === 'date') {
+          return 'date'
+        } else if (F[0] === 'json') {
+          return 'textarea'
+        } else if (F.indexOf('pass') !== -1) {
+          return 'password'
+        } else if (F.indexOf('file') !== -1) {
+          return 'file'
+        } else if (F.indexOf('color') !== -1) {
+          return 'color'
+        } else if (F.indexOf('text') !== -1) {
+          return 'textarea'
+        } else if (F.indexOf('pgb') !== -1) {
+          return this.static ? 'progressbar' : 'range'
+        } else {
+          return 'text'
+        }
+      },
+      getClass: function () {
+        if (['select', 'checkbox'].indexOf(this.$data.elem.type) === -1) {
+          return 'form-control input-' + this.size
+        } else {
+          return ''
+        }
+      },
+      getFormatter: function () {
+        return x => {
+          return T.format(x, this.format, this.translate)
+        }
       }
     },
     data: function () {
@@ -156,6 +166,7 @@
         elem: {
           model: this.model,
           id: this.id,
+          type: this.getType(),
           format: this.format,
           placeholder: this.placeholder,
           source: this.source,
@@ -178,6 +189,7 @@
       },
       format: function () {
         this.$data.elem.format = this.format
+        this.$data.elem.type = this.getType()
         this.$data.elem.options = this.getOptions()
       },
       placeholder: function () {
@@ -185,9 +197,11 @@
       },
       source: function () {
         this.$data.elem.source = this.source
+        this.$data.elem.type = this.getType()
       },
       options: function () {
         this.$data.elem.options = this.getOptions()
+        this.$data.elem.type = this.getType()
       },
       dependencies: function () {
         this.$data.elem.dependencies = this.dependencies
@@ -206,6 +220,7 @@
   <div
     :class="[
       compact ? '' : 'form-group', 
+      'form-group-' + elem.size,
       error ? 'has-error': '', 
       col > 0 ? ('col-xs-' + Math.floor(12 / col)) : ''
     ]"
@@ -213,19 +228,13 @@
     <label
       v-if="label !== '' && col"
       :class="['control-label', 'col-xs-' + (2 * col)]"
-      :style="{
-        'font-size': (elem.size === 'lg' ? '130%' : (elem.size === 'sm' ? '80%' : null))
-      }"
     >
       {{label || id}}:
     </label>
     <div :class="['col-xs-' + (12 - (label !== '' ? 2 * col : 0))]">
-      <tmx-select v-if="input() === 'select'" v-bind="elem"></tmx-select>
-      <tmx-file v-else-if="input() === 'file'" v-bind="elem"></tmx-file>
-      <tmx-text v-else-if="input() === 'text'" v-bind="elem"></tmx-text>
-      <tmx-input v-else-if="input() === 'input'" v-bind="elem"></tmx-input>
+      <tmx-input :class="getClass()" v-if="!static" v-bind="elem"></tmx-input>
       <p v-else class="form-control-static">
-        <tmx-data v-bind="elem"></tmx-data>
+        <tmx-input v-bind="elem" :formatter="getFormatter()"></tmx-input>
       </p>
       <span class="help-block" v-if="error">
         {{error}}

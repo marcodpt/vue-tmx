@@ -3,9 +3,7 @@
   import lib from '../lib.js'
   import tmxRaw from './raw.vue'
   import tmxIcon from './icon.vue'
-  import tmxData from './data.vue'
   import tmxInput from './input.vue'
-  import tmxCheckbox from './checkbox.vue'
   import tmxButton from './button.vue'
 
   module.exports = {
@@ -13,9 +11,7 @@
     components: {
       'tmx-raw': tmxRaw,
       'tmx-icon': tmxIcon,
-      'tmx-data': tmxData,
       'tmx-input': tmxInput,
-      'tmx-checkbox': tmxCheckbox,
       'tmx-button': tmxButton
     },
     props: {
@@ -39,6 +35,11 @@
       getLabel: function (field, row) {
         return T.format(row[id], field.format, this.translate)
       },
+      getFormatter: function (format) {
+        return x => {
+          return T.format(x, format, this.translate)
+        }
+      }, 
       runSort: function () {
 
       }
@@ -90,17 +91,12 @@
         :data="row"
         :label="getLabel()"
       />
-      <tmx-data v-else-if="field.static" v-bind="field" :model="row">
-      </tmx-data>
-      <tmx-checkbox
-        v-else-if="field.format === 'boolean'"
-        v-bind="field"
-        :model="row"
-      >
-      </tmx-checkbox>
       <tmx-input
         v-else
-        v-bind="field"
+        :id="field.id"
+        :type="''"
+        :class="''"
+        :formatter="getFormatter(field.format)"
         :model="row"
       >
       </tmx-input>

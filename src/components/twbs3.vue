@@ -27,14 +27,31 @@
         })
         this.$data.table.push(row)
       })
+
+      this.$data.form['submit'] = () => {window.alert('submit')}
+      this.$data.form['cancel'] = () => {window.alert('cancel')}
+      this.$data.ready = true
     }
   }
 </script>
 
 <template>
-  <div>
+  <div v-if="ready">
     <div class="thumbnail">
-      <data2html :data="form"></data2html>
+      <data2html :data="form">
+        <div class='form-group' slot="form" slot-scope="{model, id}">
+          <label
+            :class="['control-label', 'col-xs-2']"
+          >
+            {{id}}:
+          </label>
+          <div :class="['col-xs-10']">
+            <p class="form-control-static">
+              {{model[id]}}
+            </p>
+          </div>
+        </div>
+      </data2html>
     </div>
     <div class="thumbnail table-responsive">
       <data2html

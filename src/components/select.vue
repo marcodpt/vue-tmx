@@ -2,11 +2,13 @@
   import T from 'libt'
   import lib from '../lib.js'
   import vueSelect from 'vue-select'
+  import icon from './icon.vue'
 
   module.exports = {
     mixins: [lib],
     components: {
-      'vue-select': vueSelect
+      'vue-select': vueSelect,
+      'tmx-icon': icon
     },
     props: {
       model: {
@@ -20,14 +22,6 @@
       disabled: {
         type: Boolean,
         default: false
-      },
-      placeholder: {
-        type: String,
-        default: ''
-      },
-      noMatch: {
-        type: String,
-        default: ''
       },
       dependencies: {
         type: Array,
@@ -174,12 +168,12 @@
   <vue-select
     v-model="value"
     :options="values"
-    :placeholder="placeholder"
     :disabled="disabled || !enabled"
     :id="id"
+    v-bind="$attrs"
   >
     <span slot="no-options">
-      {{noMatch}}
+      <tmx-icon name="question"></tmx-icon>
     </span>
   </vue-select>
 </template>

@@ -124,11 +124,13 @@
       },
       validateModel: function () {
         var valid = true
+
         this.fields.forEach((field, i) => {
+          field.format = field.format || 'string'
+          this.$set(this.model, field.id, T.parse(field.format)(this.model[field.id]))
           this.$set(this.fields[i], 'error', '')
           var error = false
           var empty = this.model[field.id] == null
-          field.format = field.format || 'string'
           var label = field.label || field.placeholder || field.id
           if (field.static) {
             return

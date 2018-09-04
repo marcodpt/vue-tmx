@@ -1,17 +1,13 @@
 <script type="text/babel">
   import T from 'libt'
   import lib from '../lib.js'
-  import tmxData from './data.vue'
   import tmxInput from './input.vue'
-  import tmxCheckbox from './checkbox.vue'
   import tmxButton from './button.vue'
 
   module.exports = {
     mixins: [lib],
     components: {
-      'tmx-data': tmxData,
       'tmx-input': tmxInput,
-      'tmx-checkbox': tmxCheckbox,
       'tmx-button': tmxButton
     },
     props: {
@@ -87,6 +83,21 @@
         }
         return null
       },
+      getFormatter: function () {
+        return x => {
+          return T.format(x, this.format, this.translate)
+        }
+      }, 
+      getType: function () {
+        if (this.static) {
+          return this.format === 'integer:pgb' ? 'progressbar' : ''
+        } else {
+          return this.format === 'boolean' ? 'checkbox' : 'text'
+        }
+      },
+      getClass: function () {
+        return this.getType() === 'text' ? 'form-control' : ''
+      },
       getLabel: function () {
         return T.format(this.model[id], this.format, this.translate)
       }
@@ -116,17 +127,12 @@
       :data="model"
       :label="getLabel()"
     />
-    <tmx-data v-else-if="static" v-bind="elem" :model="model">
-    </tmx-data>
-    <tmx-checkbox
-      v-else-if="format === 'boolean'"
-      v-bind="elem"
-      :model="model"
-    >
-    </tmx-checkbox>
     <tmx-input
       v-else
       v-bind="elem"
+      :type="getType()"
+      :class="getClass()"
+      :formatter="getFormatter()"
       :model="model"
     >
     </tmx-input>
