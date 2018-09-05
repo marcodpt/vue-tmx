@@ -28,10 +28,10 @@
     "build": "browserify -e src/app.vue -o app.js"
   },
   "dependencies": {
-    "libt": "0.0.2",
+    "libt": "0.0.3",
     "vue-awesome": "^3.0.5",
-    "vue-over-body": "0.0.3",
-    "vue-select": "2.4.0"
+    "vue-inputag": "0.0.1",
+    "vue-over-body": "0.0.3"
   },
   "browserify": {
     "transform": [

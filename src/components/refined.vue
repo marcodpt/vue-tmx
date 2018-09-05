@@ -1,17 +1,17 @@
 <script type="text/babel">
   import T from 'libt'
   import lib from '../lib.js'
+  import inputag from 'vue-inputag'
   import tmxRaw from './raw.vue'
   import tmxIcon from './icon.vue'
-  import tmxInput from './input.vue'
   import tmxButton from './button.vue'
 
   module.exports = {
     mixins: [lib],
     components: {
+      'vue-inputag': inputag,
       'tmx-raw': tmxRaw,
       'tmx-icon': tmxIcon,
-      'tmx-input': tmxInput,
       'tmx-button': tmxButton
     },
     props: {
@@ -91,15 +91,14 @@
         :data="row"
         :label="getLabel()"
       />
-      <tmx-input
+      <vue-inputag
         v-else
         :id="field.id"
         :type="''"
         :class="''"
         :formatter="getFormatter(field.format)"
         :model="row"
-      >
-      </tmx-input>
+      />
     </template>
     <p slot="loading" style="margin:40px 0">
       <tmx-icon name="sync" scale="6" spin></tmx-icon>

@@ -178,53 +178,6 @@ module.exports = [
       }
     ]
   }, {
-    path: '/fields',
-    component: {
-      template: '<router-view></router-view>'
-    },
-    children: [
-      {
-        path: 'input',
-        component: 'tmx-tests',
-        props: {
-          component: 'input',
-          tests: {
-            model: {id: 'Test'},
-            id: 'id'
-          }
-        }
-      }, {
-        path: 'select',
-        component: 'tmx-tests',
-        props: {
-          component: 'select',
-          tests: {
-            model: {id: 'Gauss'},
-            id: 'id',
-            source: function (model, callback) {
-              callback([
-                "Eistein",
-                "Newton",
-                "Gauss",
-                "Euler",
-                "Riemann"
-              ])
-            }
-          }
-        }
-      }, {
-        path: 'item',
-        component: 'tmx-tests',
-        props: {
-          component: 'item',
-          tests: {
-            model: {id: 'Test'},
-            id: 'id'
-          }
-        }
-      }
-    ]
-  }, {
     path: '/controls',
     component: {
       template: '<router-view></router-view>'

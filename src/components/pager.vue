@@ -1,13 +1,13 @@
 <script type="text/babel">
   import T from 'libt'
   import lib from '../lib.js'
-  import tmxSelect from './select.vue'
+  import inputag from 'vue-inputag'
   import tmxButton from './button.vue'
 
   module.exports = {
     mixins: [lib],
     components: {
-      'tmx-select': tmxSelect,
+      'vue-inputag': inputag,
       'tmx-button': tmxButton
     },
     props: {
@@ -154,13 +154,14 @@
     <tmx-button type="primary" icon="fast-backward" :disabled="model[id] <= 1" :click="begin" />
     <tmx-button type="primary" icon="step-backward" :disabled="model[id] <= 1" :click="back" />
     <div class="form-group">
-      <tmx-select
+      <vue-inputag
         :id="id"
         :model="model"
         :options="getLabel()"
+        type="select"
         required
         style="background-color:white;border-radius:5px"
-      ></tmx-select>
+      />
     </div>
     <tmx-button type="primary" icon="step-forward" :disabled="model[id] >= pages" :click="next" />
     <tmx-button type="primary" icon="fast-forward" :disabled="model[id] >= pages" :click="end" />

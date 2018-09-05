@@ -1,12 +1,12 @@
 <script type="text/babel">
   import T from 'libt'
   import lib from '../lib.js'
-  import tmxInput from './input.vue'
+  import inputag from 'vue-inputag'
 
   module.exports = {
     mixins: [lib],
     components: {
-      'tmx-input': tmxInput
+      'vue-inputag': inputag
     },
     props: {
       model: {
@@ -232,9 +232,9 @@
       {{label || id}}:
     </label>
     <div :class="['col-xs-' + (12 - (label !== '' ? 2 * col : 0))]">
-      <tmx-input :class="getClass()" v-if="!static" v-bind="elem"></tmx-input>
+      <vue-inputag :class="getClass()" v-if="!static" v-bind="elem" />
       <p v-else class="form-control-static">
-        <tmx-input v-bind="elem" :formatter="getFormatter()"></tmx-input>
+        <vue-inputag v-bind="elem" :formatter="getFormatter()" />
       </p>
       <span class="help-block" v-if="error">
         {{error}}

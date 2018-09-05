@@ -1,12 +1,12 @@
 <script type="text/babel">
   import T from 'libt'
   import lib from '../lib.js'
-  import tmxInput from './input.vue'
+  import inputag from 'vue-inputag'
 
   module.exports = {
     mixins: [lib],
     components: {
-      'tmx-input': tmxInput
+      'vue-inputag': inputag
     },
     props: {
       model: {
@@ -80,6 +80,5 @@
 </script>
 
 <template>
-  <tmx-input class="form-control" :model="model" id="search" :placeholder="translate('search')">
-  </tmx-input>
+  <vue-inputag class="form-control" :model="model" id="search" :placeholder="translate('search')" />
 </template>

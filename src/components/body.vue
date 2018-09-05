@@ -1,13 +1,13 @@
 <script type="text/babel">
   import T from 'libt'
   import lib from '../lib.js'
-  import tmxInput from './input.vue'
+  import inputag from 'vue-inputag'
   import tmxButton from './button.vue'
 
   module.exports = {
     mixins: [lib],
     components: {
-      'tmx-input': tmxInput,
+      'vue-inputag': inputag,
       'tmx-button': tmxButton
     },
     props: {
@@ -127,14 +127,13 @@
       :data="model"
       :label="getLabel()"
     />
-    <tmx-input
+    <vue-inputag
       v-else
       v-bind="elem"
       :type="getType()"
       :class="getClass()"
       :formatter="getFormatter()"
       :model="model"
-    >
-    </tmx-input>
+    />
   </td>
 </template>

@@ -10,12 +10,10 @@
   import group from './components/group.vue'
   import head from './components/head.vue'
   import icon from './components/icon.vue'
-  import input from './components/input.vue'
   import item from './components/item.vue'
   import modal from './components/modal.vue'
   import pager from './components/pager.vue'
   import search from './components/search.vue'
-  import select from './components/select.vue'
   import table from './components/table.vue'
   import raw from './components/raw.vue'
   import refined from './components/refined.vue'
@@ -33,12 +31,10 @@
     group: group,
     head: head,
     icon: icon,
-    input: input,
     item: item,
     modal: modal,
     pager: pager,
     search: search,
-    select: select,
     table: table,
     raw: raw,
     refined: refined,
