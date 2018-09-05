@@ -303,6 +303,8 @@
               :input="data1"
               :output="data2"
               :model="model"
+              :placeholder="translate('search')"
+              class="form-control"
             ></tmx-search>
           </td>
         </tr>

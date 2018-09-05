@@ -1,13 +1,7 @@
 <script type="text/babel">
   import T from 'libt'
-  import lib from '../lib.js'
-  import inputag from 'vue-inputag'
 
   module.exports = {
-    mixins: [lib],
-    components: {
-      'vue-inputag': inputag
-    },
     props: {
       model: {
         type: Object,
@@ -80,5 +74,5 @@
 </script>
 
 <template>
-  <vue-inputag class="form-control" :model="model" id="search" :placeholder="translate('search')" />
+  <input v-model="model.search" v-bind="$attrs" />
 </template>

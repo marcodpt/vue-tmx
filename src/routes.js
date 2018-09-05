@@ -251,7 +251,9 @@ module.exports = [
               console.log('search: ' + this.model.search)
               console.log('input: ' + this.input.length)
               console.log('output: ' + this.output.length)
-            }
+            },
+            placeholder: 'Search',
+            class: 'form-control'
           }
         }
       }
