@@ -184,17 +184,6 @@ module.exports = [
     },
     children: [
       {
-        path: 'pager',
-        component: 'tmx-tests',
-        props: {
-          component: 'pager',
-          tests: {
-            model: {page: 1},
-            rows: 3,
-            input: table.data
-          }
-        }
-      }, {
         path: 'filter',
         component: 'tmx-tests',
         props: {

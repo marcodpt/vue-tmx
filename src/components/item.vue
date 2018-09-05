@@ -9,14 +9,6 @@
       'vue-inputag': inputag
     },
     props: {
-      model: {
-        type: Object,
-        required: true
-      },
-      id: {
-        type: String,
-        required: true
-      },
       static: {
         type: Boolean,
         default: false
@@ -38,46 +30,6 @@
       label: {
         type: String
       },
-      placeholder: {
-        type: String,
-        default: ''
-      },
-      dependencies: {
-        type: Array,
-        default: function () {
-          return []
-        }
-      },
-      source: {
-        type: Function
-      },
-      options: {
-        type: Array
-      },
-      method: {
-        type: Function
-      },
-      required: {
-        type: Boolean,
-        default: false
-      },
-      min: {},
-      max: {},
-      minLen: {
-        type: [Number, String]
-      },
-      maxLen: {
-        type: [Number, String]
-      },
-      watchlen: {
-        type: [Number, String]
-      },
-      validate: {
-        type: Array,
-        default: function () {
-          return []
-        }
-      },
       error: {
         type: String,
         default: ''
@@ -90,26 +42,9 @@
       compact: {
         type: Boolean,
         default: false
-      },
-      multiple: {
-        type: Boolean,
-        default: false
-      },
-      href: {
-        type: String,
-        default: ''
       }
     },
     methods: {
-      parseHref: function (href) {
-        Object.keys(this.model).forEach(key => {
-          while (href.indexOf(`:${key}`) !== -1 && this.model[key] !== undefined) {
-            href = href.replace(`:${key}`, this.model[key])
-          }
-        })
-
-        return href
-      },
       getOptions: function () {
         return this.format === 'boolean' ? [
           {
@@ -119,7 +54,7 @@
             id: 1,
             label: this.translate('trueLabel')
           }
-        ] : this.options
+        ] : this.$attrs.options
       },
       getType: function () {
         var F = this.format.split(':')
@@ -128,7 +63,7 @@
           return ''
         }
 
-        if (this.options || this.source || F[0] === 'boolean') {
+        if (this.$attrs.options || this.$attrs.source || F[0] === 'boolean') {
           return 'select'
         } else if (F[0] === 'date') {
           return 'date'
@@ -149,7 +84,7 @@
         }
       },
       getClass: function () {
-        if (['select', 'checkbox'].indexOf(this.$data.elem.type) === -1) {
+        if (['select', 'checkbox'].indexOf(this.getType()) === -1) {
           return 'form-control input-' + this.size
         } else {
           return ''
@@ -160,58 +95,6 @@
           return T.format(x, this.format, this.translate)
         }
       }
-    },
-    data: function () {
-      return {
-        elem: {
-          model: this.model,
-          id: this.id,
-          type: this.getType(),
-          format: this.format,
-          placeholder: this.placeholder,
-          source: this.source,
-          options: this.getOptions(),
-          dependencies: this.dependencies,
-          required: this.required,
-          size: this.size,
-          multiple: this.multiple,
-          href: this.parseHref(this.href)
-        }
-      }
-    },
-    watch: {
-      model: function () {
-        this.$data.elem.model = this.model
-        this.$data.elem.href = this.parseHref(this.href)
-      },
-      id: function () {
-        this.$data.elem.id = this.id
-      },
-      format: function () {
-        this.$data.elem.format = this.format
-        this.$data.elem.type = this.getType()
-        this.$data.elem.options = this.getOptions()
-      },
-      placeholder: function () {
-        this.$data.elem.placeholder = this.placeholder
-      },
-      source: function () {
-        this.$data.elem.source = this.source
-        this.$data.elem.type = this.getType()
-      },
-      options: function () {
-        this.$data.elem.options = this.getOptions()
-        this.$data.elem.type = this.getType()
-      },
-      dependencies: function () {
-        this.$data.elem.dependencies = this.dependencies
-      },
-      size: function () {
-        this.$data.elem.size = this.size
-      },
-      href: function () {
-        this.$data.elem.href = this.parseHref(this.href)
-      }
     }
   }
 </script>
@@ -220,7 +103,7 @@
   <div
     :class="[
       compact ? '' : 'form-group', 
-      'form-group-' + elem.size,
+      'form-group-' + size,
       error ? 'has-error': '', 
       col > 0 ? ('col-xs-' + Math.floor(12 / col)) : ''
     ]"
@@ -229,12 +112,23 @@
       v-if="label !== '' && col"
       :class="['control-label', 'col-xs-' + (2 * col)]"
     >
-      {{label || id}}:
+      {{label || $attrs.id}}:
     </label>
     <div :class="['col-xs-' + (12 - (label !== '' ? 2 * col : 0))]">
-      <vue-inputag :class="getClass()" v-if="!static" v-bind="elem" />
+      <vue-inputag
+        v-if="!static"
+        v-bind="$attrs"
+        :class="getClass()"
+        :options="getOptions()"
+        :type="getType()"
+      />
       <p v-else class="form-control-static">
-        <vue-inputag v-bind="elem" :formatter="getFormatter()" />
+        <vue-inputag
+          v-bind="$attrs"
+          :formatter="getFormatter()"
+          :options="getOptions()"
+          :type="getType()"
+        />
       </p>
       <span class="help-block" v-if="error">
         {{error}}

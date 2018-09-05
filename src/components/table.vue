@@ -1,13 +1,14 @@
 <script type="text/babel">
   import T from 'libt'
   import lib from '../lib.js'
+  import inputag from 'vue-inputag'
+  import limit from 'vue-limit'
   import tmxDownload from './download.vue'
   import tmxGroup from './group.vue'
   import tmxFilter from './filter.vue'
   import tmxHead from './head.vue'
   import tmxBody from './body.vue'
   import tmxIcon from './icon.vue'
-  import tmxPager from './pager.vue'
   import tmxButton from './button.vue'
   import tmxSearch from './search.vue'
 
@@ -20,9 +21,10 @@
       'tmx-head': tmxHead,
       'tmx-body': tmxBody,
       'tmx-icon': tmxIcon,
-      'tmx-pager': tmxPager,
       'tmx-button': tmxButton,
-      'tmx-search': tmxSearch
+      'tmx-search': tmxSearch,
+      'vue-inputag': inputag,
+      'vue-limit': limit
     },
     props: {
       model: {
@@ -193,7 +195,7 @@
         if (section === 'download' && this.download) {
           return ''
         } 
-        if (section === 'pager' && this.rows) {
+        if (section === 'limit' && this.rows) {
           return ''
         }
         if (section === 'search' && this.search) {
@@ -266,14 +268,33 @@
             </span>
           </td>
         </tr>
-        <tr :style="display('pager')">
+        <tr :style="display('limit')">
           <td colspan="100%" style="text-align:center">
-            <tmx-pager
+            <vue-limit
               :model="model"
               :rows="rows"
               :input="data3"
               :output="view"
-            ></tmx-pager>
+              class="form-inline"
+              button-class="btn btn-primary"
+              select-class="form-control"
+              select-style="width:auto;display:inline"
+            >
+              <tmx-icon slot="first" name="fast-backward" />
+              <tmx-icon slot="previous" name="step-backward" />
+              <template slot="select" scope="scope">
+                <vue-inputag
+                  :id="scope.id"
+                  :model="scope.model"
+                  :options="scope.options"
+                  type="select"
+                  class="form-group"
+                  required
+                />
+              </template>
+              <tmx-icon slot="next" name="step-forward" />
+              <tmx-icon slot="last" name="fast-forward" />
+            </vue-limit>
           </td>
         </tr>
         <tr :style="display('search')">

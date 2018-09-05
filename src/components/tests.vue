@@ -70,7 +70,6 @@
       <tmx-group v-if="component === 'group'" v-bind="tests" />
       <tmx-head v-if="component === 'head'" v-bind="tests" />
       <tmx-icon v-if="component === 'icon'" v-bind="tests" />
-      <tmx-pager v-if="component === 'pager'" v-bind="tests" />
       <tmx-search v-if="component === 'search'" v-bind="tests" />
       <tmx-table v-if="component === 'table'" v-bind="tests" />
       <tmx-raw v-if="component === 'raw'" v-bind="tests" />

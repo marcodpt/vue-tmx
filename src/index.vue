@@ -12,7 +12,6 @@
   import icon from './components/icon.vue'
   import item from './components/item.vue'
   import modal from './components/modal.vue'
-  import pager from './components/pager.vue'
   import search from './components/search.vue'
   import table from './components/table.vue'
   import raw from './components/raw.vue'
@@ -33,7 +32,6 @@
     icon: icon,
     item: item,
     modal: modal,
-    pager: pager,
     search: search,
     table: table,
     raw: raw,
