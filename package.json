@@ -30,7 +30,7 @@
   "dependencies": {
     "libt": "0.0.3",
     "vue-awesome": "^3.0.5",
-    "vue-inputag": "0.0.1",
+    "vue-inputag": "0.0.2",
     "vue-over-body": "0.0.3"
   },
   "browserify": {
