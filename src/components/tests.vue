@@ -72,10 +72,6 @@
       <tmx-icon v-if="component === 'icon'" v-bind="tests" />
       <tmx-search v-if="component === 'search'" v-bind="tests" />
       <tmx-table v-if="component === 'table'" v-bind="tests" />
-      <tmx-raw v-if="component === 'raw'" v-bind="tests" />
-      <tmx-refined v-if="component === 'refined'" v-bind="tests" />
-      <tmx-data2html v-if="component === 'data2html'" v-bind="tests" />
-      <tmx-twbs3 v-if="component === 'twbs3'" v-bind="tests" />
     </div>
     <tmx-playground
       :model="tests"

@@ -10,7 +10,7 @@ Object.keys(validate).forEach(function (key) {
 })
 
 _.translate = function (field) {
-  return lang['pt-br'][field]
+  return lang['en'][field]
 }
 
 _.setFields = function (Data) {

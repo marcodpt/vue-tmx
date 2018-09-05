@@ -14,10 +14,6 @@
   import modal from './components/modal.vue'
   import search from './components/search.vue'
   import table from './components/table.vue'
-  import raw from './components/raw.vue'
-  import refined from './components/refined.vue'
-  import data2html from './components/data2html.vue'
-  import twbs3 from './components/twbs3.vue'
 
   module.exports = {
     lib: lib,
@@ -33,10 +29,6 @@
     item: item,
     modal: modal,
     search: search,
-    table: table,
-    raw: raw,
-    refined: refined,
-    data2html: data2html,
-    twbs3: twbs3
+    table: table
   }
 </script>
