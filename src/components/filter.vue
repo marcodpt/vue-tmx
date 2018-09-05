@@ -2,15 +2,11 @@
   import T from 'libt'
   import lib from '../lib.js'
   import tmxDropdown from './dropdown.vue'
-  import tmxIcon from './icon.vue'
-  import tmxButton from './button.vue'
 
   module.exports = {
     mixins: [lib],
     components: {
-      'tmx-dropdown': tmxDropdown,
-      'tmx-icon': tmxIcon,
-      'tmx-button': tmxButton
+      'tmx-dropdown': tmxDropdown
     },
     props: {
       button: {
@@ -20,6 +16,10 @@
       icon: {
         type: String,
         default: 'filter'
+      },
+      label: {
+        type: String,
+        default: 'Filter'
       },
       active: {
         type: Array,
@@ -185,7 +185,7 @@
     :type="button"
     :icon="icon"
     :click="click"
-    :label="translate('filter')"
+    :label="label"
     :items="getItems()"
   >
   </tmx-dropdown>

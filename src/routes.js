@@ -212,7 +212,8 @@ module.exports = [
           component: 'download',
           tests: {
             data: table.data,
-            fields: table.fields
+            fields: table.fields,
+            class: 'btn btn-default'
           }
         }
       }, {

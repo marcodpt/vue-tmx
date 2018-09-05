@@ -1,24 +1,13 @@
 <script type="text/babel">
   import T from 'libt'
   import lib from '../lib.js'
-  import tmxButton from './button.vue'
 
   module.exports = {
     mixins: [lib],
-    components: {
-      'tmx-button': tmxButton
-    },
     props: {
       button: {
         type: String,
         default: 'default'
-      },
-      icon: {
-        type: String,
-        default: 'file'
-      },
-      label: {
-        type: String
       },
       json: {
         type: Boolean,
@@ -126,5 +115,5 @@
 </script>
 
 <template>
-  <tmx-button :type="button" :icon="icon" :click="downloadData" :label="label || translate('download')" />
+  <button @click="downloadData"><slot>Download</slot></button>
 </template>

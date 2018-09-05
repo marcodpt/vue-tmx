@@ -237,6 +237,7 @@
                 :fields="tableFields"
                 :input="data0"
                 :output="data1"
+                :label="translate('filter')"
               >
               </tmx-filter>&nbsp;
             </span>
@@ -246,6 +247,7 @@
                 :fields="tableFields"
                 :input="data2"
                 :output="data3"
+                :label="translate('group')"
               >
               </tmx-group>&nbsp;
             </span>
@@ -263,7 +265,10 @@
                 v-bind="download"
                 :fields="getFields('download')"
                 :data="data3"
+                class="btn btn-default"
               >
+                <tmx-icon name="file" />
+                {{translate('download')}}
               </tmx-download>&nbsp;
             </span>
           </td>
