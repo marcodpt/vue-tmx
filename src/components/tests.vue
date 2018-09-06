@@ -67,6 +67,7 @@
       <tmx-download v-if="component === 'download'" v-bind="tests" />
       <tmx-filter v-if="component === 'filter'" v-bind="tests" />
       <tmx-form v-if="component === 'form'" v-bind="tests" />
+      <tmx-transform v-if="component === 'transform'" v-bind="tests" />
       <tmx-group v-if="component === 'group'" v-bind="tests" />
       <tmx-head v-if="component === 'head'" v-bind="tests" />
       <tmx-icon v-if="component === 'icon'" v-bind="tests" />

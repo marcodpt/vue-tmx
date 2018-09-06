@@ -84,7 +84,9 @@
         }
       },
       getClass: function () {
-        if (['select', 'checkbox'].indexOf(this.getType()) === -1) {
+        if (this.static) {
+          return 'form-control-static'
+        } else if (['select', 'checkbox'].indexOf(this.getType()) === -1) {
           return 'form-control input-' + this.size
         } else {
           return ''
@@ -118,6 +120,7 @@
       <vue-inputag
         v-if="!static"
         v-bind="$attrs"
+        :formatter="getFormatter()"
         :class="getClass()"
         :options="getOptions()"
         :type="getType()"

@@ -2,14 +2,12 @@
   import T from 'libt'
   import lib from '../lib.js'
   import tmxIcon from './icon.vue'
-  import tmxButton from './button.vue'
   import tmxItem from './item.vue'
 
   module.exports = {
     mixins: [lib],
     components: {
       'tmx-icon': tmxIcon,
-      'tmx-button': tmxButton,
       'tmx-item': tmxItem
     },
     props: {
@@ -231,12 +229,19 @@
       <div style="clear: both;"></div>
     </div>
     <div v-if="buttons.length" class="modal-footer">
-      <tmx-button
-        v-for="button in buttons"
-        v-bind="button"
-        :click="button.click || run"
-        :size="button.size || size"
-      />
+      <button
+        v-for="b in buttons"
+        :class="[
+          'btn',
+          'btn-' + b.type,
+          b.block ? 'btn-block' : '',
+          b.size ? 'btn-' + b.size : 'btn-' + size
+        ]"
+        @click="b.click ? b.click(model) : run()"
+      >
+        <tmx-icon :name="b.icon"/>
+        {{b.label}}
+      </button>
     </div>
   </div>
 </template>
