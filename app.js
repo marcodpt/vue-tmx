@@ -24204,10 +24204,6 @@ var _libt = require('libt');
 
 var _libt2 = _interopRequireDefault(_libt);
 
-var _lib = require('../lib.js');
-
-var _lib2 = _interopRequireDefault(_lib);
-
 var _form = require('./form.vue');
 
 var _form2 = _interopRequireDefault(_form);
@@ -24215,7 +24211,6 @@ var _form2 = _interopRequireDefault(_form);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = {
-  mixins: [_lib2.default],
   components: {
     'tmx-form': _form2.default
   },
@@ -24427,7 +24422,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
     hotAPI.reload("data-v-c34d1248", __vue__options__)
   }
 })()}
-},{"../lib.js":40,"./form.vue":25,"libt":2,"vue":16,"vueify/node_modules/vue-hot-reload-api":18}],32:[function(require,module,exports){
+},{"./form.vue":25,"libt":2,"vue":16,"vueify/node_modules/vue-hot-reload-api":18}],32:[function(require,module,exports){
 ;(function(){
 'use strict';
 

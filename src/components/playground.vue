@@ -1,10 +1,8 @@
 <script type="text/babel">
   import T from 'libt'
-  import lib from '../lib.js'
   import form from './form.vue'
 
   module.exports = {
-    mixins: [lib],
     components: {
       'tmx-form': form
     },
