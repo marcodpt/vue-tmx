@@ -7,7 +7,6 @@
   import dropdown from './components/dropdown.vue'
   import filter from './components/filter.vue'
   import form from './components/form.vue'
-  import transform from './components/transform.vue'
   import group from './components/group.vue'
   import head from './components/head.vue'
   import icon from './components/icon.vue'
@@ -24,7 +23,6 @@
     download: download,
     filter: filter,
     form: form,
-    transform: transform,
     group: group,
     head: head,
     icon: icon,
