@@ -4,20 +4,20 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TMX</title>
+  <title>Vue TMX</title>
   <link rel="stylesheet" type="text/css" href="static/bootstrap.css"/>
 </head>
 <body>
   <div id="app">
     <div style="color:#f3f3f3;background-color:#666666;padding:20px">
-      <h1 style="margin:0;">TMX</h1>
+      <h1 style="margin:0;">Vue TMX</h1>
     </div>
     <vue-tree-nav :side="routes" :right="right" :location="$route.fullPath">
     </vue-tree-nav>
     <div class="container">
       <router-view></router-view>
     </div>
-    <tmx-modal></tmx-modal>
+    <modal />
   </div>
   <script src="app.js"></script>
 </body>

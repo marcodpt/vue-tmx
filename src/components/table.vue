@@ -13,6 +13,7 @@
   import tmxSearch from './search.vue'
 
   module.exports = {
+    name: 'tmx',
     mixins: [lib],
     components: {
       'tmx-download': tmxDownload,

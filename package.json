@@ -32,7 +32,8 @@
     "vue-awesome": "^3.0.5",
     "vue-inputag": "0.0.2",
     "vue-limit": "0.0.1",
-    "vue-over-body": "0.0.3"
+    "vue-over-body": "0.0.3",
+    "vue-transform": "0.0.2"
   },
   "browserify": {
     "transform": [

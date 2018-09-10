@@ -1,21 +1,32 @@
 <script type="text/babel">
   import T from 'libt'
-  import tmx from '../index.vue'
-
-  var components = {}
-  Object.keys(tmx).forEach(key => {
-    if (key !== 'lib') {
-      components[`tmx-${key}`] = tmx[key]
-    }
-  })
+  import {transform} from 'vue-transform'
+  import body from './body.vue'
+  import button from './button.vue'
+  import download from './download.vue'
+  import dropdown from './dropdown.vue'
+  import filter from './filter.vue'
+  import group from './group.vue'
+  import head from './head.vue'
+  import icon from './icon.vue'
+  import search from './search.vue'
+  import table from './table.vue'
 
   module.exports = {
-    components: components,
+    components: {
+      transform: transform,
+      'v-body': body,
+      'v-button': button,
+      'v-download': download,
+      'v-dropdown': dropdown,
+      'v-filter': filter,
+      'v-group': group,
+      'v-head': head,
+      'v-icon': icon,
+      'v-search': search,
+      'v-table': table
+    },
     props: {
-      case: {
-        type: String,
-        default: ''
-      },
       component: {
         type: String,
         default: ''
@@ -25,34 +36,40 @@
         default: function () {
           return {}
         }
-      },
-      isReady: {
-        type: Function
       }
     },
     data: function () {
       return {
-        ready: false
+        ready: false,
+        schema: null,
+        model: null,
+        fields: null
       }
     },
     methods: {
-      callback: function () {
-        this.$data.ready = true
-        if (this.isReady) {
-          this.isReady()
-        } 
+      submit: function (data) {
         if (this.component === 'modal') {
-          this.$root.$data.modal = T.copy(this.tests)
+          this.$root.$data.modal = T.copy(data)
+        } else {
+          this.$data.schema = T.copy(data)
         }
+        this.$data.ready = true
       },
-      getProps: function () {
-        var name = 'tmx-' + (this.component === 'modal' ? 'form' : this.component)
-        return this.$options.components[name].props
+      build: function () {
+        this.$data.ready = false
+        this.$data.model = T.copy(this.tests)
+        this.$data.fields = T.copy(this.$options.components[`v-${this.component}`].props)
       }
+    },
+    mounted: function () {
+      this.build()
     },
     watch: {
       component: function () {
-        this.$data.ready = false
+        this.build()
+      },
+      tests: function () {
+        this.build()
       }
     }
   }
@@ -61,23 +78,28 @@
 <template>
   <div>
     <div v-if="ready">
-      <tmx-body v-if="component === 'body'" v-bind="tests" />
-      <tmx-dropdown v-if="component === 'dropdown'" v-bind="tests" />
-      <tmx-button v-if="component === 'button'" v-bind="tests" />
-      <tmx-download v-if="component === 'download'" v-bind="tests" />
-      <tmx-filter v-if="component === 'filter'" v-bind="tests" />
-      <tmx-form v-if="component === 'form'" v-bind="tests" />
-      <tmx-group v-if="component === 'group'" v-bind="tests" />
-      <tmx-head v-if="component === 'head'" v-bind="tests" />
-      <tmx-icon v-if="component === 'icon'" v-bind="tests" />
-      <tmx-search v-if="component === 'search'" v-bind="tests" />
-      <tmx-table v-if="component === 'table'" v-bind="tests" />
+      <v-body v-if="component === 'body'" v-bind="schema" />
+      <v-dropdown v-if="component === 'dropdown'" v-bind="schema" />
+      <v-button v-if="component === 'button'" v-bind="schema" />
+      <v-download v-if="component === 'download'" v-bind="schema" />
+      <v-filter v-if="component === 'filter'" v-bind="schema" />
+      <v-group v-if="component === 'group'" v-bind="schema" />
+      <v-head v-if="component === 'head'" v-bind="schema" />
+      <v-icon v-if="component === 'icon'" v-bind="schema" />
+      <v-search v-if="component === 'search'" v-bind="schema" />
+      <v-table v-if="component === 'table'" v-bind="schema" />
     </div>
-    <tmx-playground
-      :model="tests"
-      :name="component"
-      :props="getProps()"
-      :callback="callback"
-    ></tmx-playground>
+    <transform
+      icon="cog"
+      :label="'Live Playground '+component"
+      :model="model"
+      :fields="fields"
+      :submit="submit"
+      :buttons="[{
+        type: 'primary',
+        icon: 'cog',
+        label: 'Rebuild'
+      }]"
+    />
   </div>
 </template>

@@ -133,7 +133,7 @@ module.exports = [
     children: [
       {
         path: 'icon',
-        component: 'tmx-tests',
+        component: 'tests',
         props: {
           component: 'icon',
           tests: {
@@ -142,7 +142,7 @@ module.exports = [
         }
       }, {
         path: 'button',
-        component: 'tmx-tests',
+        component: 'tests',
         props: {
           component: 'button',
           tests: {
@@ -156,7 +156,7 @@ module.exports = [
         }
       }, {
         path: 'dropdown',
-        component: 'tmx-tests',
+        component: 'tests',
         props: {
           component: 'dropdown',
           tests: {
@@ -185,7 +185,7 @@ module.exports = [
     children: [
       {
         path: 'filter',
-        component: 'tmx-tests',
+        component: 'tests',
         props: {
           component: 'filter',
           tests: {
@@ -196,7 +196,7 @@ module.exports = [
         }
       }, {
         path: 'group',
-        component: 'tmx-tests',
+        component: 'tests',
         props: {
           component: 'group',
           tests: {
@@ -207,7 +207,7 @@ module.exports = [
         }
       }, {
         path: 'download',
-        component: 'tmx-tests',
+        component: 'tests',
         props: {
           component: 'download',
           tests: {
@@ -218,7 +218,7 @@ module.exports = [
         }
       }, {
         path: 'head',
-        component: 'tmx-tests',
+        component: 'tests',
         props: {
           component: 'head',
           tests: {
@@ -232,7 +232,7 @@ module.exports = [
         }
       }, {
         path: 'body',
-        component: 'tmx-tests',
+        component: 'tests',
         props: {
           component: 'body',
           tests: {
@@ -242,7 +242,7 @@ module.exports = [
         }
       }, {
         path: 'search',
-        component: 'tmx-tests',
+        component: 'tests',
         props: {
           component: 'search',
           tests: {
@@ -266,32 +266,8 @@ module.exports = [
     },
     children: [
       {
-        path: 'form',
-        component: 'tmx-tests',
-        props: {
-          component: 'form',
-          tests: {
-            model: form.model,
-            label: 'Test form'
-          }
-        }
-      }, {
-        path: 'modal',
-        component: 'tmx-tests',
-        props: {
-          component: 'modal',
-          tests: {
-            model: form.model,
-            fields: form.fields,
-            submit: function () {
-              console.log('submited')
-              console.log(this.model)
-            }
-          }
-        }
-      }, {
         path: 'raw',
-        component: 'tmx-tests',
+        component: 'tests',
         props: {
           component: 'table',
           tests: {
@@ -300,7 +276,7 @@ module.exports = [
         }
       }, {
         path: 'spinner',
-        component: 'tmx-tests',
+        component: 'tests',
         props: {
           component: 'table',
           tests: {
@@ -317,13 +293,12 @@ module.exports = [
         }
       }, {
         path: 'table',
-        component: 'tmx-tests',
+        component: 'tests',
         props: {
           component: 'table',
           tests: {
             label: 'Complete Table',
             icon: 'table',
-            text: 'This is a full table example\nIt has all features you can imagine\nYou can filter data with the Search bar or the Filter button\nIt has aggregate functions acting on some fields\nYou can sort it\nYou can use aggregate fields\nDownload data in json or csv\nAnd even add custom methods',
             fields: table.fields,
             data: table.data,
             methods: table.methods,
