@@ -5,7 +5,7 @@
   "main": "src/index.vue",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/marcodpt/tmx.git"
+    "url": "git+https://github.com/marcodpt/vue-tmx.git"
   },
   "keywords": [
     "vue",
@@ -21,9 +21,9 @@
   "author": "Marco Di Pillo Tomic",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/marcodpt/tmx/issues"
+    "url": "https://github.com/marcodpt/vue-tmx/issues"
   },
-  "homepage": "https://github.com/marcodpt/tmx#readme",
+  "homepage": "https://github.com/marcodpt/vue-tmx#readme",
   "scripts": {
     "server": "http-server -a localhost -p 8080",
     "testA": "node test/methods.js | faucet || true",
@@ -32,7 +32,7 @@
     "build": "browserify -e src/app.vue -o app.js"
   },
   "dependencies": {
-    "libt": "0.0.3",
+    "libt": "0.0.4",
     "vue-awesome": "^3.0.5",
     "vue-inputag": "0.0.2",
     "vue-limit": "0.0.1",

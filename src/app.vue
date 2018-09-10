@@ -36,7 +36,7 @@
       routes: routes,
       right: [
         {
-          href: "https://github.com/marcodpt/tmx",
+          href: "https://github.com/marcodpt/vue-tmx",
           icon: "brands/github"
         }
       ],

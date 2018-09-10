@@ -123,7 +123,7 @@
         this.$data.expression = false
 
         if (!this.$data.tableFields.length) {
-          this.$data.tableFields = this.setFields(this.data)
+          this.$data.tableFields = T.setFields(this.data)
         } else if (this.aggregate) {
           this.$data.tableFields.forEach(field => {
             if (field.expression) {

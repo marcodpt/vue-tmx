@@ -1,6 +1,6 @@
 # vue-tmx 
 Vue json based table with bootstrap3  
-[Live Demo](http://marcodpt.github.io/tmx)
+[Live Demo](http://marcodpt.github.io/vue-tmx)
  - very easy to use, ready out of the box
  - filters
  - checkbox
@@ -170,6 +170,7 @@ We need help! Our goals are:
  - Change props api in order to correctly support other css frameworks
  - Add more css frameworks like bootstrap4, bulma and foundation
  - Separate as plugin functions like sort, filter, group, etc
+ - More language support
  - Add tests
  - More usage examples and better home page
  - Add support to most browsers
