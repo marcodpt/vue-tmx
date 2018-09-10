@@ -11,8 +11,12 @@
     "vue",
     "bootstrap3",
     "table",
-    "form",
-    "navbar"
+    "component",
+    "json",
+    "filter",
+    "sort",
+    "aggregate",
+    "pagination"
   ],
   "author": "Marco Di Pillo Tomic",
   "license": "MIT",
