@@ -4,11 +4,7 @@
     "integer",
     "number",
     "date",
-    "string",
-    "color",
-    "file",
-    "json",
-    "script"
+    "string"
   ],
   "Alert": [
     "success",

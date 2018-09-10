@@ -87,9 +87,6 @@
       label: {
         type: String,
         default: ''
-      },
-      onClose: {
-        type: Function
       }
     },
     data: function () {
@@ -179,7 +176,7 @@
       },
       display: function (section) {
         var s = 'display:none'
-        if (section === 'header' && (this.icon || this.label || this.onClose)) {
+        if (section === 'header' && (this.icon || this.label)) {
           return ''
         }
         if (section === 'methods' && (
@@ -220,9 +217,6 @@
       <thead>
         <tr :style="display('header')">
           <th colspan="100%" style="text-align:center">
-            <button v-if="onClose" type="button" class="close" @click="onClose">
-              <tmx-icon name="times"/>
-            </button>
             <h4>
               <tmx-icon :name="icon" /> {{label}}
             </h4>

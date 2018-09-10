@@ -25023,7 +25023,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
     hotAPI.reload("data-v-0de84045", __vue__options__)
   }
 })()}
-},{"../node_modules/vue/dist/vue.js":23,"./components/tests.vue":38,"./routes.js":44,"vue":24,"vue-router":8,"vue-transform":14,"vue-tree-nav":22,"vueify/node_modules/vue-hot-reload-api":26}],28:[function(require,module,exports){
+},{"../node_modules/vue/dist/vue.js":23,"./components/tests.vue":38,"./routes.js":43,"vue":24,"vue-router":8,"vue-transform":14,"vue-tree-nav":22,"vueify/node_modules/vue-hot-reload-api":26}],28:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -25166,7 +25166,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
     hotAPI.reload("data-v-08189c1f", __vue__options__)
   }
 })()}
-},{"../lib.js":43,"./button.vue":29,"libt":2,"vue":24,"vue-inputag":4,"vueify/node_modules/vue-hot-reload-api":26}],29:[function(require,module,exports){
+},{"../lib.js":42,"./button.vue":29,"libt":2,"vue":24,"vue-inputag":4,"vueify/node_modules/vue-hot-reload-api":26}],29:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -25259,7 +25259,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
     hotAPI.reload("data-v-7c2ac722", __vue__options__)
   }
 })()}
-},{"../lib.js":43,"./icon.vue":35,"libt":2,"vue":24,"vueify/node_modules/vue-hot-reload-api":26}],30:[function(require,module,exports){
+},{"../lib.js":42,"./icon.vue":35,"libt":2,"vue":24,"vueify/node_modules/vue-hot-reload-api":26}],30:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -25401,7 +25401,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
     hotAPI.reload("data-v-3a2a4d85", __vue__options__)
   }
 })()}
-},{"../lib.js":43,"libt":2,"vue":24,"vueify/node_modules/vue-hot-reload-api":26}],31:[function(require,module,exports){
+},{"../lib.js":42,"libt":2,"vue":24,"vueify/node_modules/vue-hot-reload-api":26}],31:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -25484,7 +25484,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
     hotAPI.reload("data-v-6623dc8e", __vue__options__)
   }
 })()}
-},{"../lib.js":43,"./icon.vue":35,"libt":2,"vue":24,"vueify/node_modules/vue-hot-reload-api":26}],32:[function(require,module,exports){
+},{"../lib.js":42,"./icon.vue":35,"libt":2,"vue":24,"vueify/node_modules/vue-hot-reload-api":26}],32:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -25690,7 +25690,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
     hotAPI.reload("data-v-4ff9adb5", __vue__options__)
   }
 })()}
-},{"../lib.js":43,"./dropdown.vue":31,"libt":2,"vue":24,"vueify/node_modules/vue-hot-reload-api":26}],33:[function(require,module,exports){
+},{"../lib.js":42,"./dropdown.vue":31,"libt":2,"vue":24,"vueify/node_modules/vue-hot-reload-api":26}],33:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -25972,7 +25972,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
     hotAPI.reload("data-v-601ae15d", __vue__options__)
   }
 })()}
-},{"../lib.js":43,"./button.vue":29,"./icon.vue":35,"libt":2,"vue":24,"vueify/node_modules/vue-hot-reload-api":26}],35:[function(require,module,exports){
+},{"../lib.js":42,"./button.vue":29,"./icon.vue":35,"libt":2,"vue":24,"vueify/node_modules/vue-hot-reload-api":26}],35:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -26022,7 +26022,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
     hotAPI.reload("data-v-76a05b76", __vue__options__)
   }
 })()}
-},{"../lib.js":43,"vue":24,"vue-awesome":3,"vueify/node_modules/vue-hot-reload-api":26}],36:[function(require,module,exports){
+},{"../lib.js":42,"vue":24,"vue-awesome":3,"vueify/node_modules/vue-hot-reload-api":26}],36:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -26247,9 +26247,6 @@ module.exports = {
     label: {
       type: String,
       default: ''
-    },
-    onClose: {
-      type: Function
     }
   },
   data: function data() {
@@ -26343,7 +26340,7 @@ module.exports = {
     },
     display: function display(section) {
       var s = 'display:none';
-      if (section === 'header' && (this.icon || this.label || this.onClose)) {
+      if (section === 'header' && (this.icon || this.label)) {
         return '';
       }
       if (section === 'methods' && (this.filter || this.group || this.methods.length || this.download)) {
@@ -26378,7 +26375,7 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('table',{staticClass:"table table-bordered table-condensed",staticStyle:{"margin-bottom":"0"}},[_c('thead',[_c('tr',{style:(_vm.display('header'))},[_c('th',{staticStyle:{"text-align":"center"},attrs:{"colspan":"100%"}},[(_vm.onClose)?_c('button',{staticClass:"close",attrs:{"type":"button"},on:{"click":_vm.onClose}},[_c('tmx-icon',{attrs:{"name":"times"}})],1):_vm._e(),_vm._v(" "),_c('h4',[_c('tmx-icon',{attrs:{"name":_vm.icon}}),_vm._v(" "+_vm._s(_vm.label)+"\n          ")],1)])])]),_vm._v(" "),_c('tbody',[_c('tr',{style:(_vm.display('methods'))},[_c('td',{staticStyle:{"text-align":"center"},attrs:{"colspan":"100%"}},[_c('span',{style:(_vm.display('filter'))},[_c('tmx-filter',{attrs:{"active":_vm.model.filters,"fields":_vm.tableFields,"input":_vm.data0,"output":_vm.data1,"label":_vm.translate('filter')}}),_vm._v(" \n          ")],1),_vm._v(" "),_c('span',{style:(_vm.display('group'))},[_c('tmx-group',{attrs:{"active":_vm.model.groups,"fields":_vm.tableFields,"input":_vm.data2,"output":_vm.data3,"label":_vm.translate('group')}}),_vm._v(" \n          ")],1),_vm._v(" "),_vm._l((_vm.methods),function(m){return _c('span',[_c('tmx-button',{attrs:{"type":m.button,"icon":m.icon,"click":m.click,"data":m.model,"label":m.label}}),_vm._v(" \n          ")],1)}),_vm._v(" "),_c('span',{style:(_vm.display('download'))},[_c('tmx-download',_vm._b({staticClass:"btn btn-default",attrs:{"fields":_vm.getFields('download'),"data":_vm.data3}},'tmx-download',_vm.download,false),[_c('tmx-icon',{attrs:{"name":"file"}}),_vm._v("\n              "+_vm._s(_vm.translate('download'))+"\n            ")],1),_vm._v(" \n          ")],1)],2)]),_vm._v(" "),_c('tr',{style:(_vm.display('limit'))},[_c('td',{staticStyle:{"text-align":"center"},attrs:{"colspan":"100%"}},[_c('vue-limit',{staticClass:"form-inline",attrs:{"model":_vm.model,"rows":_vm.rows,"input":_vm.data3,"output":_vm.view,"button-class":"btn btn-primary","select-class":"form-control","select-style":"width:auto;display:inline"},scopedSlots:_vm._u([{key:"select",fn:function(scope){return [_c('vue-inputag',{staticClass:"form-group",attrs:{"id":scope.id,"model":scope.model,"options":scope.options,"type":"select","required":""}})]}}])},[_c('tmx-icon',{attrs:{"slot":"first","name":"fast-backward"},slot:"first"}),_vm._v(" "),_c('tmx-icon',{attrs:{"slot":"previous","name":"step-backward"},slot:"previous"}),_vm._v(" "),_c('tmx-icon',{attrs:{"slot":"next","name":"step-forward"},slot:"next"}),_vm._v(" "),_c('tmx-icon',{attrs:{"slot":"last","name":"fast-forward"},slot:"last"})],1)],1)]),_vm._v(" "),_c('tr',{style:(_vm.display('search'))},[_c('td',{staticStyle:{"text-align":"center"},attrs:{"colspan":"100%"}},[_c('tmx-search',{staticClass:"form-control",attrs:{"input":_vm.data1,"output":_vm.data2,"model":_vm.model,"placeholder":_vm.translate('search')}})],1)])])]),_vm._v(" "),_c('div',{staticClass:"table-responsive"},[_c('table',{staticClass:"table table-striped table-bordered table-condensed table-hover"},[_c('thead',[_c('tr',{style:(_vm.display('aggregate'))},_vm._l((_vm.tableFields),function(field){return _c('th',{directives:[{name:"show",rawName:"v-show",value:(_vm.isVisible(field)),expression:"isVisible(field)"}],staticStyle:{"text-align":"center"}},[_vm._v("\n            "+_vm._s(_vm.aggregateData(field))+"\n          ")])})),_vm._v(" "),_c('tr',{style:(_vm.display('head'))},_vm._l((_vm.tableFields),function(field){return _c('tmx-head',_vm._b({directives:[{name:"show",rawName:"v-show",value:(_vm.isVisible(field)),expression:"isVisible(field)"}],attrs:{"model":_vm.model,"data":_vm.data3,"check":field.format === 'boolean' && field.static === false && !_vm.model.groups.length,"sort":_vm.sort}},'tmx-head',field,false))}))]),_vm._v(" "),(_vm.data)?_c('tbody',_vm._l((_vm.view),function(row){return _c('tr',{style:({'background-color' : row.bgcolor})},_vm._l((_vm.tableFields),function(field){return _c('tmx-body',_vm._b({directives:[{name:"show",rawName:"v-show",value:(_vm.isVisible(field)),expression:"isVisible(field)"}],attrs:{"model":row,"static":_vm.model.groups.length ? true : field.static,"click":field.click}},'tmx-body',field,false))}))})):_vm._e()]),_vm._v(" "),(!_vm.data)?_c('p',{staticStyle:{"text-align":"center","margin":"40px 0"}},[_c('tmx-icon',{attrs:{"name":"sync","scale":"6","spin":""}})],1):_vm._e()])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('table',{staticClass:"table table-bordered table-condensed",staticStyle:{"margin-bottom":"0"}},[_c('thead',[_c('tr',{style:(_vm.display('header'))},[_c('th',{staticStyle:{"text-align":"center"},attrs:{"colspan":"100%"}},[_c('h4',[_c('tmx-icon',{attrs:{"name":_vm.icon}}),_vm._v(" "+_vm._s(_vm.label)+"\n          ")],1)])])]),_vm._v(" "),_c('tbody',[_c('tr',{style:(_vm.display('methods'))},[_c('td',{staticStyle:{"text-align":"center"},attrs:{"colspan":"100%"}},[_c('span',{style:(_vm.display('filter'))},[_c('tmx-filter',{attrs:{"active":_vm.model.filters,"fields":_vm.tableFields,"input":_vm.data0,"output":_vm.data1,"label":_vm.translate('filter')}}),_vm._v(" \n          ")],1),_vm._v(" "),_c('span',{style:(_vm.display('group'))},[_c('tmx-group',{attrs:{"active":_vm.model.groups,"fields":_vm.tableFields,"input":_vm.data2,"output":_vm.data3,"label":_vm.translate('group')}}),_vm._v(" \n          ")],1),_vm._v(" "),_vm._l((_vm.methods),function(m){return _c('span',[_c('tmx-button',{attrs:{"type":m.button,"icon":m.icon,"click":m.click,"data":m.model,"label":m.label}}),_vm._v(" \n          ")],1)}),_vm._v(" "),_c('span',{style:(_vm.display('download'))},[_c('tmx-download',_vm._b({staticClass:"btn btn-default",attrs:{"fields":_vm.getFields('download'),"data":_vm.data3}},'tmx-download',_vm.download,false),[_c('tmx-icon',{attrs:{"name":"file"}}),_vm._v("\n              "+_vm._s(_vm.translate('download'))+"\n            ")],1),_vm._v(" \n          ")],1)],2)]),_vm._v(" "),_c('tr',{style:(_vm.display('limit'))},[_c('td',{staticStyle:{"text-align":"center"},attrs:{"colspan":"100%"}},[_c('vue-limit',{staticClass:"form-inline",attrs:{"model":_vm.model,"rows":_vm.rows,"input":_vm.data3,"output":_vm.view,"button-class":"btn btn-primary","select-class":"form-control","select-style":"width:auto;display:inline"},scopedSlots:_vm._u([{key:"select",fn:function(scope){return [_c('vue-inputag',{staticClass:"form-group",attrs:{"id":scope.id,"model":scope.model,"options":scope.options,"type":"select","required":""}})]}}])},[_c('tmx-icon',{attrs:{"slot":"first","name":"fast-backward"},slot:"first"}),_vm._v(" "),_c('tmx-icon',{attrs:{"slot":"previous","name":"step-backward"},slot:"previous"}),_vm._v(" "),_c('tmx-icon',{attrs:{"slot":"next","name":"step-forward"},slot:"next"}),_vm._v(" "),_c('tmx-icon',{attrs:{"slot":"last","name":"fast-forward"},slot:"last"})],1)],1)]),_vm._v(" "),_c('tr',{style:(_vm.display('search'))},[_c('td',{staticStyle:{"text-align":"center"},attrs:{"colspan":"100%"}},[_c('tmx-search',{staticClass:"form-control",attrs:{"input":_vm.data1,"output":_vm.data2,"model":_vm.model,"placeholder":_vm.translate('search')}})],1)])])]),_vm._v(" "),_c('div',{staticClass:"table-responsive"},[_c('table',{staticClass:"table table-striped table-bordered table-condensed table-hover"},[_c('thead',[_c('tr',{style:(_vm.display('aggregate'))},_vm._l((_vm.tableFields),function(field){return _c('th',{directives:[{name:"show",rawName:"v-show",value:(_vm.isVisible(field)),expression:"isVisible(field)"}],staticStyle:{"text-align":"center"}},[_vm._v("\n            "+_vm._s(_vm.aggregateData(field))+"\n          ")])})),_vm._v(" "),_c('tr',{style:(_vm.display('head'))},_vm._l((_vm.tableFields),function(field){return _c('tmx-head',_vm._b({directives:[{name:"show",rawName:"v-show",value:(_vm.isVisible(field)),expression:"isVisible(field)"}],attrs:{"model":_vm.model,"data":_vm.data3,"check":field.format === 'boolean' && field.static === false && !_vm.model.groups.length,"sort":_vm.sort}},'tmx-head',field,false))}))]),_vm._v(" "),(_vm.data)?_c('tbody',_vm._l((_vm.view),function(row){return _c('tr',{style:({'background-color' : row.bgcolor})},_vm._l((_vm.tableFields),function(field){return _c('tmx-body',_vm._b({directives:[{name:"show",rawName:"v-show",value:(_vm.isVisible(field)),expression:"isVisible(field)"}],attrs:{"model":row,"static":_vm.model.groups.length ? true : field.static,"click":field.click}},'tmx-body',field,false))}))})):_vm._e()]),_vm._v(" "),(!_vm.data)?_c('p',{staticStyle:{"text-align":"center","margin":"40px 0"}},[_c('tmx-icon',{attrs:{"name":"sync","scale":"6","spin":""}})],1):_vm._e()])])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -26390,7 +26387,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
     hotAPI.reload("data-v-3c652321", __vue__options__)
   }
 })()}
-},{"../lib.js":43,"./body.vue":28,"./button.vue":29,"./download.vue":30,"./filter.vue":32,"./group.vue":33,"./head.vue":34,"./icon.vue":35,"./search.vue":36,"libt":2,"vue":24,"vue-inputag":4,"vue-limit":6,"vueify/node_modules/vue-hot-reload-api":26}],38:[function(require,module,exports){
+},{"../lib.js":42,"./body.vue":28,"./button.vue":29,"./download.vue":30,"./filter.vue":32,"./group.vue":33,"./head.vue":34,"./icon.vue":35,"./search.vue":36,"libt":2,"vue":24,"vue-inputag":4,"vue-limit":6,"vueify/node_modules/vue-hot-reload-api":26}],38:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -26525,93 +26522,6 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
 })()}
 },{"./body.vue":28,"./button.vue":29,"./download.vue":30,"./dropdown.vue":31,"./filter.vue":32,"./group.vue":33,"./head.vue":34,"./icon.vue":35,"./search.vue":36,"./table.vue":37,"libt":2,"vue":24,"vue-transform":14,"vueify/node_modules/vue-hot-reload-api":26}],39:[function(require,module,exports){
 module.exports={
-  "model": {
-    "value": 5,
-    "info": "Test",
-    "date": "2018-04-01"
-  },
-  "fields": [
-    {
-      "static": true,
-      "label": "Which value?",
-      "id": "value",
-      "format": "integer:3"
-    }, {
-      "format": "boolean",
-      "label": "Are you sure?",
-      "id": "confirmation" 
-    }, {
-      "label": "When?",
-      "id": "date",
-      "format": "date",
-      "required": true,
-      "min": "2018-04-26"
-    }, {
-      "format": "string:file",
-      "label": "Attachment",
-      "id": "file" 
-    }, {
-      "format": "string:text",
-      "label": "Comments",
-      "id": "info",
-      "minLen": 3,
-      "maxLen": 10
-    }, {
-      "label": "Preview",
-      "id": "info",
-      "format": "string:text",
-      "static": true,
-      "href": "http://www.google.com.br"
-    }, {
-      "format": "string",
-      "label": "Country",
-      "id": "country",
-      "source": "&country",
-      "placeholder": "be fast!",
-      "required": false
-    }, {
-      "format": "string",
-      "label": "City",
-      "id": "city",
-      "source": "&city",
-      "dependencies": ["country"],
-      "placeholder": "first choose a country..."
-    }, {
-      "format": "string",
-      "label": "Like fruits...",
-      "id": "fruit",
-      "source": "&banana"
-    }, {
-      "label": "Prime number plz",
-      "id": "prime",
-      "format": "integer:3"
-    }, {
-      "label": "Can you write pi?",
-      "id": "pi",
-      "format": "number:2",
-      "max": 4,
-      "validate": [
-        {
-          "assert": "$.pi > 3.1",
-          "error": "must be greather than 3.1"
-        }
-      ]
-    }, {
-      "format": "boolean",
-      "label": "Are you happy?",
-      "id": "happy",
-      "validate": [
-        {
-          "assert": "$.fruit === 'Banana' || $.happy == true",
-          "error": "must be Yes or fruit is banana"
-        }
-      ]
-    }
-  ]
-}
-
-},{}],40:[function(require,module,exports){
-module.exports={
   "en": {
     "like": "contains",
     "notlike": "do not contains",
@@ -26678,7 +26588,7 @@ module.exports={
   }
 }
 
-},{}],41:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 module.exports={
   "methods": [
     {
@@ -26970,786 +26880,9 @@ module.exports={
   ]
 }
 
-},{}],42:[function(require,module,exports){
-module.exports={
-  "Type": [
-    "boolean",
-    "integer",
-    "number",
-    "date",
-    "string",
-    "color",
-    "file",
-    "json",
-    "script"
-  ],
-  "Alert": [
-    "success",
-    "info",
-    "warning",
-    "danger",
-    "default"
-  ],
-  "Button": [
-    "default",
-    "primary",
-    "success",
-    "info",
-    "warning",
-    "danger",
-    "link"
-  ],
-  "Size": [
-    "lg",
-    "md",
-    "sm"
-  ],
-  "Icon": [
-    "",
-    "address-book",
-    "address-card",
-    "adjust",
-    "align-center",
-    "align-justify",
-    "align-left",
-    "align-right",
-    "allergies",
-    "ambulance",
-    "american-sign-language-interpreting",
-    "anchor",
-    "angle-double-down",
-    "angle-double-left",
-    "angle-double-right",
-    "angle-double-up",
-    "angle-down",
-    "angle-left",
-    "angle-right",
-    "angle-up",
-    "angry",
-    "archive",
-    "archway",
-    "arrow-alt-circle-down",
-    "arrow-alt-circle-left",
-    "arrow-alt-circle-right",
-    "arrow-alt-circle-up",
-    "arrow-circle-down",
-    "arrow-circle-left",
-    "arrow-circle-right",
-    "arrow-circle-up",
-    "arrow-down",
-    "arrow-left",
-    "arrow-right",
-    "arrow-up",
-    "arrows-alt",
-    "arrows-alt-h",
-    "arrows-alt-v",
-    "assistive-listening-systems",
-    "asterisk",
-    "at",
-    "atlas",
-    "audio-description",
-    "award",
-    "backspace",
-    "backward",
-    "balance-scale",
-    "ban",
-    "band-aid",
-    "barcode",
-    "bars",
-    "baseball-ball",
-    "basketball-ball",
-    "bath",
-    "battery-empty",
-    "battery-full",
-    "battery-half",
-    "battery-quarter",
-    "battery-three-quarters",
-    "bed",
-    "beer",
-    "bell",
-    "bell-slash",
-    "bezier-curve",
-    "bicycle",
-    "binoculars",
-    "birthday-cake",
-    "blender",
-    "blind",
-    "bold",
-    "bolt",
-    "bomb",
-    "bong",
-    "book",
-    "book-open",
-    "bookmark",
-    "bowling-ball",
-    "box",
-    "box-open",
-    "boxes",
-    "braille",
-    "briefcase",
-    "briefcase-medical",
-    "broadcast-tower",
-    "broom",
-    "brush",
-    "bug",
-    "building",
-    "bullhorn",
-    "bullseye",
-    "burn",
-    "bus",
-    "bus-alt",
-    "calculator",
-    "calendar",
-    "calendar-alt",
-    "calendar-check",
-    "calendar-minus",
-    "calendar-plus",
-    "calendar-times",
-    "camera",
-    "camera-retro",
-    "cannabis",
-    "capsules",
-    "car",
-    "caret-down",
-    "caret-left",
-    "caret-right",
-    "caret-square-down",
-    "caret-square-left",
-    "caret-square-right",
-    "caret-square-up",
-    "caret-up",
-    "cart-arrow-down",
-    "cart-plus",
-    "certificate",
-    "chalkboard",
-    "chalkboard-teacher",
-    "chart-area",
-    "chart-bar",
-    "chart-line",
-    "chart-pie",
-    "check",
-    "check-circle",
-    "check-double",
-    "check-square",
-    "chess",
-    "chess-bishop",
-    "chess-board",
-    "chess-king",
-    "chess-knight",
-    "chess-pawn",
-    "chess-queen",
-    "chess-rook",
-    "chevron-circle-down",
-    "chevron-circle-left",
-    "chevron-circle-right",
-    "chevron-circle-up",
-    "chevron-down",
-    "chevron-left",
-    "chevron-right",
-    "chevron-up",
-    "child",
-    "church",
-    "circle",
-    "circle-notch",
-    "clipboard",
-    "clipboard-check",
-    "clipboard-list",
-    "clock",
-    "clone",
-    "closed-captioning",
-    "cloud",
-    "cloud-download-alt",
-    "cloud-upload-alt",
-    "cocktail",
-    "code",
-    "code-branch",
-    "coffee",
-    "cog",
-    "cogs",
-    "coins",
-    "columns",
-    "comment",
-    "comment-alt",
-    "comment-dots",
-    "comment-slash",
-    "comments",
-    "compact-disc",
-    "compass",
-    "compress",
-    "concierge-bell",
-    "cookie",
-    "cookie-bite",
-    "copy",
-    "copyright",
-    "couch",
-    "credit-card",
-    "crop",
-    "crop-alt",
-    "crosshairs",
-    "crow",
-    "crown",
-    "cube",
-    "cubes",
-    "cut",
-    "database",
-    "deaf",
-    "desktop",
-    "diagnoses",
-    "dice",
-    "dice-five",
-    "dice-four",
-    "dice-one",
-    "dice-six",
-    "dice-three",
-    "dice-two",
-    "digital-tachograph",
-    "divide",
-    "dizzy",
-    "dna",
-    "dollar-sign",
-    "dolly",
-    "dolly-flatbed",
-    "donate",
-    "door-closed",
-    "door-open",
-    "dot-circle",
-    "dove",
-    "download",
-    "drafting-compass",
-    "drum",
-    "drum-steelpan",
-    "dumbbell",
-    "edit",
-    "eject",
-    "ellipsis-h",
-    "ellipsis-v",
-    "envelope",
-    "envelope-open",
-    "envelope-square",
-    "equals",
-    "eraser",
-    "euro-sign",
-    "exchange-alt",
-    "exclamation",
-    "exclamation-circle",
-    "exclamation-triangle",
-    "expand",
-    "expand-arrows-alt",
-    "external-link-alt",
-    "external-link-square-alt",
-    "eye",
-    "eye-dropper",
-    "eye-slash",
-    "fast-backward",
-    "fast-forward",
-    "fax",
-    "feather",
-    "feather-alt",
-    "female",
-    "fighter-jet",
-    "file",
-    "file-alt",
-    "file-archive",
-    "file-audio",
-    "file-code",
-    "file-contract",
-    "file-download",
-    "file-excel",
-    "file-export",
-    "file-image",
-    "file-import",
-    "file-invoice",
-    "file-invoice-dollar",
-    "file-medical",
-    "file-medical-alt",
-    "file-pdf",
-    "file-powerpoint",
-    "file-prescription",
-    "file-signature",
-    "file-upload",
-    "file-video",
-    "file-word",
-    "fill",
-    "fill-drip",
-    "film",
-    "filter",
-    "fingerprint",
-    "fire",
-    "fire-extinguisher",
-    "first-aid",
-    "fish",
-    "flag",
-    "flag-checkered",
-    "flask",
-    "flushed",
-    "folder",
-    "folder-open",
-    "font",
-    "font-awesome-logo-full",
-    "football-ball",
-    "forward",
-    "frog",
-    "frown",
-    "frown-open",
-    "futbol",
-    "gamepad",
-    "gas-pump",
-    "gavel",
-    "gem",
-    "genderless",
-    "gift",
-    "glass-martini",
-    "glass-martini-alt",
-    "glasses",
-    "globe",
-    "globe-africa",
-    "globe-americas",
-    "globe-asia",
-    "golf-ball",
-    "graduation-cap",
-    "greater-than",
-    "greater-than-equal",
-    "grimace",
-    "grin",
-    "grin-alt",
-    "grin-beam",
-    "grin-beam-sweat",
-    "grin-hearts",
-    "grin-squint",
-    "grin-squint-tears",
-    "grin-stars",
-    "grin-tears",
-    "grin-tongue",
-    "grin-tongue-squint",
-    "grin-tongue-wink",
-    "grin-wink",
-    "grip-horizontal",
-    "grip-vertical",
-    "h-square",
-    "hand-holding",
-    "hand-holding-heart",
-    "hand-holding-usd",
-    "hand-lizard",
-    "hand-paper",
-    "hand-peace",
-    "hand-point-down",
-    "hand-point-left",
-    "hand-point-right",
-    "hand-point-up",
-    "hand-pointer",
-    "hand-rock",
-    "hand-scissors",
-    "hand-spock",
-    "hands",
-    "hands-helping",
-    "handshake",
-    "hashtag",
-    "hdd",
-    "heading",
-    "headphones",
-    "headphones-alt",
-    "headset",
-    "heart",
-    "heartbeat",
-    "helicopter",
-    "highlighter",
-    "history",
-    "hockey-puck",
-    "home",
-    "hospital",
-    "hospital-alt",
-    "hospital-symbol",
-    "hot-tub",
-    "hotel",
-    "hourglass",
-    "hourglass-end",
-    "hourglass-half",
-    "hourglass-start",
-    "i-cursor",
-    "id-badge",
-    "id-card",
-    "id-card-alt",
-    "image",
-    "images",
-    "inbox",
-    "indent",
-    "industry",
-    "infinity",
-    "info",
-    "info-circle",
-    "italic",
-    "joint",
-    "key",
-    "keyboard",
-    "kiss",
-    "kiss-beam",
-    "kiss-wink-heart",
-    "kiwi-bird",
-    "language",
-    "laptop",
-    "laugh",
-    "laugh-beam",
-    "laugh-squint",
-    "laugh-wink",
-    "leaf",
-    "lemon",
-    "less-than",
-    "less-than-equal",
-    "level-down-alt",
-    "level-up-alt",
-    "life-ring",
-    "lightbulb",
-    "link",
-    "lira-sign",
-    "list",
-    "list-alt",
-    "list-ol",
-    "list-ul",
-    "location-arrow",
-    "lock",
-    "lock-open",
-    "long-arrow-alt-down",
-    "long-arrow-alt-left",
-    "long-arrow-alt-right",
-    "long-arrow-alt-up",
-    "low-vision",
-    "luggage-cart",
-    "magic",
-    "magnet",
-    "male",
-    "map",
-    "map-marked",
-    "map-marked-alt",
-    "map-marker",
-    "map-marker-alt",
-    "map-pin",
-    "map-signs",
-    "marker",
-    "mars",
-    "mars-double",
-    "mars-stroke",
-    "mars-stroke-h",
-    "mars-stroke-v",
-    "medal",
-    "medkit",
-    "meh",
-    "meh-blank",
-    "meh-rolling-eyes",
-    "memory",
-    "mercury",
-    "microchip",
-    "microphone",
-    "microphone-alt",
-    "microphone-alt-slash",
-    "microphone-slash",
-    "minus",
-    "minus-circle",
-    "minus-square",
-    "mobile",
-    "mobile-alt",
-    "money-bill",
-    "money-bill-alt",
-    "money-bill-wave",
-    "money-bill-wave-alt",
-    "money-check",
-    "money-check-alt",
-    "monument",
-    "moon",
-    "mortar-pestle",
-    "motorcycle",
-    "mouse-pointer",
-    "music",
-    "neuter",
-    "newspaper",
-    "not-equal",
-    "notes-medical",
-    "object-group",
-    "object-ungroup",
-    "outdent",
-    "paint-brush",
-    "paint-roller",
-    "palette",
-    "pallet",
-    "paper-plane",
-    "paperclip",
-    "parachute-box",
-    "paragraph",
-    "parking",
-    "passport",
-    "paste",
-    "pause",
-    "pause-circle",
-    "paw",
-    "pen",
-    "pen-alt",
-    "pen-fancy",
-    "pen-nib",
-    "pen-square",
-    "pencil-alt",
-    "pencil-ruler",
-    "people-carry",
-    "percent",
-    "percentage",
-    "phone",
-    "phone-slash",
-    "phone-square",
-    "phone-volume",
-    "piggy-bank",
-    "pills",
-    "plane",
-    "plane-arrival",
-    "plane-departure",
-    "play",
-    "play-circle",
-    "plug",
-    "plus",
-    "plus-circle",
-    "plus-square",
-    "podcast",
-    "poo",
-    "portrait",
-    "pound-sign",
-    "power-off",
-    "prescription",
-    "prescription-bottle",
-    "prescription-bottle-alt",
-    "print",
-    "procedures",
-    "project-diagram",
-    "puzzle-piece",
-    "qrcode",
-    "question",
-    "question-circle",
-    "quidditch",
-    "quote-left",
-    "quote-right",
-    "random",
-    "receipt",
-    "recycle",
-    "redo",
-    "redo-alt",
-    "registered",
-    "reply",
-    "reply-all",
-    "retweet",
-    "ribbon",
-    "road",
-    "robot",
-    "rocket",
-    "rss",
-    "rss-square",
-    "ruble-sign",
-    "ruler",
-    "ruler-combined",
-    "ruler-horizontal",
-    "ruler-vertical",
-    "rupee-sign",
-    "sad-cry",
-    "sad-tear",
-    "save",
-    "school",
-    "screwdriver",
-    "search",
-    "search-minus",
-    "search-plus",
-    "seedling",
-    "server",
-    "share",
-    "share-alt",
-    "share-alt-square",
-    "share-square",
-    "shekel-sign",
-    "shield-alt",
-    "ship",
-    "shipping-fast",
-    "shoe-prints",
-    "shopping-bag",
-    "shopping-basket",
-    "shopping-cart",
-    "shower",
-    "shuttle-van",
-    "sign",
-    "sign-in-alt",
-    "sign-language",
-    "sign-out-alt",
-    "signal",
-    "signature",
-    "sitemap",
-    "skull",
-    "sliders-h",
-    "smile",
-    "smile-beam",
-    "smile-wink",
-    "smoking",
-    "smoking-ban",
-    "snowflake",
-    "solar-panel",
-    "sort",
-    "sort-alpha-down",
-    "sort-alpha-up",
-    "sort-amount-down",
-    "sort-amount-up",
-    "sort-down",
-    "sort-numeric-down",
-    "sort-numeric-up",
-    "sort-up",
-    "spa",
-    "space-shuttle",
-    "spinner",
-    "splotch",
-    "spray-can",
-    "square",
-    "square-full",
-    "stamp",
-    "star",
-    "star-half",
-    "star-half-alt",
-    "step-backward",
-    "step-forward",
-    "stethoscope",
-    "sticky-note",
-    "stop",
-    "stop-circle",
-    "stopwatch",
-    "store",
-    "store-alt",
-    "stream",
-    "street-view",
-    "strikethrough",
-    "stroopwafel",
-    "subscript",
-    "subway",
-    "suitcase",
-    "suitcase-rolling",
-    "sun",
-    "superscript",
-    "surprise",
-    "swatchbook",
-    "swimmer",
-    "swimming-pool",
-    "sync",
-    "sync-alt",
-    "syringe",
-    "table",
-    "table-tennis",
-    "tablet",
-    "tablet-alt",
-    "tablets",
-    "tachometer-alt",
-    "tag",
-    "tags",
-    "tape",
-    "tasks",
-    "taxi",
-    "terminal",
-    "text-height",
-    "text-width",
-    "th",
-    "th-large",
-    "th-list",
-    "thermometer",
-    "thermometer-empty",
-    "thermometer-full",
-    "thermometer-half",
-    "thermometer-quarter",
-    "thermometer-three-quarters",
-    "thumbs-down",
-    "thumbs-up",
-    "thumbtack",
-    "ticket-alt",
-    "times",
-    "times-circle",
-    "tint",
-    "tint-slash",
-    "tired",
-    "toggle-off",
-    "toggle-on",
-    "toolbox",
-    "tooth",
-    "trademark",
-    "train",
-    "transgender",
-    "transgender-alt",
-    "trash",
-    "trash-alt",
-    "tree",
-    "trophy",
-    "truck",
-    "truck-loading",
-    "truck-moving",
-    "tshirt",
-    "tty",
-    "tv",
-    "umbrella",
-    "umbrella-beach",
-    "underline",
-    "undo",
-    "undo-alt",
-    "universal-access",
-    "university",
-    "unlink",
-    "unlock",
-    "unlock-alt",
-    "upload",
-    "user",
-    "user-alt",
-    "user-alt-slash",
-    "user-astronaut",
-    "user-check",
-    "user-circle",
-    "user-clock",
-    "user-cog",
-    "user-edit",
-    "user-friends",
-    "user-graduate",
-    "user-lock",
-    "user-md",
-    "user-minus",
-    "user-ninja",
-    "user-plus",
-    "user-secret",
-    "user-shield",
-    "user-slash",
-    "user-tag",
-    "user-tie",
-    "user-times",
-    "users",
-    "users-cog",
-    "utensil-spoon",
-    "utensils",
-    "vector-square",
-    "venus",
-    "venus-double",
-    "venus-mars",
-    "vial",
-    "vials",
-    "video",
-    "video-slash",
-    "volleyball-ball",
-    "volume-down",
-    "volume-off",
-    "volume-up",
-    "walking",
-    "wallet",
-    "warehouse",
-    "weight",
-    "weight-hanging",
-    "wheelchair",
-    "wifi",
-    "window-close",
-    "window-maximize",
-    "window-minimize",
-    "window-restore",
-    "wine-glass",
-    "wine-glass-alt",
-    "won-sign",
-    "wrench",
-    "x-ray",
-    "yen-sign"
-  ]
-}
-
-},{}],43:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
+arguments[4][16][0].apply(exports,arguments)
+},{"dup":16}],42:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -27826,36 +26959,11 @@ module.exports = {
   methods: _
 };
 
-},{"./json/lang.json":40,"./json/validate.json":42,"libt":2}],44:[function(require,module,exports){
+},{"./json/lang.json":39,"./json/validate.json":41,"libt":2}],43:[function(require,module,exports){
 'use strict';
 
 var table = require('./json/table.json');
-var form = require('./json/form.json');
 var validate = require('./json/validate.json');
-
-form.fields.forEach(function (field, i) {
-  if (field.source === '&country') {
-    form.fields[i].source = function (model, callback) {
-      callback(['Russia', 'Italy', 'Brazil']);
-    };
-  } else if (field.source === '&city') {
-    form.fields[i].source = function (model, callback) {
-      if (model.country === 'Russia') {
-        callback([{ id: 1, label: 'Moscow' }, { id: 2, label: 'St. Petersburg' }]);
-      } else if (model.country === 'Italy') {
-        callback(['Roma', 'Veneza', 'Milao']);
-      } else if (model.country === 'Brazil') {
-        callback(['Sao Paulo', 'Rio de Janeiro', 'Porto Alegre', 'Manaus']);
-      } else {
-        callback(['Unknown']);
-      }
-    };
-  } else if (field.source === '&banana') {
-    form.fields[i].source = function (model, callback) {
-      callback(['Apple', 'Banana']);
-    };
-  }
-});
 
 table.fields.forEach(function (field, i) {
   if (field.click === '&delete') {
@@ -28145,4 +27253,4 @@ module.exports = [{
   redirect: '/components/table'
 }];
 
-},{"./json/form.json":39,"./json/table.json":41,"./json/validate.json":42}]},{},[27]);
+},{"./json/table.json":40,"./json/validate.json":41}]},{},[27]);
