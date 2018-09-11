@@ -25146,7 +25146,7 @@ module.exports = {
       return this.getType() === 'text' ? 'form-control' : '';
     },
     getLabel: function getLabel() {
-      return _libt2.default.format(this.model[id], this.format, this.translate);
+      return this.button ? this.label : _libt2.default.format(this.model[this.id], this.format, this.translate);
     }
   }
 };
@@ -25158,7 +25158,7 @@ __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createEle
   'text-align': _vm.center() ? 'center' : null,
   'vertical-align': 'middle',
   'background-color': _vm.bgcolor()
-})},[(_vm.button && _vm.click)?_c('tmx-button',{attrs:{"type":_vm.button,"icon":_vm.icon,"click":_vm.click,"data":_vm.model,"label":_vm.label}}):(_vm.click)?_c('tmx-button',{attrs:{"type":"info","icon":_vm.icon,"click":_vm.click,"data":_vm.model,"label":_vm.getLabel()}}):_c('vue-inputag',_vm._b({class:_vm.getClass(),attrs:{"type":_vm.getType(),"formatter":_vm.getFormatter(),"model":_vm.model}},'vue-inputag',_vm.elem,false))],1)}
+})},[(_vm.click)?_c('tmx-button',{attrs:{"type":_vm.button || 'info',"icon":_vm.icon,"click":_vm.click,"data":_vm.model,"label":_vm.getLabel()}}):_c('vue-inputag',_vm._b({class:_vm.getClass(),attrs:{"type":_vm.getType(),"formatter":_vm.getFormatter(),"model":_vm.model}},'vue-inputag',_vm.elem,false))],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-hot-reload-api")
   hotAPI.install(require("vue"), true)

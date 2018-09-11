@@ -99,7 +99,7 @@
         return this.getType() === 'text' ? 'form-control' : ''
       },
       getLabel: function () {
-        return T.format(this.model[id], this.format, this.translate)
+        return this.button ? this.label : T.format(this.model[this.id], this.format, this.translate)
       }
     }
   }
@@ -112,16 +112,8 @@
     'background-color': bgcolor()
   }">
     <tmx-button
-      v-if="button && click"
-      :type="button"
-      :icon="icon"
-      :click="click"
-      :data="model"
-      :label="label"
-    />
-    <tmx-button
-      v-else-if="click"
-      type="info"
+      v-if="click"
+      :type="button || 'info'"
       :icon="icon"
       :click="click"
       :data="model"
