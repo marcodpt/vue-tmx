@@ -1,46 +1,147 @@
 <script type="text/babel">
   import Vue from '../node_modules/vue/dist/vue.js'
-  import VueRouter from 'vue-router'
-  import treeNav from 'vue-tree-nav'
-  import {modal} from 'vue-transform'
-  import tests from './components/tests.vue'
+  import T from 'libt'
+  import {modal, transform} from 'vue-transform'
+  import tmx from './index.vue'
+  import table from './json/table.json'
+  import VueGitHubCorners from 'vue-gh-corners'
 
-  import routes from './routes.js'
+  Vue.use(VueGitHubCorners)
 
-  Vue.use(VueRouter)
-
-  Vue.component('tests', tests)
   Vue.component('modal', modal)
-  Vue.component('vue-tree-nav', treeNav)
+  Vue.component('transform', transform)
+  Vue.component('tmx', tmx)
 
-  var setComponent = (routes) => {
-    routes.forEach((route, i) => {
-      if (typeof route.component === "string") {
-        routes[i].component = Vue.component(route.component)
+  table.fields.forEach((field, i) => {
+    if (field.click === '&delete') {
+      table.fields[i].click = function () {
+        this.$root.$data.modal = {
+          text: "Are you sure you want do delete this item?",
+          icon: 'trash',
+          label: 'Delete',
+          fields: [],
+          submit: () => {
+            this.$root.$data.modal = {
+              text: "Item deleted! Just a joke!",
+              icon: 'trash',
+              label: 'Delete',
+              fields: []
+            }
+          }
+        }
       }
-      if (route.children) {
-        routes[i].children = setComponent(route.children)
+    } else if (field.click === '&put') {
+      table.fields[i].click = function (model) {
+        this.$root.$data.modal = {
+          icon: 'edit',
+          label: 'Put',
+          fields: [
+            {
+              id: '_id',
+              label: 'Id',
+              format: 'string',
+              static: true
+            }, {
+              id: 'balance',
+              label: 'Balance ($)',
+              format: 'number:2'
+            }
+          ],
+          model: model,
+          submit: model => {
+            this.$root.$data.modal = {
+              text: JSON.stringify(model, undefined, 2),
+              icon: 'edit',
+              label: 'Put',
+              fields: []
+            }
+          }
+        }
       }
-    })
+    }
+  })
 
-    return routes
-  }
-
-  const router = new VueRouter({
-    routes: setComponent(routes)
+  table.methods.forEach((method, i) => {
+    if (method.click === '&post') {
+      table.methods[i].click = function () {
+        this.$root.$data.modal = {
+          icon: 'pencil-alt',
+          label: 'Insert',
+          fields: [
+            {
+              id: 'balance',
+              label: 'Balance ($)',
+              format: 'number'
+            }
+          ],
+          model: {
+            balance: 3000
+          },
+          submit: model => {
+            this.$root.$data.modal = {
+              text: JSON.stringify(model, undefined, 2),
+              icon: 'pencil-alt',
+              label: 'Post',
+              fields: []
+            }
+          }
+        }
+      }
+    } else if (method.click === '&exec') {
+      table.methods[i].click = function () {
+        this.$root.$data.modal = {
+          text: "I am going to do some crazy stuff! Are you sure?",
+          icon: 'play',
+          label: 'Exec',
+          fields: [],
+          submit: () => {
+            this.$root.$data.modal = {
+              text: "Do nothing is crazy!",
+              icon: 'play',
+              label: 'Exec',
+              fields: []
+            }
+          }
+        }
+      }
+    }
   })
 
   new Vue({
-    router: router,
     data: {
-      routes: routes,
-      right: [
-        {
-          href: "https://github.com/marcodpt/vue-tmx",
-          icon: "brands/github"
-        }
-      ],
-      modal: null
+      modal: null,
+      ready: false,
+      schema: null,
+      model: null,
+      fields: null,
+      tests: {
+        label: 'TMX Table sample',
+        icon: 'table',
+        fields: table.fields,
+        data: table.data,
+        methods: table.methods,
+        rows: 4,
+        aggregate: true,
+        sort: true,
+        search: true,
+        filter: true,
+        group: true,
+        download: {}
+      }
+    },
+    methods: {
+      submit: function (data) {
+        this.$data.schema = T.copy(data)
+        this.$data.ready = true
+      },
+      build: function () {
+        this.$data.ready = false
+        this.$data.model = T.copy(this.tests)
+        this.$data.fields = T.copy(tmx.props)
+      }
+    },
+    mounted: function () {
+      this.build()
     }
   }).$mount('#app')
 </script>

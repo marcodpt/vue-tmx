@@ -26,16 +26,13 @@
   "homepage": "https://github.com/marcodpt/vue-tmx#readme",
   "scripts": {
     "server": "http-server -a localhost -p 8080",
-    "testA": "node test/methods.js | faucet || true",
-    "testB": "browserify -e test/components.vue | browser-run | faucet || true",
-    "test": "npm run testA && npm run testB",
     "build": "browserify -e src/app.vue -o app.js"
   },
   "dependencies": {
     "libt": "0.0.4",
     "vue-awesome": "^3.0.5",
     "vue-inputag": "0.0.2",
-    "vue-limit": "0.0.1",
+    "vue-limit": "0.0.3",
     "vue-over-body": "0.0.3",
     "vue-transform": "0.0.2"
   },
@@ -54,14 +51,11 @@
     "babel-runtime": "^6.26.0",
     "babelify": "^8.0.0",
     "bootstrap": "~3.3.7",
-    "browser-run": "^5.0.0",
     "browserify": "^15.2.0",
-    "faucet": "0.0.1",
     "http-server": "^0.11.1",
-    "tape": "^4.8.0",
     "vue": "^2.4.1",
-    "vueify": "^9.4.1",
-    "vue-router": "^3.0.1",
-    "vue-tree-nav": "0.0.8"
+    "vue-gh-corners": "^2.0.0",
+    "vue-hot-reload-api": "^2.3.0",
+    "vueify": "^9.4.1"
   }
 }

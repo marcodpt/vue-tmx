@@ -5,17 +5,34 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Vue TMX</title>
-  <link rel="stylesheet" type="text/css" href="static/bootstrap.css"/>
+  <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="node_modules/vue-gh-corners/dist/vue-github-corners.min.css"/>
 </head>
 <body>
   <div id="app">
-    <div style="color:#f3f3f3;background-color:#666666;padding:20px">
-      <h1 style="margin:0;">Vue TMX</h1>
-    </div>
-    <vue-tree-nav :side="routes" :right="right" :location="$route.fullPath">
-    </vue-tree-nav>
+    <github-corners repo="marcodpt/vue-tmx">
+    </github-corners>
     <div class="container">
-      <router-view></router-view>
+      <div class="page-header">
+        <h1>Vue TMX <small>json based table with bootstrap3</small></h1>
+      </div>
+      <div>
+        <div v-if="ready">
+          <tmx v-bind="schema" />
+        </div>
+        <transform
+          icon="cog"
+          label="Live Playground"
+          :model="model"
+          :fields="fields"
+          :submit="submit"
+          :buttons="[{
+            type: 'primary',
+            icon: 'cog',
+            label: 'Rebuild'
+          }]"
+        />
+      </div>
     </div>
     <modal />
   </div>
