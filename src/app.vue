@@ -25,9 +25,29 @@
               text: "Item deleted! Just a joke!",
               icon: 'trash',
               label: 'Delete',
-              fields: []
+              fields: [], 
+              buttons: [
+                {
+                  type: 'danger',
+                  icon: 'times',
+                  label: 'Close',
+                  click: 'hide'
+                }
+              ]
             }
-          }
+          }, 
+          buttons: [
+            {
+              type: 'primary',
+              icon: 'check',
+              label: 'Confirm'
+            }, {
+              type: 'danger',
+              icon: 'times',
+              label: 'Close',
+              click: 'hide'
+            }
+          ]
         }
       }
     } else if (field.click === '&put') {
@@ -53,9 +73,29 @@
               text: JSON.stringify(model, undefined, 2),
               icon: 'edit',
               label: 'Put',
-              fields: []
+              fields: [], 
+              buttons: [
+                {
+                  type: 'danger',
+                  icon: 'times',
+                  label: 'Close',
+                  click: 'hide'
+                }
+              ]
             }
-          }
+          }, 
+          buttons: [
+            {
+              type: 'primary',
+              icon: 'check',
+              label: 'Confirm'
+            }, {
+              type: 'danger',
+              icon: 'times',
+              label: 'Close',
+              click: 'hide'
+            }
+          ]
         }
       }
     }
@@ -82,9 +122,29 @@
               text: JSON.stringify(model, undefined, 2),
               icon: 'pencil-alt',
               label: 'Post',
-              fields: []
+              fields: [], 
+              buttons: [
+                {
+                  type: 'danger',
+                  icon: 'times',
+                  label: 'Close',
+                  click: 'hide'
+                }
+              ]
             }
-          }
+          }, 
+          buttons: [
+            {
+              type: 'primary',
+              icon: 'check',
+              label: 'Confirm'
+            }, {
+              type: 'danger',
+              icon: 'times',
+              label: 'Close',
+              click: 'hide'
+            }
+          ]
         }
       }
     } else if (method.click === '&exec') {
@@ -99,9 +159,29 @@
               text: "Do nothing is crazy!",
               icon: 'play',
               label: 'Exec',
-              fields: []
+              fields: [], 
+              buttons: [
+                {
+                  type: 'danger',
+                  icon: 'times',
+                  label: 'Close',
+                  click: 'hide'
+                }
+              ]
             }
-          }
+          }, 
+          buttons: [
+            {
+              type: 'primary',
+              icon: 'check',
+              label: 'Confirm'
+            }, {
+              type: 'danger',
+              icon: 'times',
+              label: 'Close',
+              click: 'hide'
+            }
+          ]
         }
       }
     }
