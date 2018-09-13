@@ -25,7 +25,8 @@
   },
   "homepage": "https://github.com/marcodpt/vue-tmx#readme",
   "scripts": {
-    "server": "http-server -a localhost -p 8080",
+    "cp_ghcorners": "cp node_modules/vue-gh-corners/dist/vue-github-corners.min.css static/",
+    "server": "mkdir -p static && npm run cp_ghcorners && http-server -a localhost -p 8080",
     "build": "browserify -e src/app.vue -o app.js"
   },
   "dependencies": {
@@ -50,7 +51,6 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-runtime": "^6.26.0",
     "babelify": "^8.0.0",
-    "bootstrap": "~3.3.7",
     "browserify": "^15.2.0",
     "http-server": "^0.11.1",
     "vue": "^2.4.1",
