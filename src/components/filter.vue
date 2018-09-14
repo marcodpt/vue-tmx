@@ -64,6 +64,8 @@
           this.active.push(T.copy(m))
         }
 
+        T.debug(this.active)
+
         this.run()
       },
       getOperators: function () {
@@ -130,6 +132,7 @@
           modal.icon = this.icon
           modal.label = this.translate('filter')
           modal.submit = this.add
+          modal.buttons = this.getButtons()
 
           this.$root.$data.modal = modal
         } else {

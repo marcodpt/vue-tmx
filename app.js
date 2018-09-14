@@ -3040,12 +3040,15 @@ module.exports = {
   data: function data() {
     return {
       start: false,
-      finish: false
+      finish: false,
+      cls: ' over_body_open'
     };
   },
   mounted: function mounted() {
     if (this.open) {
       this.toogle(this.open);
+    } else {
+      this.clear();
     }
   },
   watch: {
@@ -3061,9 +3064,8 @@ module.exports = {
       var _this = this;
 
       var t = 50;
-      var cls = ' over_body_open';
       if (open) {
-        document.body.className += cls;
+        document.body.className += this.$data.cls;
         this.$data.start = true;
         setTimeout(function () {
           return _this.$data.finish = true;
@@ -3072,9 +3074,12 @@ module.exports = {
         this.$data.finish = false;
         setTimeout(function () {
           _this.$data.start = false;
-          document.body.className = document.body.className.split(cls).join('');
+          _this.clear();
         }, this.transition * 1000 + t);
       }
+    },
+    clear: function clear() {
+      document.body.className = document.body.className.split(this.$data.cls).join('');
     },
     setStyle: function setStyle(obj) {
       if (obj == null) {
@@ -3431,7 +3436,7 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"thumbnail"},[(_vm.onClose || _vm.label || _vm.icon)?_c('div',{staticClass:"modal-header"},[(_vm.onClose)?_c('button',{staticClass:"close",attrs:{"type":"button"},on:{"click":_vm.onClose}},[_c('icon',{staticClass:"glyphicon",attrs:{"name":"times"}})],1):_vm._e(),_vm._v(" "),(_vm.label || _vm.icon)?_c('h4',{staticClass:"modal-title",staticStyle:{"text-align":"center"}},[(_vm.icon)?_c('icon',{staticClass:"glyphicon",attrs:{"name":_vm.icon}}):_vm._e(),_vm._v(" "+_vm._s(_vm.label)+"\n    ")],1):_vm._e()]):_vm._e(),_vm._v(" "),(_vm.Fields.length || _vm.text)?_c('div',{staticClass:"modal-body"},[_c('div',{staticStyle:{"clear":"both"}}),_vm._v(" "),_c('form',{staticClass:"form-horizontal",on:{"submit":function($event){$event.preventDefault();_vm.submit($event)}}},_vm._l((_vm.Fields),function(field,index){return _c('item',_vm._b({key:index,attrs:{"model":_vm.model,"static":field.static || _vm.compact,"compact":_vm.compact,"size":field.size || _vm.size}},'item',field,false))})),_vm._v(" "),_c('div',{staticStyle:{"clear":"both"}}),_vm._v(" "),(_vm.text)?_c('div',{class:_vm.getClass(),staticStyle:{"white-space":"pre-line"}},[_c('big',[_vm._v(_vm._s(_vm.text))])],1):_vm._e(),_vm._v(" "),_c('div',{staticStyle:{"clear":"both"}})]):_vm._e(),_vm._v(" "),(_vm.buttons.length)?_c('div',{staticClass:"modal-footer"},_vm._l((_vm.buttons),function(b){return _c('button',{class:[
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"thumbnail"},[(_vm.onClose || _vm.label || _vm.icon)?_c('div',{staticClass:"modal-header"},[(_vm.onClose)?_c('button',{staticClass:"close",attrs:{"type":"button"},on:{"click":_vm.onClose}},[_c('icon',{staticClass:"glyphicon",attrs:{"name":"times"}})],1):_vm._e(),_vm._v(" "),(_vm.label || _vm.icon)?_c('h4',{staticClass:"modal-title",staticStyle:{"text-align":"center"}},[(_vm.icon)?_c('icon',{staticClass:"glyphicon",attrs:{"name":_vm.icon}}):_vm._e(),_vm._v(" "+_vm._s(_vm.label)+"\n    ")],1):_vm._e()]):_vm._e(),_vm._v(" "),(_vm.Fields.length || _vm.text)?_c('div',{staticClass:"modal-body"},[_c('div',{staticStyle:{"clear":"both"}}),_vm._v(" "),_c('form',{staticClass:"form-horizontal",on:{"submit":function($event){$event.preventDefault();_vm.submit($event)}}},_vm._l((_vm.Fields),function(field,index){return _c('item',_vm._b({key:index,attrs:{"model":_vm.model,"static":field.static || _vm.compact,"compact":_vm.compact,"size":field.size || _vm.size}},'item',field,false))})),_vm._v(" "),_c('div',{staticStyle:{"clear":"both"}}),_vm._v(" "),(_vm.text)?_c('div',{class:_vm.getClass(),staticStyle:{"white-space":"pre-wrap"}},[_c('big',[_vm._v(_vm._s(_vm.text))])],1):_vm._e(),_vm._v(" "),_c('div',{staticStyle:{"clear":"both"}})]):_vm._e(),_vm._v(" "),(_vm.buttons.length)?_c('div',{staticClass:"modal-footer"},_vm._l((_vm.buttons),function(b){return _c('button',{class:[
         'btn',
         'btn-' + b.type,
         b.block ? 'btn-block' : '',
@@ -3605,8 +3610,7 @@ module.exports = {
     return {
       index: 99999,
       isOpen: 0,
-      size: 0,
-      buttons: []
+      size: 0
     };
   },
   methods: {
@@ -3627,11 +3631,13 @@ module.exports = {
         this.$data.size = 300;
       }
 
-      x.buttons.forEach(function (button) {
-        if (button.click === 'hide') {
-          button.click = _this.hide;
-        }
-      });
+      if (x.buttons && x.buttons.forEach) {
+        x.buttons.forEach(function (button) {
+          if (button.click === 'hide') {
+            button.click = _this.hide;
+          }
+        });
+      }
 
       x.onClose = this.hide;
       this.$data.isOpen = ++this.$data.index;
@@ -22472,18 +22478,20 @@ _table2.default.fields.forEach(function (field, i) {
         label: 'Delete',
         fields: [],
         submit: function submit() {
-          _this.$root.$data.modal = {
-            text: "Item deleted! Just a joke!",
-            icon: 'trash',
-            label: 'Delete',
-            fields: [],
-            buttons: [{
-              type: 'danger',
-              icon: 'times',
-              label: 'Close',
-              click: 'hide'
-            }]
-          };
+          setTimeout(function () {
+            _this.$root.$data.modal = {
+              text: "Item deleted! Just a joke!",
+              icon: 'trash',
+              label: 'Delete',
+              fields: [],
+              buttons: [{
+                type: 'danger',
+                icon: 'times',
+                label: 'Close',
+                click: 'hide'
+              }]
+            };
+          }, 500);
         },
         buttons: [{
           type: 'primary',
@@ -22516,18 +22524,20 @@ _table2.default.fields.forEach(function (field, i) {
         }],
         model: model,
         submit: function submit(model) {
-          _this2.$root.$data.modal = {
-            text: JSON.stringify(model, undefined, 2),
-            icon: 'edit',
-            label: 'Put',
-            fields: [],
-            buttons: [{
-              type: 'danger',
-              icon: 'times',
-              label: 'Close',
-              click: 'hide'
-            }]
-          };
+          setTimeout(function () {
+            _this2.$root.$data.modal = {
+              text: JSON.stringify(model, undefined, 2),
+              icon: 'edit',
+              label: 'Put',
+              fields: [],
+              buttons: [{
+                type: 'danger',
+                icon: 'times',
+                label: 'Close',
+                click: 'hide'
+              }]
+            };
+          }, 500);
         },
         buttons: [{
           type: 'primary',
@@ -22561,18 +22571,20 @@ _table2.default.methods.forEach(function (method, i) {
           balance: 3000
         },
         submit: function submit(model) {
-          _this3.$root.$data.modal = {
-            text: JSON.stringify(model, undefined, 2),
-            icon: 'pencil-alt',
-            label: 'Post',
-            fields: [],
-            buttons: [{
-              type: 'danger',
-              icon: 'times',
-              label: 'Close',
-              click: 'hide'
-            }]
-          };
+          setTimeout(function () {
+            _this3.$root.$data.modal = {
+              text: JSON.stringify(model, undefined, 2),
+              icon: 'pencil-alt',
+              label: 'Post',
+              fields: [],
+              buttons: [{
+                type: 'danger',
+                icon: 'times',
+                label: 'Close',
+                click: 'hide'
+              }]
+            };
+          }, 500);
         },
         buttons: [{
           type: 'primary',
@@ -22596,18 +22608,20 @@ _table2.default.methods.forEach(function (method, i) {
         label: 'Exec',
         fields: [],
         submit: function submit() {
-          _this4.$root.$data.modal = {
-            text: "Do nothing is crazy!",
-            icon: 'play',
-            label: 'Exec',
-            fields: [],
-            buttons: [{
-              type: 'danger',
-              icon: 'times',
-              label: 'Close',
-              click: 'hide'
-            }]
-          };
+          setTimeout(function () {
+            _this4.$root.$data.modal = {
+              text: "Do nothing is crazy!",
+              icon: 'play',
+              label: 'Exec',
+              fields: [],
+              buttons: [{
+                type: 'danger',
+                icon: 'times',
+                label: 'Close',
+                click: 'hide'
+              }]
+            };
+          }, 500);
         },
         buttons: [{
           type: 'primary',
@@ -23214,6 +23228,8 @@ module.exports = {
         this.active.push(_libt2.default.copy(m));
       }
 
+      _libt2.default.debug(this.active);
+
       this.run();
     },
     getOperators: function getOperators() {
@@ -23271,6 +23287,7 @@ module.exports = {
         modal.icon = this.icon;
         modal.label = this.translate('filter');
         modal.submit = this.add;
+        modal.buttons = this.getButtons();
 
         this.$root.$data.modal = modal;
       } else {
@@ -23349,6 +23366,10 @@ var _libt = require('libt');
 
 var _libt2 = _interopRequireDefault(_libt);
 
+var _lib = require('../lib.js');
+
+var _lib2 = _interopRequireDefault(_lib);
+
 var _dropdown = require('./dropdown.vue');
 
 var _dropdown2 = _interopRequireDefault(_dropdown);
@@ -23356,6 +23377,7 @@ var _dropdown2 = _interopRequireDefault(_dropdown);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = {
+  mixins: [_lib2.default],
   components: {
     'tmx-dropdown': _dropdown2.default
   },
@@ -23442,6 +23464,7 @@ module.exports = {
         modal.source = this.getValues;
         modal.submit = this.add;
         modal.model = {};
+        modal.buttons = this.getButtons();
 
         this.$root.$data.modal = modal;
       } else {
@@ -23494,7 +23517,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
     hotAPI.reload("data-v-17f9afb9", __vue__options__)
   }
 })()}
-},{"./dropdown.vue":26,"libt":2,"vue":19,"vueify/node_modules/vue-hot-reload-api":21}],29:[function(require,module,exports){
+},{"../lib.js":37,"./dropdown.vue":26,"libt":2,"vue":19,"vueify/node_modules/vue-hot-reload-api":21}],29:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -24439,6 +24462,19 @@ Object.keys(validate).forEach(function (key) {
 
 _.translate = function (field) {
   return lang[this.$root.$data.lang || 'en'][field];
+};
+
+_.getButtons = function () {
+  return [{
+    type: 'primary',
+    icon: 'check',
+    label: this.translate('confirm')
+  }, {
+    type: 'danger',
+    icon: 'times',
+    label: this.translate('close'),
+    click: 'hide'
+  }];
 };
 
 module.exports = {

@@ -1,8 +1,10 @@
 <script type="text/babel">
   import T from 'libt'
+  import lib from '../lib.js'
   import tmxDropdown from './dropdown.vue'
 
   module.exports = {
+    mixins: [lib],
     components: {
       'tmx-dropdown': tmxDropdown
     },
@@ -91,6 +93,7 @@
           modal.source = this.getValues
           modal.submit = this.add
           modal.model = {}
+          modal.buttons = this.getButtons()
 
           this.$root.$data.modal = modal
         } else {

@@ -34,7 +34,7 @@
     "vue-awesome": "^3.0.5",
     "vue-inputag": "0.0.3",
     "vue-limit": "0.0.3",
-    "vue-transform": "0.0.5"
+    "vue-transform": "0.0.6"
   },
   "browserify": {
     "transform": [

@@ -12,6 +12,21 @@ _.translate = function (field) {
   return lang[this.$root.$data.lang || 'en'][field]
 }
 
+_.getButtons = function () {
+  return [
+    {
+      type: 'primary',
+      icon: 'check',
+      label: this.translate('confirm')
+    }, {
+      type: 'danger',
+      icon: 'times',
+      label: this.translate('close'),
+      click: 'hide'
+    }
+  ]
+}
+
 module.exports = {
   methods: _
 }

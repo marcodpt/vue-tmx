@@ -21,20 +21,22 @@
           label: 'Delete',
           fields: [],
           submit: () => {
-            this.$root.$data.modal = {
-              text: "Item deleted! Just a joke!",
-              icon: 'trash',
-              label: 'Delete',
-              fields: [], 
-              buttons: [
-                {
-                  type: 'danger',
-                  icon: 'times',
-                  label: 'Close',
-                  click: 'hide'
-                }
-              ]
-            }
+            setTimeout (() => {
+              this.$root.$data.modal = {
+                text: "Item deleted! Just a joke!",
+                icon: 'trash',
+                label: 'Delete',
+                fields: [], 
+                buttons: [
+                  {
+                    type: 'danger',
+                    icon: 'times',
+                    label: 'Close',
+                    click: 'hide'
+                  }
+                ]
+              }
+            }, 500)
           }, 
           buttons: [
             {
@@ -69,20 +71,22 @@
           ],
           model: model,
           submit: model => {
-            this.$root.$data.modal = {
-              text: JSON.stringify(model, undefined, 2),
-              icon: 'edit',
-              label: 'Put',
-              fields: [], 
-              buttons: [
-                {
-                  type: 'danger',
-                  icon: 'times',
-                  label: 'Close',
-                  click: 'hide'
-                }
-              ]
-            }
+            setTimeout (() => {
+              this.$root.$data.modal = {
+                text: JSON.stringify(model, undefined, 2),
+                icon: 'edit',
+                label: 'Put',
+                fields: [], 
+                buttons: [
+                  {
+                    type: 'danger',
+                    icon: 'times',
+                    label: 'Close',
+                    click: 'hide'
+                  }
+                ]
+              }
+            }, 500)
           }, 
           buttons: [
             {
@@ -118,20 +122,22 @@
             balance: 3000
           },
           submit: model => {
-            this.$root.$data.modal = {
-              text: JSON.stringify(model, undefined, 2),
-              icon: 'pencil-alt',
-              label: 'Post',
-              fields: [], 
-              buttons: [
-                {
-                  type: 'danger',
-                  icon: 'times',
-                  label: 'Close',
-                  click: 'hide'
-                }
-              ]
-            }
+            setTimeout (() => {
+              this.$root.$data.modal = {
+                text: JSON.stringify(model, undefined, 2),
+                icon: 'pencil-alt',
+                label: 'Post',
+                fields: [], 
+                buttons: [
+                  {
+                    type: 'danger',
+                    icon: 'times',
+                    label: 'Close',
+                    click: 'hide'
+                  }
+                ]
+              }
+            }, 500)
           }, 
           buttons: [
             {
@@ -155,20 +161,22 @@
           label: 'Exec',
           fields: [],
           submit: () => {
-            this.$root.$data.modal = {
-              text: "Do nothing is crazy!",
-              icon: 'play',
-              label: 'Exec',
-              fields: [], 
-              buttons: [
-                {
-                  type: 'danger',
-                  icon: 'times',
-                  label: 'Close',
-                  click: 'hide'
-                }
-              ]
-            }
+            setTimeout (() => {
+              this.$root.$data.modal = {
+                text: "Do nothing is crazy!",
+                icon: 'play',
+                label: 'Exec',
+                fields: [], 
+                buttons: [
+                  {
+                    type: 'danger',
+                    icon: 'times',
+                    label: 'Close',
+                    click: 'hide'
+                  }
+                ]
+              }
+            }, 500)
           }, 
           buttons: [
             {
