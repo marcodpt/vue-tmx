@@ -4,7 +4,8 @@
     "integer",
     "number",
     "date",
-    "string"
+    "string",
+    "json"
   ],
   "Alert": [
     "success",
