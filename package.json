@@ -1,6 +1,6 @@
 {
   "name": "vue-tmx",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Vue json based table with bootstrap3",
   "main": "src/index.vue",
   "repository": {
