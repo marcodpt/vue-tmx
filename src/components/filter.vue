@@ -55,7 +55,6 @@
       },
       add: function (m) {
         var X = this.fields.filter(f => T.compare({id: m.path})(f) === 0)
-        T.debug(m, X)
         if (X && X[0]) {
           m.value = T.parse(X[0]['format'])(m.value)
         }

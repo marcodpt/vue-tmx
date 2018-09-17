@@ -87,6 +87,14 @@
       label: {
         type: String,
         default: ''
+      },
+      blockClass: {
+        type: [String, Object, Array],
+        default: 'table-responsive'
+      },
+      blockStyle: {
+        type: [String, Object, Array],
+        default: 'max-height:60vh'
       }
     },
     data: function () {
@@ -313,7 +321,7 @@
         </tr>
       </tbody>
     </table>
-    <div class="table-responsive">
+    <div :class="blockClass" :style="blockStyle">
       <table class="table table-striped table-bordered table-condensed table-hover">
         <thead>
           <tr :style="display('aggregate')">
