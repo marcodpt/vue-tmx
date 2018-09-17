@@ -54,6 +54,11 @@
         T.sync(this.output, T.where(this.active)(this.input))
       },
       add: function (m) {
+        var X = this.fields.filter(f => T.compare({id: m.path})(f) === 0)
+        T.debug(m, X)
+        if (X && X[0]) {
+          m.value = T.parse(X[0]['format'])(m.value)
+        }
         var unique = true
         this.active.forEach(a => {
           if (unique && T.compare(m)(a) === 0) {
@@ -63,8 +68,6 @@
         if (unique) {
           this.active.push(T.copy(m))
         }
-
-        T.debug(this.active)
 
         this.run()
       },
@@ -80,19 +83,22 @@
           {id: '<=', label: this.translate('lte')}
         ]
       },
-      getFormat: function (path) {
+      getFormatter: function (path) {
         var X = this.fields.filter(f => T.compare({id: path})(f) === 0)
         if (X && X[0]) {
-          return X[0]['format']
+          return X[0]['formatter']
+        } else {
+          return x => x
         }
       },
       getValues: function (model, callback) {
         var X = T.distinct({
           id: model.path
         })(this.input) 
+        var formatter = this.getFormatter(model.path)
 
         X.forEach((x, i) => {
-          X[i].label = T.format(x.id, this.getFormat(model.path), this.translate)
+          X[i].label = formatter(x.id)
         })
 
         callback(X)
@@ -146,15 +152,16 @@
         var path = w.path
         var format = 'string'
         var operator = w.operator
+        var value
         if (O && O[0]) {
           operator = O[0]['label'] ? O[0]['label'] : operator
         }
         if (X && X[0]) {
           path = X[0]['label'] ? X[0]['label'] : w.path
-          format = X[0]['format']
+          value = this.getFormatter(w.path)(w.value)
         }
 
-        return `${path} ${operator} ${T.format(w.value, format, this.translate)}`
+        return `${path} ${operator} ${value}`
       },
       getItems: function () {
         return this.active.map((a, i) => {

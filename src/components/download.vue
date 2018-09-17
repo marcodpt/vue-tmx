@@ -1,9 +1,7 @@
 <script type="text/babel">
   import T from 'libt'
-  import lib from '../lib.js'
 
   module.exports = {
-    mixins: [lib],
     props: {
       button: {
         type: String,
@@ -77,7 +75,7 @@
           this.data.forEach(row => {
             var obj = {}
             this.fields.forEach(field => {
-              obj[this.cast[field.id] || field.id] = T.format(row[field.id], field.format, this.translate)
+              obj[this.cast[field.id] || field.id] = field.formatter(row[field.id])
             })
             S.push(obj)
           })
@@ -97,7 +95,7 @@
               s += this.line
             }
             this.fields.forEach(field => {
-              s += T.format(row[field.id], field.format, this.translate) + this.field
+              s += field.formatter(row[field.id]) + this.field
             })
             s = s.substr(0, s.length - 1)
           })

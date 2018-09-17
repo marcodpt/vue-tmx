@@ -102,6 +102,15 @@
           ]
         }
       }
+    } else if (field.format === 'date') {
+      table.fields[i].formatter = x => {
+        var d = new Date(x)
+        return d.toLocaleString().split(' ')[0]
+      }
+    } else if (field.format === 'boolean') {
+      table.fields[i].formatter = x => {
+        return x ? 'True' : 'False'
+      }
     }
   })
 

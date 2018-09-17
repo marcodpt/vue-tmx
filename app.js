@@ -261,7 +261,7 @@ T.parse = function (format) {
       if (!(typeof format === 'string')) {
         return value
       } else if (format.split(':')[0] === 'boolean') {
-        return 0
+        return false
       } else if (format.split(':')[0] === 'date' || format.split(':')[0] === 'string') {
         return ''
       } else {
@@ -277,9 +277,9 @@ T.parse = function (format) {
 
     if (type === 'boolean') {
       if (value && value !== 'false' && value !== '0') {
-        return 1
+        return true
       } else {
-        return 0
+        return false
       }
     } else if (type === 'integer') {
       x = parseInt(value)
@@ -822,103 +822,6 @@ T.sync = function (Output, Input, syncFnc) {
   Object.keys(Input).forEach(key => {
     syncFnc(Output, key, Input[key])
   })
-}
-
-/*
-  format raw database data into human readable data
-
-  @func format
-  @param {mixed} value - raw value
-  @param {string} format - String with format
-  @param {translateFnc} translateFnc - Function that will return some values: trueLabel, falseLabel, numberSeparator, decimalSeparator, date (ex.yyyy-MM-dd)
-  @callback translateFnc
-  @param {string} query - information queried
-  @return {string} formatted data
-  @example
-
-  T.format(2.58, 'boolean') //=> true
-  T.format(2.58, 'integer') //=> 2
-  T.format(2.58, 'integer:4') //=> 0002
-  T.format(2.58, 'number') //=> 2.58
-  T.format(2.58, 'number:1') //=> 2.6
-  T.format(2.58, 'number:3') //=> 2.580
-  T.format('2018-08-31T12:18:46+00:00', 'string') //=> 2018-08-31T12:18:46+00:00
-  T.format('2018-08-31T12:18:46+00:00', 'string:10') //=> 2018-08-31
-  T.format('2018-08-31T12:18:46+00:00', 'date') //=> 2018-08-31
-
-*/
-T.format = function (value, format, translate) {
-  if (value === null || value === undefined) {
-    return ''
-  }
-  if (typeof translate !== 'function') {
-    translate = () => {}
-  }
-
-  if (typeof format !== 'string') {
-    format = ''
-  }
-
-  var F = format.split(':')
-  var type = F[0]
-  var p1 = parseInt(F[1] || 0)
-  var x, s
-
-  if (type === 'boolean') {
-    if (value && value !== '0' && value !== 'false') {
-      return translate('trueLabel') || 'true'
-    } else {
-      return translate('falseLabel') || 'false'
-    }
-  } else if (type === 'integer') {
-    x = parseInt(value)
-    if (!isNaN(x)) {
-      s = String(x)
-      while (s.length < p1) {
-        s = '0' + s
-      }
-      return s
-    }
-  } else if (type === 'number') {
-    x = parseFloat(value)
-    if (!isNaN(x)) {
-      if (p1 > 0 || (p1 === 0 && F[1] === '0')) {
-        s = String(x.toFixed(p1))
-      } else {
-        s = String(x)
-      }
-      var N = s.split('.')
-      N[0] = N[0].replace(/(\d)(?=(\d{3})+$)/g, '$1' + (translate('numberSeparator') || ''))
-      N[1] = N.length > 1 ? (translate('decimalSeparator') || '.') + N[1] : ''
-      return N[0] + N[1]
-    }
-  } else if (type === 'string') {
-    s = String(value)
-    if (F.indexOf('rgb') > -1) {
-      return ''
-    }
-    if (p1) {
-      return s.substr(0, p1)
-    }
-    return s
-  } else if (type === 'date' && T.match('date')(value)) {
-    s = String(value)
-    var D = {
-      yyyy: s.substr(0, 4),
-      yy: s.substr(2, 2),
-      MM: s.substr(5, 2),
-      M: parseInt(s.substr(5, 2)),
-      dd: s.substr(8, 2),
-      d: parseInt(s.substr(8, 2))
-    }
-    x = translate('date') || 'yyyy-MM-dd'
-    Object.keys(D).forEach(function (key) {
-      x = x.replace(new RegExp(key, 'g'), D[key])
-    })
-    return x
-  }
-
-  return String(value)
 }
 
 /*
@@ -3513,15 +3416,6 @@ module.exports = {
     }
   },
   methods: {
-    getOptions: function getOptions() {
-      return this.format === 'boolean' ? [{
-        id: 0,
-        label: 'Não'
-      }, {
-        id: 1,
-        label: 'Sim'
-      }] : this.$attrs.options;
-    },
     getType: function getType() {
       var F = this.format.split(':');
 
@@ -3529,8 +3423,10 @@ module.exports = {
         return '';
       }
 
-      if (this.$attrs.options || this.$attrs.source || F[0] === 'boolean') {
+      if (this.$attrs.options || this.$attrs.source) {
         return 'select';
+      } else if (F[0] === 'boolean') {
+        return 'checkbox';
       } else if (F[0] === 'date') {
         return 'date';
       } else if (F[0] === 'json') {
@@ -3569,7 +3465,10 @@ __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createEle
     'form-group-' + _vm.size,
     _vm.error ? 'has-error': '', 
     _vm.col > 0 ? ('col-xs-' + Math.floor(12 / _vm.col)) : ''
-  ]},[(_vm.label !== '' && _vm.col)?_c('label',{class:['control-label', 'col-xs-' + (2 * _vm.col)]},[_vm._v("\n    "+_vm._s(_vm.label || _vm.$attrs.id)+":\n  ")]):_vm._e(),_vm._v(" "),_c('div',{class:['col-xs-' + (12 - (_vm.label !== '' ? 2 * _vm.col : 0))]},[(!_vm.static)?_c('vue-inputag',_vm._b({class:_vm.getClass(),attrs:{"options":_vm.getOptions(),"type":_vm.getType()}},'vue-inputag',_vm.$attrs,false)):_c('p',{staticClass:"form-control-static"},[_c('vue-inputag',_vm._b({attrs:{"options":_vm.getOptions(),"type":_vm.getType()}},'vue-inputag',_vm.$attrs,false))],1),_vm._v(" "),(_vm.error)?_c('span',{staticClass:"help-block"},[_vm._v("\n      "+_vm._s(_vm.error)+"\n    ")]):_vm._e()],1)])}
+  ]},[(_vm.label !== '' && _vm.col)?_c('label',{class:['control-label', 'col-xs-' + (2 * _vm.col)]},[_vm._v("\n    "+_vm._s(_vm.label || _vm.$attrs.id)+":\n  ")]):_vm._e(),_vm._v(" "),_c('div',{class:[
+    'col-xs-' + (12 - (_vm.label !== '' ? 2 * _vm.col : 0)),
+    _vm.getType() === 'checkbox' ? 'checkbox' : ''
+  ]},[(!_vm.static)?_c('vue-inputag',_vm._b({class:_vm.getClass(),attrs:{"type":_vm.getType()}},'vue-inputag',_vm.$attrs,false)):_c('p',{staticClass:"form-control-static"},[_c('vue-inputag',_vm._b({attrs:{"type":_vm.getType()}},'vue-inputag',_vm.$attrs,false))],1),_vm._v(" "),(_vm.error)?_c('span',{staticClass:"help-block"},[_vm._v("\n      "+_vm._s(_vm.error)+"\n    ")]):_vm._e()],1)])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -3699,7 +3598,8 @@ module.exports={
     "integer",
     "number",
     "date",
-    "string"
+    "string",
+    "json"
   ],
   "Alert": [
     "success",
@@ -22551,6 +22451,15 @@ _table2.default.fields.forEach(function (field, i) {
         }]
       };
     };
+  } else if (field.format === 'date') {
+    _table2.default.fields[i].formatter = function (x) {
+      var d = new Date(x);
+      return d.toLocaleString().split(' ')[0];
+    };
+  } else if (field.format === 'boolean') {
+    _table2.default.fields[i].formatter = function (x) {
+      return x ? 'True' : 'False';
+    };
   }
 });
 
@@ -22751,10 +22660,6 @@ module.exports = {
       type: String,
       default: ''
     },
-    placeholder: {
-      type: String,
-      default: ''
-    },
     click: {
       type: Function
     }
@@ -22762,22 +22667,9 @@ module.exports = {
   data: function data() {
     return {
       elem: {
-        id: this.id,
-        format: this.format,
-        placeholder: this.placeholder
+        id: this.id
       }
     };
-  },
-  watch: {
-    id: function id() {
-      this.$data.elem.id = this.id;
-    },
-    format: function format() {
-      this.$data.elem.format = this.format;
-    },
-    placeholder: function placeholder() {
-      this.$data.elem.placeholder = this.placeholder;
-    }
   },
   methods: {
     center: function center() {
@@ -22788,13 +22680,6 @@ module.exports = {
         return '#' + this.model[this.id];
       }
       return null;
-    },
-    getFormatter: function getFormatter() {
-      var _this = this;
-
-      return function (x) {
-        return _libt2.default.format(x, _this.format, _this.translate);
-      };
     },
     getType: function getType() {
       if (this.static) {
@@ -22807,7 +22692,7 @@ module.exports = {
       return this.getType() === 'text' ? 'form-control' : '';
     },
     getLabel: function getLabel() {
-      return this.button ? this.label : _libt2.default.format(this.model[this.id], this.format, this.translate);
+      return this.button ? this.label : this.$attrs.formatter(this.model[this.id]);
     }
   }
 };
@@ -22819,7 +22704,7 @@ __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createEle
   'text-align': _vm.center() ? 'center' : null,
   'vertical-align': 'middle',
   'background-color': _vm.bgcolor()
-})},[(_vm.click)?_c('tmx-button',{attrs:{"type":_vm.button || 'info',"icon":_vm.icon,"click":_vm.click,"data":_vm.model,"label":_vm.getLabel()}}):_c('vue-inputag',_vm._b({class:_vm.getClass(),attrs:{"type":_vm.getType(),"formatter":_vm.getFormatter(),"model":_vm.model}},'vue-inputag',_vm.elem,false))],1)}
+})},[(_vm.click)?_c('tmx-button',{attrs:{"type":_vm.button || 'info',"icon":_vm.icon,"click":_vm.click,"data":_vm.model,"label":_vm.getLabel()}}):_c('vue-inputag',_vm._b({class:_vm.getClass(),attrs:{"type":_vm.getType(),"model":_vm.model,"id":_vm.id}},'vue-inputag',_vm.$attrs,false))],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -22932,14 +22817,9 @@ var _libt = require('libt');
 
 var _libt2 = _interopRequireDefault(_libt);
 
-var _lib = require('../lib.js');
-
-var _lib2 = _interopRequireDefault(_lib);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = {
-  mixins: [_lib2.default],
   props: {
     button: {
       type: String,
@@ -23015,7 +22895,7 @@ module.exports = {
         this.data.forEach(function (row) {
           var obj = {};
           _this.fields.forEach(function (field) {
-            obj[_this.cast[field.id] || field.id] = _libt2.default.format(row[field.id], field.format, _this.translate);
+            obj[_this.cast[field.id] || field.id] = field.formatter(row[field.id]);
           });
           S.push(obj);
         });
@@ -23035,7 +22915,7 @@ module.exports = {
             s += _this.line;
           }
           _this.fields.forEach(function (field) {
-            s += _libt2.default.format(row[field.id], field.format, _this.translate) + _this.field;
+            s += field.formatter(row[field.id]) + _this.field;
           });
           s = s.substr(0, s.length - 1);
         });
@@ -23066,7 +22946,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
     hotAPI.reload("data-v-72054dbe", __vue__options__)
   }
 })()}
-},{"../lib.js":37,"libt":2,"vue":19,"vueify/node_modules/vue-hot-reload-api":21}],26:[function(require,module,exports){
+},{"libt":2,"vue":19,"vueify/node_modules/vue-hot-reload-api":21}],26:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -23218,6 +23098,13 @@ module.exports = {
       _libt2.default.sync(this.output, _libt2.default.where(this.active)(this.input));
     },
     add: function add(m) {
+      var X = this.fields.filter(function (f) {
+        return _libt2.default.compare({ id: m.path })(f) === 0;
+      });
+      _libt2.default.debug(m, X);
+      if (X && X[0]) {
+        m.value = _libt2.default.parse(X[0]['format'])(m.value);
+      }
       var unique = true;
       this.active.forEach(function (a) {
         if (unique && _libt2.default.compare(m)(a) === 0) {
@@ -23228,30 +23115,31 @@ module.exports = {
         this.active.push(_libt2.default.copy(m));
       }
 
-      _libt2.default.debug(this.active);
-
       this.run();
     },
     getOperators: function getOperators() {
       return [{ id: '~', label: this.translate('like') }, { id: '!~', label: this.translate('notlike') }, { id: '===', label: this.translate('eq') }, { id: '!==', label: this.translate('ne') }, { id: '>', label: this.translate('gt') }, { id: '>=', label: this.translate('gte') }, { id: '<', label: this.translate('lt') }, { id: '<=', label: this.translate('lte') }];
     },
-    getFormat: function getFormat(path) {
+    getFormatter: function getFormatter(path) {
       var X = this.fields.filter(function (f) {
         return _libt2.default.compare({ id: path })(f) === 0;
       });
       if (X && X[0]) {
-        return X[0]['format'];
+        return X[0]['formatter'];
+      } else {
+        return function (x) {
+          return x;
+        };
       }
     },
     getValues: function getValues(model, callback) {
-      var _this = this;
-
       var X = _libt2.default.distinct({
         id: model.path
       })(this.input);
+      var formatter = this.getFormatter(model.path);
 
       X.forEach(function (x, i) {
-        X[i].label = _libt2.default.format(x.id, _this.getFormat(model.path), _this.translate);
+        X[i].label = formatter(x.id);
       });
 
       callback(X);
@@ -23305,25 +23193,26 @@ module.exports = {
       var path = w.path;
       var format = 'string';
       var operator = w.operator;
+      var value;
       if (O && O[0]) {
         operator = O[0]['label'] ? O[0]['label'] : operator;
       }
       if (X && X[0]) {
         path = X[0]['label'] ? X[0]['label'] : w.path;
-        format = X[0]['format'];
+        value = this.getFormatter(w.path)(w.value);
       }
 
-      return path + ' ' + operator + ' ' + _libt2.default.format(w.value, format, this.translate);
+      return path + ' ' + operator + ' ' + value;
     },
     getItems: function getItems() {
-      var _this2 = this;
+      var _this = this;
 
       return this.active.map(function (a, i) {
         return {
           icon: 'times',
-          label: _this2.getLabel(a),
+          label: _this.getLabel(a),
           click: function click() {
-            _this2.click(i);
+            _this.click(i);
           }
         };
       });
@@ -23972,6 +23861,11 @@ module.exports = {
         if (field.label === undefined) {
           _this.$set(_this.$data.tableFields[i], 'label', field.id);
         }
+        if (typeof field.formatter !== 'function') {
+          _this.$set(_this.$data.tableFields[i], 'formatter', function (x) {
+            return x;
+          });
+        }
       });
 
       if (this.data) {
@@ -23986,8 +23880,8 @@ module.exports = {
       this.$data.isLoading = false;
     },
     aggregateData: function aggregateData(field) {
-      if (field.expression && this.aggregate) {
-        return _libt2.default.format(_libt2.default.evaluate(field.expression)(this.$data.data2), field.format, this.translate);
+      if (field.expression && this.aggregate && field.formatter) {
+        return field.formatter(_libt2.default.evaluate(field.expression)(this.$data.data2));
       }
     },
     isVisible: function isVisible(field) {
@@ -24446,8 +24340,781 @@ module.exports={
 }
 
 },{}],36:[function(require,module,exports){
-arguments[4][17][0].apply(exports,arguments)
-},{"dup":17}],37:[function(require,module,exports){
+module.exports={
+  "Type": [
+    "boolean",
+    "integer",
+    "number",
+    "date",
+    "string"
+  ],
+  "Alert": [
+    "success",
+    "info",
+    "warning",
+    "danger",
+    "default"
+  ],
+  "Button": [
+    "default",
+    "primary",
+    "success",
+    "info",
+    "warning",
+    "danger",
+    "link"
+  ],
+  "Size": [
+    "lg",
+    "md",
+    "sm"
+  ],
+  "Icon": [
+    "",
+    "address-book",
+    "address-card",
+    "adjust",
+    "align-center",
+    "align-justify",
+    "align-left",
+    "align-right",
+    "allergies",
+    "ambulance",
+    "american-sign-language-interpreting",
+    "anchor",
+    "angle-double-down",
+    "angle-double-left",
+    "angle-double-right",
+    "angle-double-up",
+    "angle-down",
+    "angle-left",
+    "angle-right",
+    "angle-up",
+    "angry",
+    "archive",
+    "archway",
+    "arrow-alt-circle-down",
+    "arrow-alt-circle-left",
+    "arrow-alt-circle-right",
+    "arrow-alt-circle-up",
+    "arrow-circle-down",
+    "arrow-circle-left",
+    "arrow-circle-right",
+    "arrow-circle-up",
+    "arrow-down",
+    "arrow-left",
+    "arrow-right",
+    "arrow-up",
+    "arrows-alt",
+    "arrows-alt-h",
+    "arrows-alt-v",
+    "assistive-listening-systems",
+    "asterisk",
+    "at",
+    "atlas",
+    "audio-description",
+    "award",
+    "backspace",
+    "backward",
+    "balance-scale",
+    "ban",
+    "band-aid",
+    "barcode",
+    "bars",
+    "baseball-ball",
+    "basketball-ball",
+    "bath",
+    "battery-empty",
+    "battery-full",
+    "battery-half",
+    "battery-quarter",
+    "battery-three-quarters",
+    "bed",
+    "beer",
+    "bell",
+    "bell-slash",
+    "bezier-curve",
+    "bicycle",
+    "binoculars",
+    "birthday-cake",
+    "blender",
+    "blind",
+    "bold",
+    "bolt",
+    "bomb",
+    "bong",
+    "book",
+    "book-open",
+    "bookmark",
+    "bowling-ball",
+    "box",
+    "box-open",
+    "boxes",
+    "braille",
+    "briefcase",
+    "briefcase-medical",
+    "broadcast-tower",
+    "broom",
+    "brush",
+    "bug",
+    "building",
+    "bullhorn",
+    "bullseye",
+    "burn",
+    "bus",
+    "bus-alt",
+    "calculator",
+    "calendar",
+    "calendar-alt",
+    "calendar-check",
+    "calendar-minus",
+    "calendar-plus",
+    "calendar-times",
+    "camera",
+    "camera-retro",
+    "cannabis",
+    "capsules",
+    "car",
+    "caret-down",
+    "caret-left",
+    "caret-right",
+    "caret-square-down",
+    "caret-square-left",
+    "caret-square-right",
+    "caret-square-up",
+    "caret-up",
+    "cart-arrow-down",
+    "cart-plus",
+    "certificate",
+    "chalkboard",
+    "chalkboard-teacher",
+    "chart-area",
+    "chart-bar",
+    "chart-line",
+    "chart-pie",
+    "check",
+    "check-circle",
+    "check-double",
+    "check-square",
+    "chess",
+    "chess-bishop",
+    "chess-board",
+    "chess-king",
+    "chess-knight",
+    "chess-pawn",
+    "chess-queen",
+    "chess-rook",
+    "chevron-circle-down",
+    "chevron-circle-left",
+    "chevron-circle-right",
+    "chevron-circle-up",
+    "chevron-down",
+    "chevron-left",
+    "chevron-right",
+    "chevron-up",
+    "child",
+    "church",
+    "circle",
+    "circle-notch",
+    "clipboard",
+    "clipboard-check",
+    "clipboard-list",
+    "clock",
+    "clone",
+    "closed-captioning",
+    "cloud",
+    "cloud-download-alt",
+    "cloud-upload-alt",
+    "cocktail",
+    "code",
+    "code-branch",
+    "coffee",
+    "cog",
+    "cogs",
+    "coins",
+    "columns",
+    "comment",
+    "comment-alt",
+    "comment-dots",
+    "comment-slash",
+    "comments",
+    "compact-disc",
+    "compass",
+    "compress",
+    "concierge-bell",
+    "cookie",
+    "cookie-bite",
+    "copy",
+    "copyright",
+    "couch",
+    "credit-card",
+    "crop",
+    "crop-alt",
+    "crosshairs",
+    "crow",
+    "crown",
+    "cube",
+    "cubes",
+    "cut",
+    "database",
+    "deaf",
+    "desktop",
+    "diagnoses",
+    "dice",
+    "dice-five",
+    "dice-four",
+    "dice-one",
+    "dice-six",
+    "dice-three",
+    "dice-two",
+    "digital-tachograph",
+    "divide",
+    "dizzy",
+    "dna",
+    "dollar-sign",
+    "dolly",
+    "dolly-flatbed",
+    "donate",
+    "door-closed",
+    "door-open",
+    "dot-circle",
+    "dove",
+    "download",
+    "drafting-compass",
+    "drum",
+    "drum-steelpan",
+    "dumbbell",
+    "edit",
+    "eject",
+    "ellipsis-h",
+    "ellipsis-v",
+    "envelope",
+    "envelope-open",
+    "envelope-square",
+    "equals",
+    "eraser",
+    "euro-sign",
+    "exchange-alt",
+    "exclamation",
+    "exclamation-circle",
+    "exclamation-triangle",
+    "expand",
+    "expand-arrows-alt",
+    "external-link-alt",
+    "external-link-square-alt",
+    "eye",
+    "eye-dropper",
+    "eye-slash",
+    "fast-backward",
+    "fast-forward",
+    "fax",
+    "feather",
+    "feather-alt",
+    "female",
+    "fighter-jet",
+    "file",
+    "file-alt",
+    "file-archive",
+    "file-audio",
+    "file-code",
+    "file-contract",
+    "file-download",
+    "file-excel",
+    "file-export",
+    "file-image",
+    "file-import",
+    "file-invoice",
+    "file-invoice-dollar",
+    "file-medical",
+    "file-medical-alt",
+    "file-pdf",
+    "file-powerpoint",
+    "file-prescription",
+    "file-signature",
+    "file-upload",
+    "file-video",
+    "file-word",
+    "fill",
+    "fill-drip",
+    "film",
+    "filter",
+    "fingerprint",
+    "fire",
+    "fire-extinguisher",
+    "first-aid",
+    "fish",
+    "flag",
+    "flag-checkered",
+    "flask",
+    "flushed",
+    "folder",
+    "folder-open",
+    "font",
+    "font-awesome-logo-full",
+    "football-ball",
+    "forward",
+    "frog",
+    "frown",
+    "frown-open",
+    "futbol",
+    "gamepad",
+    "gas-pump",
+    "gavel",
+    "gem",
+    "genderless",
+    "gift",
+    "glass-martini",
+    "glass-martini-alt",
+    "glasses",
+    "globe",
+    "globe-africa",
+    "globe-americas",
+    "globe-asia",
+    "golf-ball",
+    "graduation-cap",
+    "greater-than",
+    "greater-than-equal",
+    "grimace",
+    "grin",
+    "grin-alt",
+    "grin-beam",
+    "grin-beam-sweat",
+    "grin-hearts",
+    "grin-squint",
+    "grin-squint-tears",
+    "grin-stars",
+    "grin-tears",
+    "grin-tongue",
+    "grin-tongue-squint",
+    "grin-tongue-wink",
+    "grin-wink",
+    "grip-horizontal",
+    "grip-vertical",
+    "h-square",
+    "hand-holding",
+    "hand-holding-heart",
+    "hand-holding-usd",
+    "hand-lizard",
+    "hand-paper",
+    "hand-peace",
+    "hand-point-down",
+    "hand-point-left",
+    "hand-point-right",
+    "hand-point-up",
+    "hand-pointer",
+    "hand-rock",
+    "hand-scissors",
+    "hand-spock",
+    "hands",
+    "hands-helping",
+    "handshake",
+    "hashtag",
+    "hdd",
+    "heading",
+    "headphones",
+    "headphones-alt",
+    "headset",
+    "heart",
+    "heartbeat",
+    "helicopter",
+    "highlighter",
+    "history",
+    "hockey-puck",
+    "home",
+    "hospital",
+    "hospital-alt",
+    "hospital-symbol",
+    "hot-tub",
+    "hotel",
+    "hourglass",
+    "hourglass-end",
+    "hourglass-half",
+    "hourglass-start",
+    "i-cursor",
+    "id-badge",
+    "id-card",
+    "id-card-alt",
+    "image",
+    "images",
+    "inbox",
+    "indent",
+    "industry",
+    "infinity",
+    "info",
+    "info-circle",
+    "italic",
+    "joint",
+    "key",
+    "keyboard",
+    "kiss",
+    "kiss-beam",
+    "kiss-wink-heart",
+    "kiwi-bird",
+    "language",
+    "laptop",
+    "laugh",
+    "laugh-beam",
+    "laugh-squint",
+    "laugh-wink",
+    "leaf",
+    "lemon",
+    "less-than",
+    "less-than-equal",
+    "level-down-alt",
+    "level-up-alt",
+    "life-ring",
+    "lightbulb",
+    "link",
+    "lira-sign",
+    "list",
+    "list-alt",
+    "list-ol",
+    "list-ul",
+    "location-arrow",
+    "lock",
+    "lock-open",
+    "long-arrow-alt-down",
+    "long-arrow-alt-left",
+    "long-arrow-alt-right",
+    "long-arrow-alt-up",
+    "low-vision",
+    "luggage-cart",
+    "magic",
+    "magnet",
+    "male",
+    "map",
+    "map-marked",
+    "map-marked-alt",
+    "map-marker",
+    "map-marker-alt",
+    "map-pin",
+    "map-signs",
+    "marker",
+    "mars",
+    "mars-double",
+    "mars-stroke",
+    "mars-stroke-h",
+    "mars-stroke-v",
+    "medal",
+    "medkit",
+    "meh",
+    "meh-blank",
+    "meh-rolling-eyes",
+    "memory",
+    "mercury",
+    "microchip",
+    "microphone",
+    "microphone-alt",
+    "microphone-alt-slash",
+    "microphone-slash",
+    "minus",
+    "minus-circle",
+    "minus-square",
+    "mobile",
+    "mobile-alt",
+    "money-bill",
+    "money-bill-alt",
+    "money-bill-wave",
+    "money-bill-wave-alt",
+    "money-check",
+    "money-check-alt",
+    "monument",
+    "moon",
+    "mortar-pestle",
+    "motorcycle",
+    "mouse-pointer",
+    "music",
+    "neuter",
+    "newspaper",
+    "not-equal",
+    "notes-medical",
+    "object-group",
+    "object-ungroup",
+    "outdent",
+    "paint-brush",
+    "paint-roller",
+    "palette",
+    "pallet",
+    "paper-plane",
+    "paperclip",
+    "parachute-box",
+    "paragraph",
+    "parking",
+    "passport",
+    "paste",
+    "pause",
+    "pause-circle",
+    "paw",
+    "pen",
+    "pen-alt",
+    "pen-fancy",
+    "pen-nib",
+    "pen-square",
+    "pencil-alt",
+    "pencil-ruler",
+    "people-carry",
+    "percent",
+    "percentage",
+    "phone",
+    "phone-slash",
+    "phone-square",
+    "phone-volume",
+    "piggy-bank",
+    "pills",
+    "plane",
+    "plane-arrival",
+    "plane-departure",
+    "play",
+    "play-circle",
+    "plug",
+    "plus",
+    "plus-circle",
+    "plus-square",
+    "podcast",
+    "poo",
+    "portrait",
+    "pound-sign",
+    "power-off",
+    "prescription",
+    "prescription-bottle",
+    "prescription-bottle-alt",
+    "print",
+    "procedures",
+    "project-diagram",
+    "puzzle-piece",
+    "qrcode",
+    "question",
+    "question-circle",
+    "quidditch",
+    "quote-left",
+    "quote-right",
+    "random",
+    "receipt",
+    "recycle",
+    "redo",
+    "redo-alt",
+    "registered",
+    "reply",
+    "reply-all",
+    "retweet",
+    "ribbon",
+    "road",
+    "robot",
+    "rocket",
+    "rss",
+    "rss-square",
+    "ruble-sign",
+    "ruler",
+    "ruler-combined",
+    "ruler-horizontal",
+    "ruler-vertical",
+    "rupee-sign",
+    "sad-cry",
+    "sad-tear",
+    "save",
+    "school",
+    "screwdriver",
+    "search",
+    "search-minus",
+    "search-plus",
+    "seedling",
+    "server",
+    "share",
+    "share-alt",
+    "share-alt-square",
+    "share-square",
+    "shekel-sign",
+    "shield-alt",
+    "ship",
+    "shipping-fast",
+    "shoe-prints",
+    "shopping-bag",
+    "shopping-basket",
+    "shopping-cart",
+    "shower",
+    "shuttle-van",
+    "sign",
+    "sign-in-alt",
+    "sign-language",
+    "sign-out-alt",
+    "signal",
+    "signature",
+    "sitemap",
+    "skull",
+    "sliders-h",
+    "smile",
+    "smile-beam",
+    "smile-wink",
+    "smoking",
+    "smoking-ban",
+    "snowflake",
+    "solar-panel",
+    "sort",
+    "sort-alpha-down",
+    "sort-alpha-up",
+    "sort-amount-down",
+    "sort-amount-up",
+    "sort-down",
+    "sort-numeric-down",
+    "sort-numeric-up",
+    "sort-up",
+    "spa",
+    "space-shuttle",
+    "spinner",
+    "splotch",
+    "spray-can",
+    "square",
+    "square-full",
+    "stamp",
+    "star",
+    "star-half",
+    "star-half-alt",
+    "step-backward",
+    "step-forward",
+    "stethoscope",
+    "sticky-note",
+    "stop",
+    "stop-circle",
+    "stopwatch",
+    "store",
+    "store-alt",
+    "stream",
+    "street-view",
+    "strikethrough",
+    "stroopwafel",
+    "subscript",
+    "subway",
+    "suitcase",
+    "suitcase-rolling",
+    "sun",
+    "superscript",
+    "surprise",
+    "swatchbook",
+    "swimmer",
+    "swimming-pool",
+    "sync",
+    "sync-alt",
+    "syringe",
+    "table",
+    "table-tennis",
+    "tablet",
+    "tablet-alt",
+    "tablets",
+    "tachometer-alt",
+    "tag",
+    "tags",
+    "tape",
+    "tasks",
+    "taxi",
+    "terminal",
+    "text-height",
+    "text-width",
+    "th",
+    "th-large",
+    "th-list",
+    "thermometer",
+    "thermometer-empty",
+    "thermometer-full",
+    "thermometer-half",
+    "thermometer-quarter",
+    "thermometer-three-quarters",
+    "thumbs-down",
+    "thumbs-up",
+    "thumbtack",
+    "ticket-alt",
+    "times",
+    "times-circle",
+    "tint",
+    "tint-slash",
+    "tired",
+    "toggle-off",
+    "toggle-on",
+    "toolbox",
+    "tooth",
+    "trademark",
+    "train",
+    "transgender",
+    "transgender-alt",
+    "trash",
+    "trash-alt",
+    "tree",
+    "trophy",
+    "truck",
+    "truck-loading",
+    "truck-moving",
+    "tshirt",
+    "tty",
+    "tv",
+    "umbrella",
+    "umbrella-beach",
+    "underline",
+    "undo",
+    "undo-alt",
+    "universal-access",
+    "university",
+    "unlink",
+    "unlock",
+    "unlock-alt",
+    "upload",
+    "user",
+    "user-alt",
+    "user-alt-slash",
+    "user-astronaut",
+    "user-check",
+    "user-circle",
+    "user-clock",
+    "user-cog",
+    "user-edit",
+    "user-friends",
+    "user-graduate",
+    "user-lock",
+    "user-md",
+    "user-minus",
+    "user-ninja",
+    "user-plus",
+    "user-secret",
+    "user-shield",
+    "user-slash",
+    "user-tag",
+    "user-tie",
+    "user-times",
+    "users",
+    "users-cog",
+    "utensil-spoon",
+    "utensils",
+    "vector-square",
+    "venus",
+    "venus-double",
+    "venus-mars",
+    "vial",
+    "vials",
+    "video",
+    "video-slash",
+    "volleyball-ball",
+    "volume-down",
+    "volume-off",
+    "volume-up",
+    "walking",
+    "wallet",
+    "warehouse",
+    "weight",
+    "weight-hanging",
+    "wheelchair",
+    "wifi",
+    "window-close",
+    "window-maximize",
+    "window-minimize",
+    "window-restore",
+    "wine-glass",
+    "wine-glass-alt",
+    "won-sign",
+    "wrench",
+    "x-ray",
+    "yen-sign"
+  ]
+}
+
+},{}],37:[function(require,module,exports){
 'use strict';
 
 var lang = require('./json/lang.json');

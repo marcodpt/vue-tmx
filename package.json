@@ -30,11 +30,11 @@
     "build": "browserify -e src/app.vue -o app.js"
   },
   "dependencies": {
-    "libt": "0.0.4",
+    "libt": "0.0.5",
     "vue-awesome": "^3.0.5",
     "vue-inputag": "0.0.3",
     "vue-limit": "0.0.3",
-    "vue-transform": "0.0.6"
+    "vue-transform": "0.0.7"
   },
   "browserify": {
     "transform": [

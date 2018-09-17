@@ -45,10 +45,6 @@
         type: String,
         default: ''
       },
-      placeholder: {
-        type: String,
-        default: ''
-      },
       click: {
         type: Function
       }
@@ -56,21 +52,8 @@
     data: function () {
       return {
         elem: {
-          id: this.id,
-          format: this.format,
-          placeholder: this.placeholder
+          id: this.id
         }
-      }
-    },
-    watch: {
-      id: function () {
-        this.$data.elem.id = this.id
-      },
-      format: function () {
-        this.$data.elem.format = this.format
-      },
-      placeholder: function () {
-        this.$data.elem.placeholder = this.placeholder
       }
     },
     methods: {
@@ -83,11 +66,6 @@
         }
         return null
       },
-      getFormatter: function () {
-        return x => {
-          return T.format(x, this.format, this.translate)
-        }
-      }, 
       getType: function () {
         if (this.static) {
           return this.format === 'integer:pgb' ? 'progressbar' : ''
@@ -99,7 +77,7 @@
         return this.getType() === 'text' ? 'form-control' : ''
       },
       getLabel: function () {
-        return this.button ? this.label : T.format(this.model[this.id], this.format, this.translate)
+        return this.button ? this.label : this.$attrs.formatter(this.model[this.id])
       }
     }
   }
@@ -121,11 +99,11 @@
     />
     <vue-inputag
       v-else
-      v-bind="elem"
+      v-bind="$attrs"
       :type="getType()"
       :class="getClass()"
-      :formatter="getFormatter()"
       :model="model"
+      :id="id"
     />
   </td>
 </template>

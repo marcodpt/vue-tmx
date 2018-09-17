@@ -136,6 +136,9 @@
           if (field.label === undefined) {
             this.$set(this.$data.tableFields[i], 'label', field.id)
           }
+          if (typeof field.formatter !== 'function') {
+            this.$set(this.$data.tableFields[i], 'formatter', x => x)
+          }
         })
 
         if (this.data) {
@@ -150,8 +153,8 @@
         this.$data.isLoading = false 
       },
       aggregateData: function (field) {
-        if (field.expression && this.aggregate) {
-          return T.format(T.evaluate(field.expression)(this.$data.data2), field.format, this.translate)
+        if (field.expression && this.aggregate && field.formatter) {
+          return field.formatter(T.evaluate(field.expression)(this.$data.data2))
         }
       },
       isVisible: function (field) {
