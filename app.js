@@ -3295,7 +3295,9 @@ module.exports = {
 
       this.fields.forEach(function (field, i) {
         field.format = field.format || 'string';
-        _this3.$set(_this3.model, field.id, _libt2.default.parse(field.format)(_this3.model[field.id]));
+        if (field.format.indexOf(':file') === -1) {
+          _this3.$set(_this3.model, field.id, _libt2.default.parse(field.format)(_this3.model[field.id]));
+        }
         _this3.$set(_this3.fields[i], 'error', '');
         var error = false;
         var empty = _this3.model[field.id] == null;
@@ -23816,7 +23818,7 @@ module.exports = {
     },
     blockStyle: {
       type: [String, Object, Array],
-      default: 'max-height:60vh'
+      default: ''
     }
   },
   data: function data() {

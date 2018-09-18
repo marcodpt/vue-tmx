@@ -94,7 +94,7 @@
       },
       blockStyle: {
         type: [String, Object, Array],
-        default: 'max-height:60vh'
+        default: ''
       }
     },
     data: function () {
