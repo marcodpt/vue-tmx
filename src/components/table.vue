@@ -87,14 +87,6 @@
       label: {
         type: String,
         default: ''
-      },
-      blockClass: {
-        type: [String, Object, Array],
-        default: 'table-responsive'
-      },
-      blockStyle: {
-        type: [String, Object, Array],
-        default: ''
       }
     },
     data: function () {
@@ -205,10 +197,10 @@
           return ''
         } 
         if (section === 'limit' && this.rows) {
-          return ''
+          return 'font-weight: normal;'
         }
         if (section === 'search' && this.search) {
-          return ''
+          return 'font-weight: normal;'
         } 
         if (section === 'aggregate' && this.$data.expression && this.$data.view.length) {
           return ''
@@ -223,146 +215,140 @@
 </script>
 
 <template>
-  <div>
-    <table class="table table-bordered table-condensed" style="margin-bottom:0">
-      <thead>
-        <tr :style="display('header')">
-          <th colspan="100%" style="text-align:center">
-            <h4>
-              <tmx-icon :name="icon" /> {{label}}
-            </h4>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr :style="display('methods')">
-          <td colspan="100%" style="text-align:center">
-            <span :style="display('filter')">
-              <tmx-filter
-                :active="model.filters"
-                :fields="tableFields"
-                :input="data0"
-                :output="data1"
-                :label="translate('filter')"
-              >
-              </tmx-filter>&nbsp;
-            </span>
-            <span :style="display('group')">
-              <tmx-group
-                :active="model.groups"
-                :fields="tableFields"
-                :input="data2"
-                :output="data3"
-                :label="translate('group')"
-              >
-              </tmx-group>&nbsp;
-            </span>
-            <span v-for="m in methods">
-              <tmx-button
-                :type="m.button"
-                :icon="m.icon"
-                :click="m.click"
-                :data="m.model"
-                :label="m.label"
-              />&nbsp;
-            </span>
-            <span :style="display('download')">
-              <tmx-download
-                v-bind="download"
-                :fields="getFields('download')"
-                :data="data3"
-                class="btn btn-default"
-              >
-                <tmx-icon name="file" />
-                {{translate('download')}}
-              </tmx-download>&nbsp;
-            </span>
-          </td>
-        </tr>
-        <tr :style="display('limit')">
-          <td colspan="100%" style="text-align:center">
-            <vue-limit
-              :model="model"
-              :rows="rows"
-              :input="data3"
-              :output="view"
-              class="form-inline"
-              button-class="btn btn-primary"
-              select-class="form-control"
-              select-style="width:auto;display:inline"
+  <table class="table table-striped table-bordered table-condensed table-hover">
+    <thead>
+      <tr :style="display('header')">
+        <th colspan="100%" style="text-align:center">
+          <h4>
+            <tmx-icon :name="icon" /> {{label}}
+          </h4>
+        </th>
+      </tr>
+      <tr :style="display('methods')">
+        <th colspan="100%" style="text-align:center;font-weight:normal;">
+          <span :style="display('filter')">
+            <tmx-filter
+              :active="model.filters"
+              :fields="tableFields"
+              :input="data0"
+              :output="data1"
+              :label="translate('filter')"
             >
-              <tmx-icon slot="first" name="fast-backward" />
-              <tmx-icon slot="previous" name="step-backward" />
-              <template slot="select" scope="scope">
-                <vue-inputag
-                  :id="scope.id"
-                  :model="scope.model"
-                  :options="scope.options"
-                  type="select"
-                  class="form-group"
-                  required
-                />
-              </template>
-              <tmx-icon slot="next" name="step-forward" />
-              <tmx-icon slot="last" name="fast-forward" />
-            </vue-limit>
-          </td>
-        </tr>
-        <tr :style="display('search')">
-          <td colspan="100%" style="text-align:center">
-            <tmx-search
-              :input="data1"
-              :output="data2"
-              :model="model"
-              :placeholder="translate('search')"
-              class="form-control"
-            ></tmx-search>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div :class="blockClass" :style="blockStyle">
-      <table class="table table-striped table-bordered table-condensed table-hover">
-        <thead>
-          <tr :style="display('aggregate')">
-            <th
-              v-for="field in tableFields"
-              v-show="isVisible(field)"
-              style="text-align:center"
+            </tmx-filter>&nbsp;
+          </span>
+          <span :style="display('group')">
+            <tmx-group
+              :active="model.groups"
+              :fields="tableFields"
+              :input="data2"
+              :output="data3"
+              :label="translate('group')"
             >
-              {{aggregateData(field)}}
-            </th>
-          </tr>
-          <tr :style="display('head')">
-            <tmx-head
-              v-for="field in tableFields"
-              v-show="isVisible(field)"
-              v-bind="field"
-              :model="model"
+            </tmx-group>&nbsp;
+          </span>
+          <span v-for="m in methods">
+            <tmx-button
+              :type="m.button"
+              :icon="m.icon"
+              :click="m.click"
+              :data="m.model"
+              :label="m.label"
+            />&nbsp;
+          </span>
+          <span :style="display('download')">
+            <tmx-download
+              v-bind="download"
+              :fields="getFields('download')"
               :data="data3"
-              :check="field.format === 'boolean' && field.static === false && !model.groups.length"
-              :sort="sort"
+              class="btn btn-default"
             >
-            </tmx-head>
-          </tr>
-        </thead>
-        <tbody v-if="data">
-          <tr v-for="row in view" :style="{'background-color' : row.bgcolor}">
-            <tmx-body
-              v-for="field in tableFields"
-              v-show="isVisible(field)"
-              :model="row"
-              :static="model.groups.length ? true : field.static"
-              :click="field.click"
-              v-bind="field"
-            >
-            </tmx-body>
-          </tr>
-        </tbody>
-      </table>
-      <p v-if="!data" style="text-align:center;margin:40px 0">
-        <tmx-icon name="sync" scale="6" spin></tmx-icon>
-      </p>
-    </div>
-  </div>
+              <tmx-icon name="file" />
+              {{translate('download')}}
+            </tmx-download>&nbsp;
+          </span>
+        </th>
+      </tr>
+      <tr :style="display('limit')">
+        <th colspan="100%" style="text-align:center;font-weight:normal;">
+          <vue-limit
+            :model="model"
+            :rows="rows"
+            :input="data3"
+            :output="view"
+            class="form-inline"
+            button-class="btn btn-primary"
+            select-class="form-control"
+            select-style="width:auto;display:inline"
+          >
+            <tmx-icon slot="first" name="fast-backward" />
+            <tmx-icon slot="previous" name="step-backward" />
+            <template slot="select" scope="scope">
+              <vue-inputag
+                :id="scope.id"
+                :model="scope.model"
+                :options="scope.options"
+                type="select"
+                class="form-group"
+                required
+              />
+            </template>
+            <tmx-icon slot="next" name="step-forward" />
+            <tmx-icon slot="last" name="fast-forward" />
+          </vue-limit>
+        </th>
+      </tr>
+      <tr :style="display('search')">
+        <th colspan="100%" style="text-align:center;font-weight:normal;">
+          <tmx-search
+            :input="data1"
+            :output="data2"
+            :model="model"
+            :placeholder="translate('search')"
+            class="form-control"
+          ></tmx-search>
+        </th>
+      </tr>
+      <tr :style="display('aggregate')">
+        <th
+          v-for="field in tableFields"
+          v-show="isVisible(field)"
+          style="text-align:center"
+        >
+          {{aggregateData(field)}}
+        </th>
+      </tr>
+      <tr :style="display('head')">
+        <tmx-head
+          v-for="field in tableFields"
+          v-show="isVisible(field)"
+          v-bind="field"
+          :model="model"
+          :data="data3"
+          :check="field.format === 'boolean' && field.static === false && !model.groups.length"
+          :sort="sort"
+        >
+        </tmx-head>
+      </tr>
+    </thead>
+    <tbody v-if="data">
+      <tr v-for="row in view" :style="{'background-color' : row.bgcolor}">
+        <tmx-body
+          v-for="field in tableFields"
+          v-show="isVisible(field)"
+          :model="row"
+          :static="model.groups.length ? true : field.static"
+          :click="field.click"
+          v-bind="field"
+        >
+        </tmx-body>
+      </tr>
+    </tbody>
+    <tbody v-else>
+      <tr>
+        <td colspan="100%" style="text-align:center;padding:40px 0">
+          <tmx-icon name="sync" scale="6" spin></tmx-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </template>
