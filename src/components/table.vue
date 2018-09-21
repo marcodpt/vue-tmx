@@ -275,6 +275,7 @@
             :rows="rows"
             :input="data3"
             :output="view"
+            :label="translate('limit')"
             class="form-inline"
             button-class="btn btn-primary"
             select-class="form-control"
