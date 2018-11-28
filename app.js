@@ -22882,7 +22882,10 @@ module.exports = {
         if (typeof field === 'string') {
           _this.fields[i] = {
             id: field,
-            label: field
+            label: field,
+            formatter: function formatter(x) {
+              return x;
+            }
           };
         } else {
           _this.fields[i].id = field.id || field.label;

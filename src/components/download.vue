@@ -60,7 +60,8 @@
           if (typeof field === 'string') {
             this.fields[i] = {
               id: field,
-              label: field
+              label: field,
+              formatter: (x) => x
             }
           } else {
             this.fields[i].id = field.id || field.label
