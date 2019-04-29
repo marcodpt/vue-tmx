@@ -9,7 +9,6 @@
     props: {
       name: {
         type: String,
-        validator: lib.methods.isIcon,
         default: ''
       },
       spin: {

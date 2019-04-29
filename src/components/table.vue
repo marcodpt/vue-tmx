@@ -81,8 +81,7 @@
       },
       icon: {
         type: String,
-        default: '',
-        validator: lib.methods.isIcon
+        default: ''
       },
       label: {
         type: String,

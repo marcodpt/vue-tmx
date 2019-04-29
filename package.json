@@ -26,15 +26,15 @@
   "homepage": "https://github.com/marcodpt/vue-tmx#readme",
   "scripts": {
     "cp_ghcorners": "cp node_modules/vue-gh-corners/dist/vue-github-corners.min.css static/",
-    "server": "mkdir -p static && npm run cp_ghcorners && http-server -a localhost -p 8080",
+    "start": "mkdir -p static && npm run cp_ghcorners && http-server -a localhost -p 8080",
     "build": "browserify -e src/app.vue -o app.js"
   },
   "dependencies": {
     "libt": "0.0.5",
-    "vue-awesome": "^3.0.5",
+    "vue-awesome": "^3.5.1",
     "vue-inputag": "0.0.3",
     "vue-limit": "0.0.3",
-    "vue-transform": "0.0.8"
+    "vue-transform": "0.0.9"
   },
   "browserify": {
     "transform": [
@@ -50,7 +50,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-runtime": "^6.26.0",
     "babelify": "^8.0.0",
-    "browserify": "^15.2.0",
+    "browserify": "^16.2.3",
     "http-server": "^0.11.1",
     "vue": "^2.4.1",
     "vue-gh-corners": "^2.0.0",
